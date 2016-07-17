@@ -183,7 +183,6 @@ public class JTools {
 			list.add((int) b);
 		}
 		return list.stream()
-//			.map(item -> item & 0xff)
 			.map(Integer::toHexString)
 			.map(String::toUpperCase)
 			.reduce(new StringBuilder(),
