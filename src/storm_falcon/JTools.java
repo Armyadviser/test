@@ -66,39 +66,6 @@ public class JTools {
 	
 	public static String cvsId = "@(#)$Id: JTools.java,v 1.1 2009/08/17 11:05:47 zhuming Exp $";
 
-	public static String encryptGE(String strSrc) {
-		if ((strSrc == null) || (strSrc.length() == 0)) {
-			return "";
-		}
-	
-		byte[] bySrcs = strSrc.getBytes();
-		
-		String strDes = "";
-		
-		for (int i=0; i<bySrcs.length; i++) {
-			String str = Integer.toString(bySrcs[i], 16);
-			strDes += str;
-		}
-		
-		return strDes;
-	}
-
-	public static String decryptorGE(String strSrc) {
-		
-		byte[] bySrcs = strSrc.getBytes();
-		byte[] byDes = new byte[strSrc.length()/2];
-		
-		for (int i=0; i<bySrcs.length; i+=2) {
-			byte[] byTemp = new byte[2];
-			byTemp[0] = bySrcs[i];
-			byTemp[1] = bySrcs[i+1];
-			String strTemp = new String(byTemp);
-			
-			byDes[i/2] = (byte)Integer.parseInt(strTemp, 16);
-		}
-		return new String(byDes);
-	}
-
 	public static String sendHttpAndGetContent(String strHttp) {
 		StringBuffer getPost = new StringBuffer();
 		try {
@@ -885,4 +852,5 @@ public class JTools {
 		}
 		return arrRes;
     }
+
 }
