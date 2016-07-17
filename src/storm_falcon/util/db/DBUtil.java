@@ -134,11 +134,11 @@ public class DBUtil {
 
     public static void main(String[] args) {
         DBUtil action = new DBUtil();
-//        int column = action.update("update user set id=1");
-//        System.out.println(column);
-//
-//        List<?> list = action.select("select id,name,pwd,delsign from user");
-//        System.out.println(list);
+        int column = action.update("update user set id=1");
+        System.out.println(column);
+
+        List<?> list = action.select("select id,name,pwd,delsign from user");
+        System.out.println(list);
 
         List<Object[]> values = new ArrayList<>();
         String filePath = "E:\\Document\\Big Data\\Test_IMSI_all.csv";
