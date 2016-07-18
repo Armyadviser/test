@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list id="7b17e153-107d-4c7e-a0bc-3c83c9f5c20a" name="Default" comment="merge JCode to test">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/HelloWord.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/HelloWord.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/JTools.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/JTools.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/db/DBUtil.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/db/DBUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list id="7b17e153-107d-4c7e-a0bc-3c83c9f5c20a" name="Default" comment="merge JCode to test" />
     <list default="true" id="10c71e03-a3d0-4aaa-8f17-0b8b718a5e09" name="Rejected commit: Default" comment="merge JCode to test" />
     <ignored path="test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,7 +79,7 @@
       <file leaf-file-name="TestLambda4.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/storm_falcon/lambdatest/TestLambda4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73195875">
+            <state vertical-scroll-proportion="0.47972974">
               <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding />
             </state>
@@ -457,6 +452,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="file" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="storm_falcon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lambdatest" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -880,7 +897,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35325366" sideWeight="0.49349594" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47680414" sideWeight="0.50650406" order="11" side_tool="true" content_ui="tabs" />
@@ -1204,7 +1221,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/storm_falcon/lambdatest/TestLambda4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73195875">
+        <state vertical-scroll-proportion="0.47972974">
           <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding />
         </state>
