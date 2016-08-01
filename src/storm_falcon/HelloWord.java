@@ -1,5 +1,7 @@
 package storm_falcon;
 
+import java.net.URL;
+
 /**
  * Created by Storm_Falcon on 2015/10/10.
  *
@@ -9,6 +11,7 @@ package storm_falcon;
 public class HelloWord {
 
     public static void main(String[] args) {
-        System.out.println(JTools.MD5("abc"));
+        URL url = Thread.currentThread().getContextClassLoader().getResource("");
+        System.out.println(url);
 	}
 }
