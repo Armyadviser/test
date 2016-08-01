@@ -3,13 +3,13 @@ package storm_falcon.swing.socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class ReadInStream extends Thread {
+class ReadInStream extends Thread {
 
 	private MessageContext mContext;
 	
 	private MySocket mSocket;
 	
-	public ReadInStream(MySocket socket, MessageContext context) {
+	ReadInStream(MySocket socket, MessageContext context) {
 		mSocket = socket;
 		mContext = context;
 	}
@@ -24,7 +24,7 @@ public class ReadInStream extends Thread {
 			while (mSocket.socket.isConnected()) {
 				String line = reader.readLine();
 				if (line != null) {
-					mContext.putMssage(line);
+					mContext.putMessage(line);
 				}
 				
 				if ("bye".equals(line)) {

@@ -1,8 +1,5 @@
 package storm_falcon.swing.socket;
 
-import org.jetbrains.annotations.NotNull;
-import storm_falcon.util.string.StringHelper;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -16,7 +13,7 @@ public class Client {
 
 	private String name = System.getProperty("user.name");
 	
-	public void start(@NotNull String encode) throws Exception {
+	private void start(String encode) throws Exception {
 		String ip = "127.0.0.1";
 		int port = 8888;
 

@@ -1,7 +1,5 @@
 package storm_falcon.swing.socket;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,9 +15,8 @@ public class Window extends JFrame {
 	
 	private String name;
 	private PrintWriter out;
-//	private Socket mSocket;
-	
-	public Window(String name, PrintWriter out) {
+
+	Window(String name, PrintWriter out) {
 		super(name);
 		initFrame();
 		
@@ -60,7 +57,7 @@ public class Window extends JFrame {
 	private void setListener() {
 		mInput.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(@NotNull KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					String msg = mInput.getText();
 					mInput.setText("");
@@ -87,7 +84,7 @@ public class Window extends JFrame {
 		});
 	}
 	
-	public void appendMsg(String msg) {
+	void appendMsg(String msg) {
 		mContent.append(msg + "\n");
 	}
 	

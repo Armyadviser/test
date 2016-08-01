@@ -12,7 +12,7 @@ public class Server {
 	
 	private ServerSocket mServer;
 
-	public Server() {
+	private Server() {
 		mSocList = new ArrayList<>();
 		try {
 			mServer = new ServerSocket(8888);
@@ -21,14 +21,13 @@ public class Server {
 		}
 	}
 	
-	public void start() {
+	private void start() {
 		MessageContext context = new MessageContext();
 		
 		new WriteOutStream(mSocList, context).start();
 
 		while (true) {
 			try {
-				//ÿ����һ���ͻ������ӣ����������̼߳���
 				Socket socket = mServer.accept();
 				MySocket mSocket = new MySocket();
 				mSocket.socket = socket;
