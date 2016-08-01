@@ -8,36 +8,7 @@
   <component name="ChangeListManager">
     <list id="7b17e153-107d-4c7e-a0bc-3c83c9f5c20a" name="Default" comment="merge JCode to test" />
     <list default="true" id="10c71e03-a3d0-4aaa-8f17-0b8b718a5e09" name="Rejected commit: Default" comment="kafka test">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/kafka-clients-0.10.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/kafka-streams-0.10.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/kafka_2.11-0.10.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/log4j-1.2.17.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/slf4j-api-1.7.21.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/slf4j-log4j12-1.7.21.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/zkclient-0.8.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/lib/zookeeper-3.4.6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/slf4j_log4j12_1_7_21.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/kafka.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/src/storm_falcon/test/TestConsumer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kafka/src/storm_falcon/test/TestProducer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/HelloWord.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/HelloWord.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/JTools.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/JTools.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/bigdata/TreatedData.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/bigdata/TreatedData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/Client.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/EncodingUtil.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/EncodingUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/Window$1.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/Window$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/WriteOutStream.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/swing/socket/WriteOutStream.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/db/DBUtil.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/db/DBUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/file/FileReader.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/file/FileReader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/image/ImagePHash.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/image/ImagePHash.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/myxml/BaseNode.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/myxml/BaseNode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/test/storm_falcon/util/myxml/Node.class" afterPath="$PROJECT_DIR$/out/production/test/storm_falcon/util/myxml/Node.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" afterPath="$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/storm_falcon/HelloWord.java" afterPath="$PROJECT_DIR$/src/storm_falcon/HelloWord.java" />
     </list>
     <ignored path="test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,7 +38,7 @@
       <file leaf-file-name="TestProducer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kafka/src/storm_falcon/test/TestProducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
+            <state relative-caret-position="417">
               <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -765,17 +736,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20347957" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" x="984" y="250" width="300" height="511" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3532258" sideWeight="0.49349594" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3532258" sideWeight="0.49349594" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47680414" sideWeight="0.50650406" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22693998" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1183,7 +1154,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kafka/src/storm_falcon/test/TestProducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
+        <state relative-caret-position="417">
           <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
