@@ -5,12 +5,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageContext {
+class MessageContext {
 
 	@NotNull
-	private List<String> mList = new ArrayList<String>();
+	private List<String> mList = new ArrayList<>();
 	
-	public synchronized void putMssage(String msg) {
+	synchronized void putMessage(String msg) {
 		System.out.println(msg);
 		mList.add(msg);
 		if (mList.size() == 1) {
@@ -18,7 +18,7 @@ public class MessageContext {
 		}
 	}
 	
-	public synchronized String getMessage() {
+	synchronized String getMessage() {
 		if (mList.size() == 0) {
 			try {
 				this.wait();
