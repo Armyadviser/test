@@ -4,6 +4,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -15,7 +16,7 @@ public class TestProducer {
         System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
 
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "202.96.74.23:9092");
+        properties.put("bootstrap.servers", "202.96.74.21:9092,202.96.74.23:9092,202.96.74.24:9092");
         properties.put("acks", "all");
         properties.put("retries", "0");
         properties.put("batch.size", "16384");//16K
@@ -25,8 +26,8 @@ public class TestProducer {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
-        for (int i = 0; i < 10; i++) {
-            producer.send(new ProducerRecord<>("test", "key" + i, "value" + i));
+        for (int i = 0; i < 5; i++) {
+            producer.send(new ProducerRecord<>("test", "key" + i, "value" + i + " " + new Date()));
         }
         producer.close();
     }
