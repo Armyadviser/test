@@ -36,8 +36,7 @@ public class TestLambda2 {
 
         //找出包含最多小写字母的字符串
         System.out.println(
-                Arrays.asList("abc", "Def", "july", "MAY", "apple")
-                        .stream()
+                Stream.of("abc", "Def", "july", "MAY", "apple")
                         .max(
                                 Comparator.comparing(item ->
                                     item.chars()

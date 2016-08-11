@@ -4,7 +4,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 /**
@@ -26,8 +27,8 @@ public class TestProducer {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
-        for (int i = 0; i < 5; i++) {
-            producer.send(new ProducerRecord<>("test", "key" + i, "value" + i + " " + new Date()));
+        for (int i = 0; i < 7; i++) {
+            producer.send(new ProducerRecord<>("test-chat", "key" + i, "value" + i + " " + LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)));
         }
         producer.close();
     }

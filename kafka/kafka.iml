@@ -18,7 +18,9 @@
           <root url="jar://$MODULE_DIR$/lib/slf4j-log4j12-1.7.21.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/kafka-clients-0.10.0.0-sources.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
