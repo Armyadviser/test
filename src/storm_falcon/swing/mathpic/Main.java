@@ -31,6 +31,11 @@ public class Main extends JFrame {
 	public void paint(Graphics g) {
 		g.drawImage(mImage, 0, 0, WIDTH, HEIGHT, getBackground(), this);
 	}
+
+	private int convert(int c, float rad) {
+	    int r = (int) (c * rad);
+        return r > 255 ? 255 : r;
+    }
 	
 	private void initImage() {
 		mImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -40,10 +45,16 @@ public class Main extends JFrame {
 				int r = cg.R(i, j);
 				int g = cg.G(i, j);
 				int b = cg.B(i, j);
-				int rgb = (r << 16) | (g << 8) | (b);
+
+                r = convert(r, 1.1f);
+                g = convert(g, 1.4f);
+                b = convert(b, 1.6f);
+
+				int rgb = (b << 16) | (r << 8) | (g);
 				mImage.setRGB(i, j, rgb);
 			}
 		}
+		saveToFile();
 	}
 	
 	public void saveToFile() {
@@ -51,7 +62,7 @@ public class Main extends JFrame {
 			Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("png");
 			ImageWriter writer = iter.next();
 			
-			File file = new File("D:/MathPic.png");
+			File file = new File("D:/MathPic3.png");
 			ImageOutputStream ios = ImageIO.createImageOutputStream(file);
 			writer.setOutput(ios);
 			

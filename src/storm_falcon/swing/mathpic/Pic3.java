@@ -1,6 +1,6 @@
 package storm_falcon.swing.mathpic;
 
-public class Pic3 implements ColorGenerator {
+class Pic3 implements ColorGenerator {
 
 	@Override
 	public char R(int i, int j) {

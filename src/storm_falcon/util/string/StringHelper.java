@@ -1,5 +1,6 @@
 package storm_falcon.util.string;
 
+import net.sf.json.JSONObject;
 import storm_falcon.util.StringDataErrorException;
 
 import java.io.UnsupportedEncodingException;
@@ -131,9 +132,13 @@ public class StringHelper {
     }
 
     public static void main(String[] args) throws StringDataErrorException {
-        int i = 0;
-        while (i++ < 100) {
-            System.out.println(generateRandomString(5));
+
+        JSONObject o = null;
+        try {
+            o = JSONObject.fromObject("");
+        } catch (Exception e) {
+            System.out.println("error");
         }
+        System.out.println(o);
     }
 }

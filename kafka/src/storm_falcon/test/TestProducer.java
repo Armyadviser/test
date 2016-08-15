@@ -1,8 +1,10 @@
 package storm_falcon.test;
 
+import kafka.common.Topic;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.TopicPartition;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
