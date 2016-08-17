@@ -9,6 +9,10 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Created by Storm_Falcon on 2016/6/17.
+ * Read file as line one by one.
+ */
 @SuppressWarnings("unused")
 public class FileReader implements Closeable {
 
@@ -145,7 +149,7 @@ public class FileReader implements Closeable {
 	 */
 	private static <T> Stream<T> forEachWithProcessor(String filePath, String encode, BiFunction<Integer, String, T> processor) {
 		try (FileReader reader = new FileReader()) {
-			reader.open(filePath);
+			reader.open(filePath, encode);
 			Stream<T> stream = Stream.empty();
 
 			while (reader.hasNext()) {
