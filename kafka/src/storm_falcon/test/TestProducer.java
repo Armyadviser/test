@@ -1,13 +1,10 @@
 package storm_falcon.test;
 
-import kafka.common.Topic;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.TopicPartition;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 /**
@@ -15,11 +12,9 @@ import java.util.Properties;
  * a test kafka producer.
  */
 public class TestProducer {
-    public static void main(String[] args) {
-        System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
-
+    public static void main(String[] args) throws InterruptedException {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "202.96.74.21:9092,202.96.74.23:9092,202.96.74.24:9092");
+        properties.put("bootstrap.servers", "192.168.1.100:9092,192.168.1.101:9092,192.168.1.102:9092");
         properties.put("acks", "all");
         properties.put("retries", "0");
         properties.put("batch.size", "16384");//16K
@@ -29,8 +24,12 @@ public class TestProducer {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
-        for (int i = 0; i < 7; i++) {
-            producer.send(new ProducerRecord<>("test-chat", "key" + i, "value" + i + " " + LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)));
+
+        String topic = "test";
+        for (int i = 0; i < 10; i++) {
+            String key = "key" + i;
+            String value = "value" + i + " " + LocalDateTime.now();
+            producer.send(new ProducerRecord<>(topic, key, value));
         }
         producer.close();
     }

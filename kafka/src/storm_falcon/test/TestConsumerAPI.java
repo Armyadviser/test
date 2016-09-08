@@ -31,17 +31,17 @@ public class TestConsumerAPI {
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
 		Map<String, List<PartitionInfo>> topics = consumer.listTopics();
-		topics.get("test-chat")
+		topics.get("test-streamtest")
 			.forEach(System.out::println);
 
-		TopicPartition tp = new TopicPartition("test-chat", 1);
+		TopicPartition tp = new TopicPartition("test-streamtest", 1);
 
 		consumer.assign(Collections.singletonList(tp));
 
 		Set<TopicPartition> assignments = consumer.assignment();
 		System.out.println(assignments);
 
-//		consumer.subscribe(Collections.singletonList("test-chat"));
+//		consumer.subscribe(Collections.singletonList("test-streamtest"));
 		consumer.seekToBeginning(Collections.singletonList(tp));
 
 		while (true) {
