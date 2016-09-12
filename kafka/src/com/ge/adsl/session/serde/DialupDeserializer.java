@@ -1,4 +1,4 @@
-package com.ge.adsl.session.producer;
+package com.ge.adsl.session.serde;
 
 import com.ge.adsl.DialupInfo;
 import org.apache.kafka.common.serialization.Deserializer;
