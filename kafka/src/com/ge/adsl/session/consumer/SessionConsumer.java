@@ -1,10 +1,12 @@
 package com.ge.adsl.session.consumer;
 
+import com.ge.adsl.DialupInfo;
 import com.ge.adsl.session.serde.DialupDeserializer;
 import com.ge.util.log.Log;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -14,14 +16,10 @@ import java.util.Properties;
  */
 public class SessionConsumer {
 
-    private final static String TOPIC = "session-dialup";
-
-    private KafkaConsumer<String, String> consumer;
-
-    private Log log;
+    private Properties properties;
 
     public SessionConsumer() {
-        Properties properties = new Properties();
+        properties = new Properties();
         properties.put("bootstrap.servers", "202.96.74.21:9092,202.96.74.23:9092,202.96.74.24:9092");
         properties.put("group.id", "test-group");
         properties.put("enable.auto.commit", "true");
@@ -29,23 +27,14 @@ public class SessionConsumer {
         properties.put("session.timeout.ms", "30000");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", DialupDeserializer.class.getName());
-
-        consumer = new KafkaConsumer<>(properties);
-        consumer.subscribe(Collections.singletonList(TOPIC));
-
-        log = Log.getLog("", 10, ".log");
-        log.setShowSystemOut(false);
-        log.setShowT(false);
     }
 
-    public void run() {
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            records.forEach(record -> log.toLog(record.value()));
-        }
+    public void start() {
+        new SessionDialupThread(properties, "Start").start();
+        new SessionDialupThread(properties, "Stop").start();
     }
 
     public static void main(String[] args) {
-        new SessionConsumer().run();
+        new SessionConsumer().start();
     }
 }

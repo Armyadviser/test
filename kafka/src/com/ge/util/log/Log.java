@@ -183,7 +183,7 @@ public abstract class Log {
 	
 	protected boolean bRunThread = true;
 	
-	protected String strFileNameFormat = "yyyy-MM-dd HH:mm";
+	protected String strFileNameFormat = "yyyy-MM-dd_HH_mm";
 	
 	public synchronized void toLog(String strContent) {
 		if (bShowSystemOut) {
