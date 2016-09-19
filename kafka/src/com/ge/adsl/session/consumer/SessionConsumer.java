@@ -1,13 +1,7 @@
 package com.ge.adsl.session.consumer;
 
-import com.ge.adsl.DialupInfo;
 import com.ge.adsl.session.serde.DialupDeserializer;
-import com.ge.util.log.Log;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Properties;
 
 /**
