@@ -11,7 +11,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,6 +176,46 @@ public class FileHelper {
 			}
 		}
 		return file;
+	}
+
+	/**
+	 * 将dir目录下多有文件内容整合成一个文件
+	 * @param dir
+	 * @param out
+	 * @return
+	 */
+	public static File unite(Path dir, Path out) {
+		try (final ByteChannel channel = Files.newByteChannel(
+				out, StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE)) {
+
+			Files.walk(dir, FileVisitOption.FOLLOW_LINKS)
+					.map(path -> {
+						try {
+							return Files.newByteChannel(path, StandardOpenOption.READ);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return null;
+					})
+					.forEach(chnl -> {
+						append(chnl, channel);
+					});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return out.toFile();
+	}
+
+	private static void append(ByteChannel in, ByteChannel out) {
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		try {
+			while (in.read(buffer) != -1) {
+				out.write(buffer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

@@ -1,5 +1,9 @@
 package storm_falcon;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,13 +15,21 @@ import java.util.logging.Logger;
  */
 public class HelloWorld {
 
-    public static void main(String[] args) {
-		Logger logger = Logger.getLogger("a");
-		logger.setLevel(Level.WARNING);
-		logger = Logger.getLogger("a");
-		logger.log(Level.INFO, "123");
-		logger.log(Level.FINE, "000");
-		logger.log(Level.WARNING, "456");
-		logger.log(Level.SEVERE, () -> "789");
+	public static String parse(String[] array) {
+		return Arrays.stream(array)
+				.reduce(
+						new StringJoiner(",", "insert into sms_jjj_t values(", ")"),
+						StringJoiner::add,
+						StringJoiner::merge
+				).toString();
+	}
+
+    public static void main(String[] args) throws Exception {
+		Files.lines(Paths.get("D:/test.txt"))
+				.map(line -> line.split("\\|"))
+				.filter(array -> array.length == 4)
+				.map(HelloWorld::parse)
+				.forEach(System.out::println);
+
 	}
 }
