@@ -8,10 +8,10 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * Created by Storm_Falcon on 2016/9/13.
@@ -23,18 +23,21 @@ public class SessionDialupThread extends Thread {
 
 	private Log log;
 
-	private DateTimeFormatter formatter;
-
 	private IniOperation mIni;
+
+	private String section;
+
+	private PositionManager positionManager;
 
 	public SessionDialupThread(Properties properties, String section) {
 		initIni();
 
-		initConsumer(section, properties);
+		this.section = section;
+		positionManager = PositionManager.getInstance();
 
-		initLog(section);
+		initConsumer(properties);
 
-		formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss.SSS");
+		initLog();
 	}
 
 	private void initIni() {
@@ -46,25 +49,41 @@ public class SessionDialupThread extends Thread {
 		}
 	}
 
-	private void initConsumer(String section, Properties properties) {
+	private void initConsumer(Properties properties) {
 		consumer = new KafkaConsumer<>(properties);
 
-		String topic = mIni.getKeyValue(section, "topic");
-		int partition = (int) mIni.getKeyValueInt(section, "partition");
-		if (partition == -1) {
-			partition = 0;
-		}
-		long offset = mIni.getKeyValueInt(section, "offset");
+		List<TopicPartition> tpList = getTopicPartitions();
+		consumer.assign(tpList);
 
-		TopicPartition tp = new TopicPartition(topic, partition);
-		consumer.assign(Collections.singletonList(tp));
-
-		if (offset != -1) {
-			consumer.seek(tp, offset);
-		}
+		seekToOffset(section, tpList);
 	}
 
-	private void initLog(String section) {
+	/**
+	 * 初始化分配的partition
+	 * @return
+	 */
+	private List<TopicPartition> getTopicPartitions() {
+		String topic = mIni.getKeyValue(section, "topic");
+
+		return positionManager.getOffsets()
+			.get(section)
+			.entrySet()
+			.stream()
+			.map(entry -> new TopicPartition(topic, entry.getKey()))
+			.collect(Collectors.toList());
+	}
+
+	/**
+	 * 定位到指定offset
+	 * @param tpList
+	 */
+	private void seekToOffset(String section, List<TopicPartition> tpList) {
+		Map<Integer, Long> offsets = positionManager.getOffsets().get(section);
+
+		tpList.forEach(tp -> consumer.seek(tp, offsets.get(tp.partition())));
+	}
+
+	private void initLog() {
 		String logPath = mIni.getKeyValue(section, "logPath");
 		int logChangeTime = (int) mIni.getKeyValueInt(section, "logChangeTime");
 
@@ -74,13 +93,14 @@ public class SessionDialupThread extends Thread {
 	}
 
 	public void run() {
+		Map<Integer, Long> offset = positionManager.getOffsets().get(section);
 		while (true) {
 			ConsumerRecords<String, DialupInfo> records = consumer.poll(100);
-			records.forEach(record -> log.toLog(
-				record.key() + "," + record.partition() + "," + record.offset() + "," +
-					LocalDateTime.now().format(formatter) + "," +
-					record.value().toString()
-			));
+			records.forEach(record -> {
+				log.toLog(record.value().toString());
+
+				offset.put(record.partition(), record.offset());
+			});
 		}
 	}
 }

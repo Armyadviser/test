@@ -2,6 +2,7 @@ package com.ge.adsl.session.consumer;
 
 import com.ge.adsl.session.serde.DialupDeserializer;
 
+import java.io.File;
 import java.util.Properties;
 
 /**
@@ -24,6 +25,7 @@ public class SessionConsumer {
     }
 
     public void start() {
+        PositionManager.getInstance().start();
         new SessionDialupThread(properties, "Start").start();
         new SessionDialupThread(properties, "Stop").start();
     }

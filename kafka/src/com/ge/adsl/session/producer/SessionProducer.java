@@ -21,11 +21,8 @@ public class SessionProducer extends Handle {
 
     private String topic;
 
-    private DateTimeFormatter formatter;
-
     public SessionProducer(String topic) {
         this.topic = topic;
-        formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss.SSS");
     }
 
     @Override
@@ -54,8 +51,7 @@ public class SessionProducer extends Handle {
         }
 
         @SuppressWarnings("unchecked")
-        ProducerRecord<String, DialupInfo> record = new ProducerRecord(
-            topic, LocalDateTime.now().format(formatter), obj);
+        ProducerRecord<String, DialupInfo> record = new ProducerRecord(topic, obj);
         producer.send(record);
     }
 }

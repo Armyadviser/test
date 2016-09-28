@@ -83,7 +83,7 @@ class LocalLog extends Log {
 		if (out != null) {
 			out.close();
 			if (strPostfix != null && strPostfix.length() != 0) {
-				FileHelper.renameFile(strFilePath + strFileName + strPostfix, strFilePath + strFileName);
+				FileHelper.rename(strFilePath + strFileName + strPostfix, strFilePath + strFileName);
 			}
 		}
 		
@@ -109,7 +109,7 @@ class LocalLog extends Log {
 		out.close();
 		if (nType == TYPE_AUTOCHANGE_FILENAME) {
 			if (strPostfix != null && strPostfix.length() != 0) {
-				FileHelper.renameFile(strFilePath + strFileName + strPostfix, strFilePath + strFileName);
+				FileHelper.rename(strFilePath + strFileName + strPostfix, strFilePath + strFileName);
 			}
 		}
 	}

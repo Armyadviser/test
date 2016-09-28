@@ -26,6 +26,18 @@ public class Person {
         return name;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
