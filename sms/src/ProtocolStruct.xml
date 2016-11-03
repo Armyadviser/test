@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UniBss>
+    <OrigDomain />
+    <HomeDomain />
+    <BIPCode />
+    <BIPVer />
+    <ActivityCode />
+    <ActionCode />
+    <ActionRelation />
+    <Routing>
+         <RouteType />
+         <RouteValue />
+    </Routing>
+    <ProcID />
+    <TransIDO />
+    <TransIDH />
+    <ProcessTime />
+    <Response>
+        <RspType />
+        <RspCode />
+        <RspDesc />
+    </Response>
+    <SPReserve>
+        <TransIDC />
+        <CutOffDay />
+        <OSNDUNS />
+        <HSNDUNS />
+        <ConvID />
+    </SPReserve>
+    <TestFlag />
+    <MsgSender />
+    <MsgReceiver />
+    <SvcContVer />
+    <SvcCont>
+        <PackageChangeReq>
+            <UserNumber />
+            <PackageCode />
+            <OperCode />
+            <ProcTime />
+            <Para1 />
+            <Para2 />
+        </PackageChangeReq>
+    </SvcCont>
+</UniBss>

@@ -4,10 +4,15 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by Storm_Falcon on 2016/6/17.
@@ -209,17 +214,17 @@ public class FileReader implements Closeable {
 	}
 
 	public static void main(String[] args) {
-		String filePath = "E:\\Document\\Big Data\\test_sort_data.txt";
-		FileReader.mapForEach(filePath, (num, e) -> {
-			if (num > 10) {
-				return null;
-			}
-			return e;
-		}).filter(e -> e != null)
-				.collect(Collectors.toList())
-				.forEach(System.out::println);
-
-		FileReader.forEach(filePath, System.out::println);
+		String filePath = "E:\\Document\\Big Data\\shujudasai_1.csv";
+//		FileReader.mapForEach(filePath, (num, e) -> {
+//			if (num > 10) {
+//				return null;
+//			}
+//			return e;
+//		}).filter(e -> e != null)
+//				.collect(Collectors.toList())
+//				.forEach(System.out::println);
+//
+//		FileReader.forEach(filePath, System.out::println);
 
 		long sum = FileReader.mapForEach(
 						filePath,
