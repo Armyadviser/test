@@ -24,7 +24,11 @@ public class DateHelper {
     }
 
     public static synchronized String getTimestamp(String format) {
-		return getFormatter(format).format(new Date());
+		return getTimestamp(format, System.currentTimeMillis());
+    }
+
+    public static synchronized String getTimestamp(String format, long timestamp) {
+        return getFormatter(format).format(new Date(timestamp));
     }
 
 }
