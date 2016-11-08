@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AdslScanner/AdslScanner.iml" filepath="$PROJECT_DIR$/AdslScanner/AdslScanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" filepath="$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" />
       <module fileurl="file://$PROJECT_DIR$/kafka/kafka.iml" filepath="$PROJECT_DIR$/kafka/kafka.iml" />
       <module fileurl="file://$PROJECT_DIR$/sms/sms.iml" filepath="$PROJECT_DIR$/sms/sms.iml" />

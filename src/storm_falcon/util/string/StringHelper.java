@@ -133,12 +133,5 @@ public class StringHelper {
 
     public static void main(String[] args) throws StringDataErrorException {
 
-        JSONObject o = null;
-        try {
-            o = JSONObject.fromObject("");
-        } catch (Exception e) {
-            System.out.println("error");
-        }
-        System.out.println(o);
-    }
+	}
 }
