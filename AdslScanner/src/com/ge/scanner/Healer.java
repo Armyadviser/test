@@ -1,5 +1,6 @@
 package com.ge.scanner;
 
+import com.ge.scanner.config.ScannerConfig;
 import com.ge.scanner.radius.CoaRequest;
 import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
@@ -12,8 +13,11 @@ import com.ge.util.WaitSynLinkedList;
  */
 public class Healer extends Thread {
 
-	/** 1 minute */
-	private static final long TIME_LIMIT = 60 * 1000;
+	/** after this time, user will be moved back to Internet. unit:minute */
+	private long timeLimit;
+
+	/** every this time, healer will scan the sync pool once. unit:second */
+	private long sleep;
 
 	private CoaFactory factory = CoaFactory.getInstance();
 
@@ -21,18 +25,26 @@ public class Healer extends Thread {
 
 	public Healer(WaitSynLinkedList<CoaInfo> mSyncList) {
 		this.mSyncList = mSyncList;
+		timeLimit = ScannerConfig.getInstance().getHealerValue("timelimit");
+		sleep = ScannerConfig.getInstance().getHealerValue("sleep");
 	}
 
 	public void run() {
-
+		int counter = 0;
 		while (true) {
 			long now = System.currentTimeMillis();
 
 			CoaInfo coaInfo = mSyncList.removeFirst();
-			if (now - coaInfo.birthTime > TIME_LIMIT) {
+			counter++;
+
+			if (now - coaInfo.birthTime > timeLimit) {
 				doCoa(coaInfo);
 			} else {
 				mSyncList.addLast(coaInfo);
+			}
+
+			if (counter >= 200) {
+				sleep();
 			}
 		}
 	}
@@ -40,5 +52,13 @@ public class Healer extends Thread {
 	private void doCoa(CoaInfo coaInfo) {
 		CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
 		request.moveBackToInternet(coaInfo);
+	}
+
+	private void sleep() {
+		try {
+			Thread.sleep(sleep * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

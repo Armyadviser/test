@@ -33,7 +33,12 @@ public class CmUtils {
 
 		FList in = Account.getSearchFList();
 
-		FList out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		FList out = null;
+		try {
+			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		} catch (EBufException e) {
+			e.printStackTrace();
+		}
 
 		if (out == null || !out.hasField(FldResults.getInst())) {
 			return list;
@@ -53,7 +58,6 @@ public class CmUtils {
 				}
 			}
 
-			System.out.println("There are " + list.size() + " users to be destory.");
 			return list;
 		} catch (EBufException e) {
 			e.printStackTrace();
@@ -65,7 +69,12 @@ public class CmUtils {
 	public static Stream<Session> getSessionsByAccount(Account account) {
 
 		FList in = Session.getSearchFList(account.login);
-		FList out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		FList out = null;
+		try {
+			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		} catch (EBufException e) {
+			e.printStackTrace();
+		}
 
 		if (out == null || !out.hasField(FldResults.getInst())) {
 			return Stream.empty();
@@ -92,7 +101,7 @@ public class CmUtils {
 			}
 
 			System.out.println("Find " + list.size() + " sessions of " + account.login);
-			list.stream();
+			return list.stream();
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
@@ -102,7 +111,12 @@ public class CmUtils {
 
 	public static CoaInfo getCoaInfoBySession(Session session) {
 		FList in = Bras.getSearchFList(session.brasIp);
-		FList out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		FList out = null;
+		try {
+			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+		} catch (EBufException e) {
+			e.printStackTrace();
+		}
 		if (out == null) {
 			return null;
 		}
@@ -114,13 +128,25 @@ public class CmUtils {
 		return new CoaInfo(session, bras);
 	}
 
-	public static void updateOfferSign(CoaInfo coaInfo) {
+	/**
+	 * Update user offer status.
+	 * Set vlan_id=0
+	 * @param account
+	 * @return true: success; false: fail.
+	 */
+	public static boolean updateOfferSign(Account account) {
 		FList in = new FList();
-		in.set(FldPoid.getInst(), coaInfo.session.account.poid);
+		in.set(FldPoid.getInst(), account.poid);
 		FList args = new FList();
 		args.set(CpFldVlanId.getInst(), 0);
 		in.set(FldServiceIp.getInst(), args);
 
-		PBaseModule.runOpcode("WriteFld", PortalOp.WRITE_FLDS, in);
+		try {
+			PBaseModule.runOpcode("WriteFld", PortalOp.WRITE_FLDS, in);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

@@ -17,4 +17,13 @@ public class CoaInfo {
 		this.bras = bras;
 		birthTime = System.currentTimeMillis();
 	}
+
+	@Override
+	public String toString() {
+		return "CoaInfo{" +
+			"session=" + session +
+			", bras=" + bras +
+			", birthTime=" + birthTime +
+			'}';
+	}
 }

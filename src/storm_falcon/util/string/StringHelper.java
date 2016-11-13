@@ -131,6 +131,26 @@ public class StringHelper {
         return res;
     }
 
+	/**
+	 * Parse a string to a key-value pair.
+	 * @param string abc=egf
+	 * @return Entry<String, String>(abc, efg)
+	 */
+	public static AbstractMap.SimpleEntry<String, String> parseKeyValue(String string) {
+		if (string == null || string.length() == 0) {
+			return new AbstractMap.SimpleEntry<>("", "");
+		}
+
+		int index = string.indexOf('=');
+		if (index == -1) {
+			return new AbstractMap.SimpleEntry<>("", string);
+		}
+
+		String key = string.substring(0, index);
+		String value = string.substring(index + 1, string.length());
+		return new AbstractMap.SimpleEntry<>(key, value);
+	}
+
     public static void main(String[] args) throws StringDataErrorException {
 
 	}

@@ -13,9 +13,6 @@ import java.util.Properties;
  * exe FList
  */
 public class PBaseModule {
-    public static boolean SHOW_TIME = false;
-
-    public static boolean SHOW_DEBUG = true;
 
     private static Properties properties;
 
@@ -51,7 +48,7 @@ public class PBaseModule {
         }
     }
 
-    public static FList runOpcode(String strOpcodeName, int nOpcodeType, FList inFList) {
+    public static FList runOpcode(String strOpcodeName, int nOpcodeType, FList inFList) throws EBufException {
         PortalContext conn = getConnection();
         if (conn == null) {
             return null;
@@ -59,19 +56,7 @@ public class PBaseModule {
 
         FList outFList = null;
         try {
-            long nStart = System.currentTimeMillis();
             outFList = conn.opcode(nOpcodeType, inFList);
-
-            if (SHOW_TIME) {
-                System.out.print(new Date() + " ");
-                System.out.print(strOpcodeName + " = ");
-                System.out.print(System.currentTimeMillis() - nStart);
-                System.out.println(" ms");
-            }
-        } catch(Exception e) {
-            doLog(strOpcodeName + " / Input Flist:", inFList.toString());
-            doLog(strOpcodeName + " / Output Flist:", e.getMessage());
-            e.printStackTrace();
         } finally {
             freeConnection(conn);
         }
@@ -95,19 +80,4 @@ public class PBaseModule {
         return nCurrentDB;
     }
 
-    private static void doLog(String title, String sContent) {
-        if (!SHOW_DEBUG) {
-            return;
-        }
-
-        if (sContent != null) {
-            StringBuffer strBf = new StringBuffer();
-            strBf.append('\r');
-            strBf.append(title);
-            strBf.append('\r');
-            strBf.append(sContent);
-
-            System.out.println(strBf);
-        }
-    }
 }

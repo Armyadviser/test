@@ -21,8 +21,7 @@ public class Destroyer {
 		list.forEach(coaInfo -> {
 			CoaFactory factory = CoaFactory.getInstance();
 			CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
-			RadiusPacket response = request.moveToVpn(coaInfo);
-			System.out.println(response);
+			request.moveToVpn(coaInfo);
 		});
 
 		System.out.println(list.size() + " coa info kicked off.");

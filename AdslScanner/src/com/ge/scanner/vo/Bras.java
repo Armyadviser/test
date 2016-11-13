@@ -3,10 +3,7 @@ package com.ge.scanner.vo;
 import com.cp.fields.CpFldVendorId;
 import com.ge.scanner.conn.cm.PBaseModule;
 import com.ge.util.string.StringHelper;
-import com.portal.pcm.EBufException;
-import com.portal.pcm.Element;
-import com.portal.pcm.FList;
-import com.portal.pcm.Poid;
+import com.portal.pcm.*;
 import com.portal.pcm.fields.*;
 
 /**
@@ -36,6 +33,7 @@ public class Bras {
         FList result = new FList();
         result.set(CpFldVendorId.getInst());
         result.set(FldString.getInst());
+        result.set(FldTermservId.getInst());
 
         in.setElement(FldResults.getInst(), Element.ELEMID_ANY, result);
 
@@ -44,6 +42,9 @@ public class Bras {
 
     public static Bras parse(FList flist) {
         try {
+            SparseArray sparseArray = flist.get(FldResults.getInst());
+            flist = sparseArray.elementAt(0);
+
             Bras bras = new Bras();
             bras.vendorId = String.valueOf(flist.get(CpFldVendorId.getInst()));
             bras.ip = flist.get(FldTermservId.getInst());
@@ -62,5 +63,15 @@ public class Bras {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Bras{" +
+            "ip='" + ip + '\'' +
+            ", vendorId='" + vendorId + '\'' +
+            ", secret='" + secret + '\'' +
+            ", context='" + context + '\'' +
+            '}';
     }
 }

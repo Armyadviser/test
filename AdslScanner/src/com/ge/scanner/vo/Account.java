@@ -28,8 +28,10 @@ public class Account {
         0 PIN_FLD_POID                      POID [0] 0.0.0.1 /search -1 0
         0 PIN_FLD_FLAGS                      INT [0] 0
         0 PIN_FLD_TEMPLATE                   STR [0] "select X from  /service/cp_broadband where F1 = V1 and F2 = V2"
-        0 PIN_FLD_RESULTS                  ARRAY [*] allocated 1, used 1
+        0 PIN_FLD_RESULTS                  ARRAY [200] allocated 1, used 1
         1     PIN_FLD_POID                  POID [0] NULL
+	    1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
+	    2         CP_FLD_SLOTS               STR [0] NULL
         0 PIN_FLD_ARGS                     ARRAY [1] allocated 1, used 1
         1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
         2         CP_FLD_MONTH_HOURS         INT [0] 1

@@ -10,7 +10,7 @@ import org.tinyradius.packet.RadiusPacket;
  */
 class HuaweiCoaRequest implements CoaRequest {
 	HuaweiCoaRequest() {
-		System.out.println("huawei");
+		System.out.println("huawei bras");
 	}
 
 	@Override

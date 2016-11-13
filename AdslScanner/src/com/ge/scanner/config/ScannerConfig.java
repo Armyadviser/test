@@ -1,6 +1,5 @@
 package com.ge.scanner.config;
 
-import com.ge.scanner.Scanner;
 import com.ge.util.IniOperation;
 
 import java.io.File;
@@ -44,5 +43,13 @@ public class ScannerConfig {
 
 	public String getTimeLogValue(String key) {
 		return mIni.getKeyValue("Timer-Log", key);
+	}
+
+	public int getScannerValue(String key) {
+		return mIni.getKeyValueInt("Scanner", key);
+	}
+
+	public int getHealerValue(String key) {
+		return mIni.getKeyValueInt("Healer", key);
 	}
 }

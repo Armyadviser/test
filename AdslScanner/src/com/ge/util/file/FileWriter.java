@@ -47,6 +47,7 @@ public class FileWriter {
 		try {
 			mWriter.write(line);
 			mWriter.write(LINE_SEP);
+			mWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
