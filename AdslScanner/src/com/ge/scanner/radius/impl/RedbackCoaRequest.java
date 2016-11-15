@@ -22,6 +22,7 @@ class RedbackCoaRequest implements CoaRequest {
 		util.setBrasIp(info.bras.ip);
 		util.setSecret(info.bras.secret);
 		util.setUserIp(info.session.userIp);
+		util.setContext(info.bras.context);
 		util.setShowOut(false);
 		return util.moveBackToInternet();
 	}
@@ -31,6 +32,7 @@ class RedbackCoaRequest implements CoaRequest {
 		util.setBrasIp(info.bras.ip);
 		util.setSecret(info.bras.secret);
 		util.setUserIp(info.session.userIp);
+		util.setContext(info.bras.context);
 		util.setShowOut(false);
 		return util.moveToVpn();
 	}

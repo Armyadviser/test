@@ -55,6 +55,7 @@ public class Session {
 			}
 
 			Session session = new Session();
+			session.userIp = item[1];
 			session.brasIp = item[2];
 
 			return session;

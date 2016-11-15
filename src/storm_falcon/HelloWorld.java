@@ -12,17 +12,8 @@ import java.time.LocalDateTime;
  */
 public class HelloWorld {
 
-	public static String replace(String content) {
-		char x = 0x01;
-		String split = String.valueOf(x);
-		return content.replaceAll(split, "\n");
-	}
-
     public static void main(String[] args) throws Exception {
-		LocalDateTime time1 = LocalDateTime.now();
-		LocalDateTime time2 = time1.plusMinutes(-5L);
-
-		int n = time2.compareTo(time1);
-		System.out.println(n);
+		String s = "221.203.141.252";
+		System.out.println(s.length());
 	}
 }

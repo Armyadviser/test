@@ -6,6 +6,8 @@ import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.util.WaitSynLinkedList;
 
+import java.util.Date;
+
 /**
  * Created by Storm_Falcon on 2016/11/10.
  * Scan the vpn user every once a while.
@@ -13,7 +15,7 @@ import com.ge.util.WaitSynLinkedList;
  */
 public class Healer extends Thread {
 
-	/** after this time, user will be moved back to Internet. unit:minute */
+	/** after this time, user will be moved back to Internet. unit:second */
 	private long timeLimit;
 
 	/** every this time, healer will scan the sync pool once. unit:second */
@@ -26,7 +28,9 @@ public class Healer extends Thread {
 	public Healer(WaitSynLinkedList<CoaInfo> mSyncList) {
 		this.mSyncList = mSyncList;
 		timeLimit = ScannerConfig.getInstance().getHealerValue("timelimit");
+		timeLimit = timeLimit * 1000;
 		sleep = ScannerConfig.getInstance().getHealerValue("sleep");
+		sleep = sleep * 1000;
 	}
 
 	public void run() {
@@ -50,13 +54,14 @@ public class Healer extends Thread {
 	}
 
 	private void doCoa(CoaInfo coaInfo) {
+		System.out.println("--heal:" + coaInfo + "--at:" + new Date());
 		CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
 		request.moveBackToInternet(coaInfo);
 	}
 
 	private void sleep() {
 		try {
-			Thread.sleep(sleep * 1000);
+			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

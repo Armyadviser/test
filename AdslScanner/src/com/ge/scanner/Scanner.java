@@ -61,7 +61,7 @@ public class Scanner extends Thread {
 			users = users.stream()
 				.filter(CrmModule::isNeedOffer)
 				.collect(toList());
-			System.out.println("After search crm. " + users.size() + " CoaInfos left.");
+			System.out.println("After search crm. " + users.size() + " users left.");
 
 			//convert to coa info.
 			List<CoaInfo> coaInfos = account2CoaInfos(users);

@@ -23,6 +23,7 @@ public class Timer extends Thread {
 		ScannerConfig config = ScannerConfig.getInstance();
 		String path = config.getTimeLogValue("path");
 		mSleep = Integer.valueOf(config.getTimeLogValue("timegap"));
+		mSleep = mSleep * 1000;
 
 		logger = new FileWriter();
 		logger.open(path);
@@ -33,7 +34,7 @@ public class Timer extends Thread {
 			logger.writeLine(String.valueOf(mList.size()));
 
 			try {
-				Thread.sleep(mSleep * 1000);
+				Thread.sleep(mSleep);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
