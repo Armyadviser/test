@@ -33,7 +33,7 @@ public class Order4GProductUtilTest {
 		Order4GProductUtil util = new Order4GProductUtil();
 		util.setDebug(true);
 		util.setTest(true);
-		util.setLogger(System.out::println);
+		util.setLogger((content, title) -> System.out.println(title + "=========\n" + content));
 		util.setTimeout(10 * 1000);
 
 		OrderResult4G result = (OrderResult4G) util.order(message);

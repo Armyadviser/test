@@ -1,6 +1,7 @@
 package com.ge.sms.mob.comm;
 
 import java.util.Random;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -24,7 +25,7 @@ abstract class UnitUtil implements OrderUtil {
 	protected boolean debug = false;
 
 	/** 用于日志记录，仅在调试模式下有效 */
-	protected Consumer<String> logger;
+	protected BiConsumer<String, String> logger;
 
 	/** socket 超时时间，ms */
 	protected int timeout = 5 * 1000;
@@ -33,7 +34,7 @@ abstract class UnitUtil implements OrderUtil {
 		this.debug = debug;
 	}
 
-	public void setLogger(Consumer<String> logger) {
+	public void setLogger(BiConsumer<String, String> logger) {
 		this.logger = logger;
 	}
 

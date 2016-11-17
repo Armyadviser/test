@@ -47,7 +47,7 @@ public class Order4GProductUtil extends UnitUtil {
 		String jsonBody = message.serialize();
 
 		if (debug && logger != null) {
-			logger.accept(jsonBody);
+			logger.accept(jsonBody, "request:");
 		}
 
 		try {
@@ -94,7 +94,7 @@ public class Order4GProductUtil extends UnitUtil {
 			}
 
 			if (debug && logger != null) {
-				logger.accept(content);
+				logger.accept(content, "response:");
 			}
 
 			if (status != 200) {

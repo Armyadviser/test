@@ -39,15 +39,15 @@ public class Order23GProductUtil extends UnitUtil {
 			String xmlContent = EntityUtils.toString(response.getEntity(), Charset.forName("utf-8"));
 
 			if (debug && logger != null) {
-				logger.accept(xmlContent);
+				logger.accept(xmlContent, "response:");
 			}
 
 			return XMLUtils.parse(xmlContent, document -> {
 				String svcCont = XMLUtils.getFirstValue(document, "SvcCont");
 				return XMLUtils.parse(svcCont, contDoc -> {
-					String effectTime = XMLUtils.getFirstValue(document, "EffectTime");
-					String respCode = XMLUtils.getFirstValue(document, "RespCode");
-					String respDesc = XMLUtils.getFirstValue(document, "RespDesc");
+					String effectTime = XMLUtils.getFirstValue(contDoc, "EffectTime");
+					String respCode = XMLUtils.getFirstValue(contDoc, "RespCode");
+					String respDesc = XMLUtils.getFirstValue(contDoc, "RespDesc");
 					if (respDesc != null) {
 						try {
 							respDesc = URLDecoder.decode(respDesc, "utf-8");
@@ -69,7 +69,7 @@ public class Order23GProductUtil extends UnitUtil {
 	 */
 	private String prepareRequestXml(String number, Product23G product) {
 		String procId = getSerialNo();
-		String transId = procId;
+		String transId = procId.trim();
 		String xml = "" +
 //			"<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 			"<UniBSS>\n" +
@@ -113,9 +113,6 @@ public class Order23GProductUtil extends UnitUtil {
 			"    </PackageChangeReq>]]>\n" +
 			"  </SvcCont>\n" +
 			"</UniBSS>";
-		if (debug && logger != null) {
-			logger.accept(xml);
-		}
 		return xml;
 	}
 
@@ -135,7 +132,7 @@ public class Order23GProductUtil extends UnitUtil {
 		String requestXml = prepareRequestXml(number, product);
 
 		if (debug && logger != null) {
-			logger.accept(requestXml);
+			logger.accept(requestXml, "request:");
 		}
 
 		try {

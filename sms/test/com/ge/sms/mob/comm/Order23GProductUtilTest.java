@@ -15,9 +15,9 @@ public class Order23GProductUtilTest {
 		Product23G product = new Product23G("99105484", Product23G.OP_CLOSE);
 
 		Order23GProductUtil util = new Order23GProductUtil();
-		util.setDebug(true);
+//		util.setDebug(true);
 		util.setTest(true);
-		util.setLogger(System.out::println);
+		util.setLogger((content, title) -> System.out.println(title + "=========\n" + content));
 		util.setTimeout(10 * 1000);
 
 		OrderResult23G result = (OrderResult23G) util.order(number, product);
