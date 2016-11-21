@@ -30,6 +30,9 @@ public class Order4GProductUtilTest {
 		message.setNumber("13124207491");
 		message.addProduct(product4G);
 
+		Order4GProductUtil.URL = "http://132.194.41.1:8082/infserver/httpServer";
+		Order4GProductUtil.URL_TEST = "http://132.194.41.2:8083/lnopserver/httpServer";
+
 		Order4GProductUtil util = new Order4GProductUtil();
 		util.setDebug(true);
 		util.setTest(true);

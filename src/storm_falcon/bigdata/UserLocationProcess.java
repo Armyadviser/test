@@ -5,20 +5,14 @@ import storm_falcon.util.file.FileWriter;
 import storm_falcon.util.string.StringHelper;
 
 public class UserLocationProcess {
-	
-	/**
-	 * 天数
-	 */
-	private int mDayNum = 11;
 
-	private String mInFile = "E:\\Document\\Big Data\\shujudasai_1.csv";
-	
 	private FileWriter mWriter = new FileWriter();
 	
 	private StringBuilder sbException = new StringBuilder();
 	
 	public void process() throws Exception {
 		FileReader reader = new FileReader();
+		String mInFile = "E:\\Document\\Big Data\\shujudasai_1.csv";
 		reader.open(mInFile);
 		
 		mWriter.open("E:\\Document\\Big Data\\out.txt");
@@ -32,6 +26,7 @@ public class UserLocationProcess {
 			
 			UserData ud = new UserData();
 			//每个用户mDayNum条数据
+			int mDayNum = 11;
 			while (nDayCount++ < mDayNum) {
 				String line = reader.nextLine();
 				if (line == null) {

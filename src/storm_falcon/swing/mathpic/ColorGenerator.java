@@ -6,9 +6,9 @@ public interface ColorGenerator {
 		return x * x;
 	}
 
-	public char R(int i, int j);
+	char R(int i, int j);
 
-	public char G(int i, int j);
+	char G(int i, int j);
 
-	public char B(int i, int j);
+	char B(int i, int j);
 }

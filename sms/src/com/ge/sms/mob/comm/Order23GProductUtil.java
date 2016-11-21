@@ -21,11 +21,6 @@ import java.nio.charset.Charset;
  */
 public class Order23GProductUtil extends UnitUtil {
 
-	public Order23GProductUtil() {
-		URL = "";
-		URL_TEST = "http://132.194.33.9:12026/XMLReceiver";
-	}
-
 	@Override
 	public String getSerialNo() {
 		return "gwtfcsub" + DateHelper.getTimestamp("yyyyMMddHHmmss")
@@ -70,7 +65,7 @@ public class Order23GProductUtil extends UnitUtil {
 	private String prepareRequestXml(String number, Product23G product) {
 		String procId = getSerialNo();
 		String transId = procId.trim();
-		String xml = "" +
+		return "" +
 //			"<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 			"<UniBSS>\n" +
 			"  <OrigDomain>ECIP</OrigDomain>\n" +
@@ -113,7 +108,6 @@ public class Order23GProductUtil extends UnitUtil {
 			"    </PackageChangeReq>]]>\n" +
 			"  </SvcCont>\n" +
 			"</UniBSS>";
-		return xml;
 	}
 
 	private Request getRequest(String reqXml) {

@@ -22,11 +22,6 @@ import java.nio.charset.Charset;
  */
 public class Order4GProductUtil extends UnitUtil {
 
-	public Order4GProductUtil() {
-		URL = "http://132.194.41.1:8082/infserver/httpServer";
-		URL_TEST = "http://132.194.41.2:8083/lnopserver/httpServer";
-	}
-
 	@Override
 	public String getSerialNo() {
 		return "gwtfcsub" + DateHelper.getTimestamp("yyyyMMddHHmmss")

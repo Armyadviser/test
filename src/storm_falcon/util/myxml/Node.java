@@ -64,7 +64,8 @@ public class Node extends BaseNode {
     }
 
     @Override
-    public void setValue(Object value) {
+    public void setValue(@NotNull Object value) {
+        //noinspection unchecked
         this.value = (List<BaseNode>) value;
     }
 

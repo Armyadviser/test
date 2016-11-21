@@ -5,7 +5,7 @@ public class Location {
 	public double latitute;
 	public double longitute;
 	
-	public Location() {};
+	public Location() {}
 
 	public Location(String loc) {
 		String[] item = loc.split(",");
@@ -26,13 +26,7 @@ public class Location {
 			return false;
 		}
 		Location l = (Location) o;
-		if (latitute != l.latitute) {
-			return false;
-		}
-		if (longitute != l.longitute) {
-			return false;
-		}
-		return true;
+		return latitute == l.latitute && longitute == l.longitute;
 	}
 	
 	public String toString() {

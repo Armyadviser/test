@@ -8,7 +8,6 @@ public class OrderResult4G extends OrderResult {
 	private int xmlCode;
 	private String xmlDetail;
 	private String provOrderId;
-	private Para para;
 
 	public OrderResult4G(int xmlCode, String xmlDetail) {
 		this.xmlCode = xmlCode;
@@ -17,7 +16,6 @@ public class OrderResult4G extends OrderResult {
 
 	public OrderResult4G(String provOrderId) {
 		this.provOrderId = provOrderId;
-		para = new Para();
 	}
 
 	public int getXmlCode() {
@@ -32,7 +30,4 @@ public class OrderResult4G extends OrderResult {
 		return provOrderId;
 	}
 
-//	public Para getPara() {
-//		return para;
-//	}
 }

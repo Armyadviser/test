@@ -12,6 +12,7 @@ import java.util.*;
 public class EveryLocationCounts {
 
     public static Map<String, TreatedData> parseFile2Map() {
+        @SuppressWarnings("UnnecessaryLocalVariable")
         final Map<String, TreatedData> map = new HashMap<>();
 //        FileReader.iterator(
 //            "E:\\Document\\Big Data\\Êý¾Ý1·ÖÎöv0.2.txt",
