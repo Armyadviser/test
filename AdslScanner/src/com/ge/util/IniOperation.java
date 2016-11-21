@@ -50,8 +50,7 @@ public class IniOperation {
           if(vecIniList == null) {
               return false;
           }
-          FileWriter fw = null;
-          fw = new FileWriter(fIniFile, false);
+          FileWriter fw = new FileWriter(fIniFile, false);
 
           Object[] objSession = vecIniList.toArray();
           int nSessionNum = vecIniList.size();
@@ -369,7 +368,7 @@ public class IniOperation {
             if (posEn > posSt) {
                 session = new Session();
                 session.strKey = strLine.substring(posSt + 1, posEn);
-                session.vecNoteValue = new Vector();
+                session.vecNoteValue = new Vector<>();
                 session.strMean = strMean;
                 strMean = null;
             }
