@@ -7,6 +7,9 @@ import com.ge.scanner.conn.cm.PBaseModule;
 import com.portal.pcm.*;
 import com.portal.pcm.fields.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Storm_Falcon on 2016/11/7.
  * user vo
@@ -34,12 +37,15 @@ public class Account {
 	    2         CP_FLD_SLOTS               STR [0] NULL
         0 PIN_FLD_ARGS                     ARRAY [1] allocated 1, used 1
         1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
-        2         CP_FLD_MONTH_HOURS         INT [0] 1
+        2         CP_FLD_MONTH_HOURS         INT [0] 2016112109     //yyyyMMddHH
         0 PIN_FLD_ARGS                     ARRAY [2] allocated 1, used 1
         1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
         2         CP_FLD_VLAN_ID             INT [0] 1
     */
     public static FList getSearchFList() {
+        String sCurTime = new SimpleDateFormat("yyyyMMddHH").format(new Date());
+        int nCurTime = Integer.parseInt(sCurTime);
+
         Poid poid = new Poid(PBaseModule.getCurrentDB(), -1, "/search");
 
         FList in = new FList();
@@ -53,7 +59,7 @@ public class Account {
         in.set(FldTemplate.getInst(), sql);
 
         FList args1_2 = new FList();
-        args1_2.set(CpFldMonthHours.getInst(), 1);
+        args1_2.set(CpFldMonthHours.getInst(), nCurTime);
         FList args1 = new FList();
         args1.set(FldServiceIp.getInst(), args1_2);
 
@@ -108,7 +114,8 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-            "poid=" + poid +
-            '}';
+                "poid=" + poid +
+                ", login='" + login + '\'' +
+                '}';
     }
 }
