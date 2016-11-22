@@ -51,12 +51,6 @@ public class Scanner extends Thread {
 			List<Account> users = CmUtils.getAccountList();
 			System.out.println("There are " + users.size() + " users to be destory.");
 
-			//update offer sign.
-			int nSucNum = users.stream()
-				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo) ? 1 : 0)
-				.sum();
-			System.out.println("Update user's vlan_id " + nSucNum + " success.");
-
 			//filter users which are not needed offer, query crm.
 			users = users.stream()
 				.filter(CrmModule::isNeedOffer)
@@ -66,6 +60,12 @@ public class Scanner extends Thread {
 			//convert to coa info.
 			List<CoaInfo> coaInfos = account2CoaInfos(users);
 			System.out.println("Convert to " + coaInfos.size() + " CoaInfos.");
+
+			//update offer sign.
+			int nSucNum = coaInfos.stream()
+				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account) ? 1 : 0)
+				.sum();
+			System.out.println("Update user's vlan_id " + nSucNum + " success.");
 
 			//kick them off.
 			Destroyer.kickOff(coaInfos);

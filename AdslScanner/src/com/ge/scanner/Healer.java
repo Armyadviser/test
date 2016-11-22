@@ -49,12 +49,13 @@ public class Healer extends Thread {
 
 			if (counter >= 200) {
 				sleep();
+				counter = 0;
 			}
 		}
 	}
 
 	private void doCoa(CoaInfo coaInfo) {
-		System.out.println("--heal:" + coaInfo + "--at:" + new Date());
+		System.out.println("------heal:" + coaInfo.session.account.login + "--at:" + new Date() + "------");
 		CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
 		request.moveBackToInternet(coaInfo);
 	}

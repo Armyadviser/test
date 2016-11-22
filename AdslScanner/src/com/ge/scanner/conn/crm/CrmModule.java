@@ -27,11 +27,18 @@ public class CrmModule {
 			url = url.replace("<rpinstid>", account.rpInstId);
 
 			String resp = HttpTools.get(url);
+			if (resp == null) {
+				return false;
+			}
 
-			JSONObject obj = (JSONObject) JSON.parse(resp);
-			resp = obj.getString("Sign");
-
-			return "0".equals(resp);
+			try {
+				int index = resp.indexOf('=');
+				String sign = resp.substring(index + 1, index + 2);
+				return "0".equals(sign);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
