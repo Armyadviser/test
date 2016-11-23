@@ -1,6 +1,9 @@
 package com.ge.scanner.conn.cm;
 
 import com.cp.fields.CpFldVlanId;
+import com.ge.scanner.bean.AccountBean;
+import com.ge.scanner.bean.BrasBean;
+import com.ge.scanner.bean.SessionBean;
 import com.ge.scanner.vo.Account;
 import com.ge.scanner.vo.Bras;
 import com.ge.scanner.vo.CoaInfo;
@@ -31,7 +34,7 @@ public class CmUtils {
 	public static List<Account> getAccountList() {
 		List<Account> list = new ArrayList<>();
 
-		FList in = Account.getSearchFList();
+		FList in = AccountBean.getSearchFList();
 
 		FList out = null;
 		try {
@@ -52,7 +55,7 @@ public class CmUtils {
 			Enumeration results = sparseArray.getValueEnumerator();
 			while (results.hasMoreElements()) {
 				FList flist = (FList) results.nextElement();
-				Account account = Account.parse(flist);
+				Account account = AccountBean.parse(flist);
 				if (account != null) {
 					list.add(account);
 				}
@@ -68,7 +71,7 @@ public class CmUtils {
 
 	public static Stream<Session> getSessionsByAccount(Account account) {
 
-		FList in = Session.getSearchFList(account.login);
+		FList in = SessionBean.getSearchFList(account.login);
 		FList out = null;
 		try {
 			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
@@ -91,7 +94,7 @@ public class CmUtils {
 
 			while (results.hasMoreElements()) {
 				FList flist = (FList) results.nextElement();
-				Session session = Session.parse(flist);
+				Session session = SessionBean.parse(flist);
 				if (session == null) {
 					continue;
 				}
@@ -110,7 +113,7 @@ public class CmUtils {
 	}
 
 	public static CoaInfo getCoaInfoBySession(Session session) {
-		FList in = Bras.getSearchFList(session.brasIp);
+		FList in = BrasBean.getSearchFList(session.brasIp);
 		FList out = null;
 		try {
 			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
@@ -120,7 +123,7 @@ public class CmUtils {
 		if (out == null) {
 			return null;
 		}
-		Bras bras = Bras.parse(out);
+		Bras bras = BrasBean.parse(out);
 		if (bras == null) {
 			return null;
 		}
