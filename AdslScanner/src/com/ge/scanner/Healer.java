@@ -55,7 +55,7 @@ public class Healer extends Thread {
 	}
 
 	private void doCoa(CoaInfo coaInfo) {
-		System.out.println("------heal:" + coaInfo.session.account.login + "--at:" + new Date() + "------");
+		System.out.println("------Move back to Internet:" + coaInfo.session.account.login + "--at:" + new Date() + "------");
 		CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
 		request.moveBackToInternet(coaInfo);
 	}

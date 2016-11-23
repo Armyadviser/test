@@ -13,12 +13,12 @@ public class Main {
         WaitSynLinkedList<CoaInfo> syncList = new WaitSynLinkedList<>(500);
 
         Scanner scanner = new Scanner(syncList);
-        Healer healer = new Healer(syncList);
-        Timer timer = new Timer(syncList);
+//        Healer healer = new Healer(syncList);
+//        Timer timer = new Timer(syncList);
 
         scanner.start();
-        healer.start();
-        timer.start();
+//        healer.start();
+//        timer.start();
     }
 
 }

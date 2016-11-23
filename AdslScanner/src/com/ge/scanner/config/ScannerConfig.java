@@ -45,8 +45,8 @@ public class ScannerConfig {
 		return mIni.getKeyValue("Timer-Log", key);
 	}
 
-	public int getScannerValue(String key) {
-		return mIni.getKeyValueInt("Scanner", key);
+	public String getScannerValue(String key) {
+		return mIni.getKeyValue("Scanner", key);
 	}
 
 	public int getHealerValue(String key) {

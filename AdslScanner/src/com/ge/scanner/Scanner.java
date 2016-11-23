@@ -6,6 +6,7 @@ import com.ge.scanner.conn.crm.CrmModule;
 import com.ge.scanner.vo.Account;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.util.WaitSynLinkedList;
+import com.ge.util.log.Log;
 
 import java.util.Date;
 import java.util.List;
@@ -44,44 +45,47 @@ public class Scanner extends Thread {
 	}
 
 	public void run() {
+		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");
+		Log logger = Log.getSystemLog(logPath);
 		while (true) {
-			System.out.println(new Date());
+			logger.toLog(new Date().toString());
 
 			//search users.
 			List<Account> users = CmUtils.getAccountList();
-			System.out.println("There are " + users.size() + " users to be destory.");
+			logger.toLog("There are " + users.size() + " users to be moved to vpn.");
 
 			//filter users which are not needed offer, query crm.
 			users = users.stream()
 				.filter(CrmModule::isNeedOffer)
 				.collect(toList());
-			System.out.println("After search crm. " + users.size() + " users left.");
+			logger.toLog("After search crm. " + users.size() + " users left.");
 
 			//convert to coa info.
 			List<CoaInfo> coaInfos = account2CoaInfos(users);
-			System.out.println("Convert to " + coaInfos.size() + " CoaInfos.");
+			logger.toLog("Convert to " + coaInfos.size() + " CoaInfos.");
 
 			//update offer sign.
 			int nSucNum = coaInfos.stream()
 				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account) ? 1 : 0)
 				.sum();
-			System.out.println("Update user's vlan_id " + nSucNum + " success.");
+			logger.toLog("Update user's vlan_id " + nSucNum + " success.");
 
 			//kick them off.
 			Destroyer.kickOff(coaInfos);
 
 			//add to sync pool.
-			coaInfos.forEach(mSyncList::addLast);
+//			coaInfos.forEach(mSyncList::addLast);
 
-			System.out.println("-------------------------------------\n");
+			logger.toLog("-------------------------------------\n");
 			sleep();
 		}
 	}
 
 	private void sleep() {
-		int time = ScannerConfig.getInstance().getScannerValue("sleep");
+		String sTime = ScannerConfig.getInstance().getScannerValue("sleep");
+		int nTime = Integer.valueOf(sTime);
 		try {
-			Thread.sleep(time * 60 * 1000);
+			Thread.sleep(nTime * 60 * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
