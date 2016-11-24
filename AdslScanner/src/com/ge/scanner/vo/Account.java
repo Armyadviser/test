@@ -1,14 +1,6 @@
 package com.ge.scanner.vo;
 
-import com.cp.fields.CpFldMonthHours;
-import com.cp.fields.CpFldSlotS;
-import com.cp.fields.CpFldVlanId;
-import com.ge.scanner.conn.cm.PBaseModule;
-import com.portal.pcm.*;
-import com.portal.pcm.fields.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.portal.pcm.Poid;
 
 /**
  * Created by Storm_Falcon on 2016/11/7.

@@ -1,8 +1,6 @@
 package com.ge.scanner.radius;
 
-import com.ge.scanner.vo.Bras;
 import com.ge.scanner.vo.CoaInfo;
-import com.ge.scanner.vo.Session;
 import org.tinyradius.packet.RadiusPacket;
 
 /**

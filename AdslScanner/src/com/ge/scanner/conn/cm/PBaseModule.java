@@ -5,7 +5,6 @@ import com.portal.pcm.EBufException;
 import com.portal.pcm.FList;
 import com.portal.pcm.PortalContext;
 
-import java.util.Date;
 import java.util.Properties;
 
 /**
