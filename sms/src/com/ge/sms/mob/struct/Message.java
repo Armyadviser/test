@@ -3,10 +3,7 @@ package com.ge.sms.mob.struct;
 import com.alibaba.fastjson.JSON;
 import com.ge.util.DateHelper;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +55,7 @@ public class Message implements Serializer {
 	/**
 	 * 产品信息
 	 */
-	private List<Product4G> product4GInfo = new ArrayList<>();
+	private List<Product4G> productInfo = new ArrayList<>();
 
 //	/**
 //	 * 发展人标识
@@ -106,7 +103,7 @@ public class Message implements Serializer {
 	}
 
 	public void addProduct(Product4G product4G) {
-		product4GInfo.add(product4G);
+		productInfo.add(product4G);
 	}
 
 	public String getOperatorId() {
@@ -133,8 +130,8 @@ public class Message implements Serializer {
 		return channelType;
 	}
 
-	public List<Product4G> getProduct4GInfo() {
-		return product4GInfo;
+	public List<Product4G> getProductInfo() {
+		return productInfo;
 	}
 
 //	public String getRecomPersonId() {
