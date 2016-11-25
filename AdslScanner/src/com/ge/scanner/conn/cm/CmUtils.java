@@ -4,10 +4,12 @@ import com.cp.fields.CpFldVlanId;
 import com.ge.scanner.bean.AccountBean;
 import com.ge.scanner.bean.BrasBean;
 import com.ge.scanner.bean.SessionBean;
+import com.ge.scanner.config.ScannerConfig;
 import com.ge.scanner.vo.Account;
 import com.ge.scanner.vo.Bras;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.scanner.vo.Session;
+import com.ge.util.log.Log;
 import com.portal.pcm.EBufException;
 import com.portal.pcm.FList;
 import com.portal.pcm.PortalOp;
@@ -26,6 +28,13 @@ import java.util.stream.Stream;
  *
  */
 public class CmUtils {
+
+	private static Log logger = null;
+
+	static {
+		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");
+		logger = Log.getSystemLog(logPath);
+	}
 
 	/**
 	 * Search users which need offer.
@@ -103,7 +112,7 @@ public class CmUtils {
 				list.add(session);
 			}
 
-			System.out.println("Find " + list.size() + " sessions of " + account.login);
+			logger.toLog("Find " + list.size() + " sessions of " + account.login);
 			return list.stream();
 		} catch (EBufException e) {
 			e.printStackTrace();
