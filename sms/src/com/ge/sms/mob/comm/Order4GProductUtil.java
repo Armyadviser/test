@@ -60,7 +60,7 @@ public class Order4GProductUtil extends UnitUtil {
 			.bodyForm(
 				Form.form()
 					.add("tradeID", getSerialNo())
-					.add("interfaceType", "trafficSub")
+					.add("interfaceType", "sporderapp")
 					.add("jsonBody", jsonBody)
 					.add("app_id", appId)
 					.add("timestamp", timestamp)
