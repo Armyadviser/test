@@ -47,15 +47,15 @@ public class PBaseModule {
         }
     }
 
-    public static FList runOpcode(String strOpcodeName, int nOpcodeType, FList inFList) throws EBufException {
+    public static FList runOpcode(int nOpCodeType, FList inFList) throws EBufException {
         PortalContext conn = getConnection();
         if (conn == null) {
             return null;
         }
 
-        FList outFList = null;
+        FList outFList;
         try {
-            outFList = conn.opcode(nOpcodeType, inFList);
+            outFList = conn.opcode(nOpCodeType, inFList);
         } finally {
             freeConnection(conn);
         }

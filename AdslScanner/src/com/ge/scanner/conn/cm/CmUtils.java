@@ -47,7 +47,7 @@ public class CmUtils {
 
 		FList out = null;
 		try {
-			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+			out = PBaseModule.runOpcode(PortalOp.SEARCH, in);
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class CmUtils {
 		FList in = SessionBean.getSearchFList(account.login);
 		FList out = null;
 		try {
-			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+			out = PBaseModule.runOpcode(PortalOp.SEARCH, in);
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
@@ -125,7 +125,7 @@ public class CmUtils {
 		FList in = BrasBean.getSearchFList(session.brasIp);
 		FList out = null;
 		try {
-			out = PBaseModule.runOpcode("Search", PortalOp.SEARCH, in);
+			out = PBaseModule.runOpcode(PortalOp.SEARCH, in);
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
@@ -142,7 +142,7 @@ public class CmUtils {
 
 	/**
 	 * Update user offer status.
-	 * Set vlan_id=0
+	 * Set vlan_id=1
 	 * @param account
 	 * @return true: success; false: fail.
 	 */
@@ -150,11 +150,11 @@ public class CmUtils {
 		FList in = new FList();
 		in.set(FldPoid.getInst(), account.poid);
 		FList args = new FList();
-		args.set(CpFldVlanId.getInst(), 0);
+		args.set(CpFldVlanId.getInst(), 1);
 		in.set(FldServiceIp.getInst(), args);
 
 		try {
-			PBaseModule.runOpcode("WriteFld", PortalOp.WRITE_FLDS, in);
+			PBaseModule.runOpcode(PortalOp.WRITE_FLDS, in);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

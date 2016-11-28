@@ -64,14 +64,14 @@ public class Scanner extends Thread {
 			List<CoaInfo> coaInfos = account2CoaInfos(users);
 			logger.toLog("Convert to " + coaInfos.size() + " CoaInfos.");
 
-			//update offer sign.
-			int nSucNum = coaInfos.stream()
-				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account) ? 1 : 0)
-				.sum();
-			logger.toLog("Update user's vlan_id " + nSucNum + " success.");
-
 			//kick them off.
 			Destroyer.kickOff(coaInfos);
+
+			//update offer sign.
+			int nSucNum = coaInfos.stream()
+					.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account) ? 1 : 0)
+					.sum();
+			logger.toLog("Update user's vlan_id " + nSucNum + " success.");
 
 			//add to sync pool.
 //			coaInfos.forEach(mSyncList::addLast);

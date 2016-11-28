@@ -21,7 +21,7 @@ public class AccountBean {
 	/**
 	 0 PIN_FLD_POID                      POID [0] 0.0.0.1 /search -1 0
 	 0 PIN_FLD_FLAGS                      INT [0] 0
-	 0 PIN_FLD_TEMPLATE                   STR [0] "select X from /service/cp_broadband where service_t.poid_type = '/service/cp_broadband' and F1 <= V1 and F2 = V2 and F3 != V3"
+	 0 PIN_FLD_TEMPLATE                   STR [0] "select X from /service/cp_broadband where service_t.poid_type = '/service/cp_broadband' and F1 <= V1 and F3 != V3"
 	 0 PIN_FLD_RESULTS                  ARRAY [400] allocated 3, used 3
 	 1     PIN_FLD_POID                  POID [0] NULL
 	 1     PIN_FLD_LOGIN                  STR [0] NULL
@@ -30,9 +30,6 @@ public class AccountBean {
 	 0 PIN_FLD_ARGS                     ARRAY [1] allocated 1, used 1
 	 1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
 	 2         CP_FLD_MONTH_HOURS         INT [0] 2016112213
-	 0 PIN_FLD_ARGS                     ARRAY [2] allocated 1, used 1
-	 1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
-	 2         CP_FLD_VLAN_ID             INT [0] 1
 	 0 PIN_FLD_ARGS                     ARRAY [3] allocated 1, used 1
 	 1     PIN_FLD_SERVICE_IP       SUBSTRUCT [0] allocated 1, used 1
 	 2         CP_FLD_MONTH_HOURS         INT [0] 0
@@ -50,7 +47,7 @@ public class AccountBean {
 		String sql = "select X " +
 			"from /service/cp_broadband " +
 			"where service_t.poid_type = '/service/cp_broadband' " +
-			"and F1 <= V1 and F2 = V2 and F3 != V3";
+			"and F1 <= V1 and F3 != V3";
 		in.set(FldTemplate.getInst(), sql);
 
 		FList args1_2 = new FList();
@@ -59,18 +56,12 @@ public class AccountBean {
 		args1.set(FldServiceIp.getInst(), args1_2);
 
 		FList args2_2 = new FList();
-		args2_2.set(CpFldVlanId.getInst(), 1);
+		args2_2.set(CpFldMonthHours.getInst(), 0);
 		FList args2 = new FList();
 		args2.set(FldServiceIp.getInst(), args2_2);
 
-		FList args3_2 = new FList();
-		args3_2.set(CpFldMonthHours.getInst(), 0);
-		FList args3 = new FList();
-		args3.set(FldServiceIp.getInst(), args3_2);
-
 		in.setElement(FldArgs.getInst(), 1, args1);
-		in.setElement(FldArgs.getInst(), 2, args2);
-		in.setElement(FldArgs.getInst(), 3, args3);
+		in.setElement(FldArgs.getInst(), 3, args2);
 
 		FList servIp = new FList();
 		servIp.set(CpFldSlotS.getInst());
