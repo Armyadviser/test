@@ -7,7 +7,7 @@ public class UserData {
 
 	String id;
 	
-	List<TimeLocation> allLocList = new ArrayList<>();
+	final List<TimeLocation> allLocList = new ArrayList<>();
 	
 	public void addTimeLocation(String date, int time, double lat, double lon) {
 		TimeLocation tl = new TimeLocation();

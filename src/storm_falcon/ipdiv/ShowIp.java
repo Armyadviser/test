@@ -12,7 +12,7 @@ import com.show.api.ShowApiRequest;
 //https://www.showapi.com/api/lookPoint/20/1
 public class ShowIp {
 
-	private static DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 	
 	public static String getIpJson(String ip) throws Exception {
 		String timestamp = df.format(new Date());

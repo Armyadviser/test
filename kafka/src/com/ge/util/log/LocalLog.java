@@ -3,6 +3,7 @@ package com.ge.util.log;
 import com.ge.util.FileHelper;
 import com.ge.util.JTools;
 
+@SuppressWarnings("UnusedReturnValue")
 class LocalLog extends Log {
 	
 	protected FileWriter out = null;

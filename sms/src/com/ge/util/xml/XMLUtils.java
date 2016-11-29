@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public class XMLUtils {
 
-	private static DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+	private static final DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
 	public static <T> T parse(String text, Function<Document, T> parser) {
 		try {

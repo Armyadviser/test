@@ -1,6 +1,5 @@
 package storm_falcon.lambdatest;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -64,9 +63,10 @@ public class Array {
 	}
 
 	public static void main(String[] args) {
-//	    f1();
-//		movingAverage();
+	    f1();
+		movingAverage();
 		f2();
 		f2withBug();
+		sum();
 	}
 }

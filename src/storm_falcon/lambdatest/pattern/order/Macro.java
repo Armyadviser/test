@@ -7,6 +7,7 @@ import java.util.List;
  * Created by Storm_Falcon on 2016/7/3.
  * 宏，定义了一系列的Action操作
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class Macro {
 
 	private final List<Action> actions;

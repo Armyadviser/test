@@ -14,6 +14,7 @@ import java.util.Vector;
  * @version 1.0
  */
 
+@SuppressWarnings("CanBeFinal")
 public class IniOperation {
 
   public IniOperation() {

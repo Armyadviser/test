@@ -2,7 +2,6 @@ package com.ge.adsl.session.consumer;
 
 import com.ge.adsl.session.serde.DialupDeserializer;
 
-import java.io.File;
 import java.util.Properties;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Properties;
  */
 public class SessionConsumer {
 
-    private Properties properties;
+    private final Properties properties;
 
     public SessionConsumer() {
         properties = new Properties();

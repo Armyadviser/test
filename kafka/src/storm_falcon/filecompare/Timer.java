@@ -1,7 +1,5 @@
 package storm_falcon.filecompare;
 
-import org.apache.kafka.streams.kstream.TimeWindows;
-
 import java.util.Set;
 
 /**
@@ -9,7 +7,7 @@ import java.util.Set;
  *
  */
 public class Timer extends Thread {
-	private Set<Object> set;
+	private final Set<Object> set;
 
 	public Timer(Set<Object> set) {
 		this.set = set;

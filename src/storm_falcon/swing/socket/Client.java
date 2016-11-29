@@ -11,7 +11,7 @@ import java.net.Socket;
  */
 public class Client {
 
-	private String name = System.getProperty("user.name");
+	private final String name = System.getProperty("user.name");
 	
 	private void start(String encode) throws Exception {
 		String ip = "127.0.0.1";

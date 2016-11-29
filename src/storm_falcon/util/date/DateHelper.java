@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class DateHelper {
 
-    private static Map<String, String> mMonthMap = null;
+    private static final Map<String, String> mMonthMap;
 
     public final static int TYPE_SIMPLE = 1;
 

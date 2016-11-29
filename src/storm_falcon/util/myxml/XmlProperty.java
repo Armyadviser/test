@@ -12,6 +12,7 @@ public class XmlProperty {
 
     public static final String ENCODE_GBK = "GBK";
     public static final String ENCODE_UTF8 = "UTF-8";
+    @SuppressWarnings("CanBeFinal")
     public String encode = ENCODE_GBK;
 
     public static final String NODE_KEY_DEFAULT = "DefaultKey";

@@ -17,7 +17,6 @@ class ConnectionPool implements Closeable {
 
     private final LinkedList<Connection> mConnList = new LinkedList<>();
 
-    private String name = null;
     private String driver = null;
     private String url = null;
     private String usr = null;
@@ -127,20 +126,6 @@ class ConnectionPool implements Closeable {
 			mConnList.clear();
 		}
 		nUsage = 0;
-	}
-
-	@Override
-	public String toString() {
-		return "ConnectionPool{" +
-			"name='" + name + '\'' +
-			", driver='" + driver + '\'' +
-			", url='" + url + '\'' +
-			", usr='" + usr + '\'' +
-			", pwd='" + pwd + '\'' +
-			", nMinConn=" + nMinConn +
-			", nMaxConn=" + nMaxConn +
-			", nWaitDelay=" + nWaitDelay +
-			'}';
 	}
 
 	public static void main(String[] args) throws Exception {

@@ -1,9 +1,7 @@
 package storm_falcon.util.string;
 
-import net.sf.json.JSONObject;
 import storm_falcon.util.StringDataErrorException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -151,7 +149,4 @@ public class StringHelper {
 		return new AbstractMap.SimpleEntry<>(key, value);
 	}
 
-    public static void main(String[] args) throws StringDataErrorException {
-
-	}
 }

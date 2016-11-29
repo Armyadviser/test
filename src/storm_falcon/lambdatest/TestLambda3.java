@@ -17,6 +17,7 @@ import static java.util.stream.Collectors.toList;
  * Created by Storm_Falcon on 2016/6/24.
  *
  */
+@SuppressWarnings("UnusedReturnValue")
 public class TestLambda3 {
 
     //利用map统计数字个数

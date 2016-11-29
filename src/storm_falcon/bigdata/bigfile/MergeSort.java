@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
  *
  */
 public class MergeSort {
-    private File inFile;
+    private final File inFile;
 
-    private String outFile;
+    private final String outFile;
 
-    private String TEMP_FILE_PREFIX = "temp_";
+    private final String TEMP_FILE_PREFIX = "temp_";
 
     private LinkedList<String> mTempFiles;
 
-    private Comparator<? super String> comparator;
+    private final Comparator<? super String> comparator;
 
     private static int nTempFileNum = 0;
 
     /**
      * 输入文件所在目录
      */
-    private String mParentDir;
+    private final String mParentDir;
 
     /**
      * 每个文件数据量

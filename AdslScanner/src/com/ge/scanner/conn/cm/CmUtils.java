@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  */
 public class CmUtils {
 
-	private static Log logger = null;
+	private static final Log logger;
 
 	static {
 		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");

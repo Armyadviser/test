@@ -57,7 +57,7 @@ class FileWriter {
 		}
 	}
 	
-	private static Map mData = new HashMap();
+	private static final Map<String, FileWriter> mData = new HashMap<>();
 	
 	public static synchronized FileWriter getFileWriter(String strFilePath) {
 		
@@ -66,7 +66,7 @@ class FileWriter {
 			return null;
 		}
 
-		FileWriter mFileWriter = (FileWriter)mData.get(strFilePath);
+		FileWriter mFileWriter = mData.get(strFilePath);
 		if (mFileWriter == null) {
 			try {
 				mFileWriter = new FileWriter(strFilePath);

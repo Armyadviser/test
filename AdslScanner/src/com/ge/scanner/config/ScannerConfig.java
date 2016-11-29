@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class ScannerConfig {
 
-	private IniOperation mIni;
+	private final IniOperation mIni;
 
 	private ScannerConfig() {
 		mIni = new IniOperation();

@@ -56,7 +56,7 @@ class FileWriter {
 		}
 	}
 	
-	private static Map<String, FileWriter> mData = new HashMap<>();
+	private static final Map<String, FileWriter> mData = new HashMap<>();
 	
 	public static synchronized FileWriter getFileWriter(String strFilePath) {
 		

@@ -25,9 +25,9 @@ public class SessionDialupThread extends Thread {
 
 	private IniOperation mIni;
 
-	private String section;
+	private final String section;
 
-	private PositionManager positionManager;
+	private final PositionManager positionManager;
 
 	public SessionDialupThread(Properties properties, String section) {
 		initIni();

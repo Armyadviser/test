@@ -121,5 +121,4 @@ public class HtmlHelper {
 		return source.substring(len, source.length() - len);
 	}
 	
-	public static void main(String[] args) {}
 }

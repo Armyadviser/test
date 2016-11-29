@@ -1,7 +1,6 @@
 package com.ge.sms.mob.comm;
 
 import com.ge.sms.mob.struct.OrderResult;
-import com.ge.sms.mob.struct.OrderResult4G;
 import org.apache.http.client.ResponseHandler;
 
 /**

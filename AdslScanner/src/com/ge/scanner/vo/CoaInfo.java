@@ -8,9 +8,9 @@ package com.ge.scanner.vo;
  * support:{AccountObj, login, birthTime}
  */
 public class CoaInfo {
-	public Session session;
-	public Bras bras;
-	public long birthTime;
+	public final Session session;
+	public final Bras bras;
+	public final long birthTime;
 
 	public CoaInfo(Session session, Bras bras) {
 		this.session = session;

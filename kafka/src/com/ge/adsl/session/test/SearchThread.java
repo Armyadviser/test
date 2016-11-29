@@ -15,9 +15,9 @@ import java.util.Properties;
  *
  */
 public class SearchThread extends Thread {
-	private int partition;
-	private Properties properties;
-	private String keyword;
+	private final int partition;
+	private final Properties properties;
+	private final String keyword;
 
 	public SearchThread(int partition, Properties properties, String keyword) {
 		this.partition = partition;

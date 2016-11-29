@@ -6,11 +6,11 @@ import storm_falcon.util.string.StringHelper;
 
 public class UserLocationProcess {
 
-	private FileWriter mWriter = new FileWriter();
+	private final FileWriter mWriter = new FileWriter();
 	
-	private StringBuilder sbException = new StringBuilder();
+	private final StringBuilder sbException = new StringBuilder();
 	
-	public void process() throws Exception {
+	public void process() {
 		FileReader reader = new FileReader();
 		String mInFile = "E:\\Document\\Big Data\\shujudasai_1.csv";
 		reader.open(mInFile);

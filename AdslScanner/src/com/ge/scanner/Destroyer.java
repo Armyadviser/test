@@ -5,7 +5,6 @@ import com.ge.scanner.radius.CoaRequest;
 import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.util.log.Log;
-import org.tinyradius.packet.RadiusPacket;
 
 import java.util.List;
 

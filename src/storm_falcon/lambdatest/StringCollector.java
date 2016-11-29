@@ -1,6 +1,5 @@
 package storm_falcon.lambdatest;
 
-import java.util.AbstractCollection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -48,13 +47,16 @@ public class StringCollector implements Collector {
 
 class StringCombiner {
     public StringCombiner(String delimit, String prefix, String suffix) {
-        
+        System.out.println(delimit + prefix + suffix);
     }
     public void add(String s) {
-
+        System.out.println(s);
     }
     public static StringCombiner merge(StringCombiner s1, StringCombiner s2) {
-        return null;
+        System.out.println(s1);
+        System.out.println(s2);
+        s1.add(s2.toString());
+        return s1;
     }
     public String toString() {
         return null;

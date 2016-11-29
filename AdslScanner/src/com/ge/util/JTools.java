@@ -1,8 +1,6 @@
 package com.ge.util;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,69 +18,6 @@ public class JTools {
 	
 	public static String cvsId = "@(#)$Id: JTools.java,v 1.1 2009/08/17 11:05:47 zhuming Exp $";
 
-	public static String encryptGE(String strSrc) {
-		if ((strSrc == null) || (strSrc.length() == 0)) {
-			return "";
-		}
-	
-		byte[] bySrcs = strSrc.getBytes();
-		
-		String strDes = "";
-
-		for (byte bySrc : bySrcs) {
-			String str = Integer.toString(bySrc, 16);
-			strDes += str;
-		}
-		
-		return strDes;
-	}
-
-	public static String decryptorGE(String strSrc) {
-		
-		byte[] bySrcs = strSrc.getBytes();
-		byte[] byDes = new byte[strSrc.length()/2];
-		
-		for (int i=0; i<bySrcs.length; i+=2) {
-			byte[] byTemp = new byte[2];
-			byTemp[0] = bySrcs[i];
-			byTemp[1] = bySrcs[i+1];
-			String strTemp = new String(byTemp);
-			
-			byDes[i/2] = (byte)Integer.parseInt(strTemp, 16);
-		}
-		return new String(byDes);
-	}
-
-	public static String sendHttpAndGetContent(String strHttp) {
-		StringBuffer getPost = new StringBuffer();
-		try {
-			URL url1 = new URL(strHttp);
-			HttpURLConnection urlc = (HttpURLConnection) url1.openConnection();
-			urlc.setRequestMethod("GET");
-			urlc.setDoOutput(true);
-			urlc.setDoInput(true);
-			urlc.setAllowUserInteraction(false);
-			urlc.setUseCaches(true);
-			DataOutputStream outStream = new DataOutputStream(urlc
-					.getOutputStream());
-			outStream.flush();
-			outStream.close();
-			InputStreamReader in = new InputStreamReader(urlc.getInputStream());
-			int chr = in.read();
-			while (chr != -1) {
-				getPost.append(String.valueOf((char) chr));
-				chr = in.read();
-			}
-			in.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			return "wrong";
-		}
-		return getPost.toString();
-	}
-	
 	public static String strToMD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 				'A', 'B', 'C', 'D', 'E', 'F' };
@@ -110,72 +45,10 @@ public class JTools {
 			return null;
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat(strTimeFormat);//("yyyyMMddHHmmss.SSS");
-			String date = sdf.format(value);
-			return date;
+			return sdf.format(value);
 		}
 	} 
 
-	public static String dateToString18(Date value) {
-		if (value == null) {
-			return null;
-		} else {
-			//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			String date = sdf.format(value);
-			return date;
-		}
-	}
-
-	 /**
-     * @param strSrc 一行数据
-     * @param chFlag 分隔符
-     * @return
-     */
-    public static List parseString2(String strSrc, char chFlag) {
-    	List arr = new ArrayList();
-        if ((strSrc == null) || (strSrc.length() == 0)) {
-            return arr;
-        }
-
-        String strTemp = null;
-        int nStart = 0;
-        int nEnd = strSrc.indexOf(chFlag);
-        while (nEnd != -1) {
-            strTemp = strSrc.substring(nStart, nEnd);
-            arr.add(strTemp);
-
-            nStart = nEnd + 1;
-            nEnd = strSrc.indexOf(chFlag, nStart);
-        }
-
-        if (nStart != -1) {
-            strTemp = strSrc.substring(nStart);
-            arr.add(strTemp);
-        }
-
-        return arr;
-    }
-    
-	public static Date getDateFormat18(String value) {
-		return getDateFormat(value, "yyyyMMddHHmmss.SSS");
-	}
-
-	public static Date getStandardDateByString(String value) {
-		return getDateFormat(value, "yyyyMMddHHmmss");
-	} 
-
-	public static Date getDateFormat(String value, String type) {
-		Date rtndate = null;
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat(type);
-			rtndate = sdf.parse(value);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return rtndate;
-	}
-	
     //以字符串的形式得到当前时间信息
     //strFormat:格式说明
     //例如：yyyyMMddHHmmss
@@ -229,7 +102,7 @@ public class JTools {
 		return dateformat.format(new Date(cal.getTimeInMillis()));
     }
     
-    private static Random sample = new Random();
+    private static final Random sample = new Random();
     public static String getRandomString(int nLen) {
         String strList[] = {
           "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -247,10 +120,8 @@ public class JTools {
 
     public static boolean isFilePath(String strFilePath) {
         File fp = new File(strFilePath);
-        if (fp.isFile())
-            return true;
-        return false;
-    }
+		return fp.isFile();
+	}
 
     public static long getFileSize(String strFilePath) {
         File fp = new File(strFilePath);
@@ -312,12 +183,9 @@ public class JTools {
     private static boolean createAFile(String strFilePath) {
         boolean bRes = false;
         try {
-            File fp = new File(strFilePath);
-            if (fp.isDirectory())
-                bRes = true;
-            else
-                bRes = fp.mkdir();
-        } catch(Exception e) {}
+			File fp = new File(strFilePath);
+			bRes = fp.isDirectory() || fp.mkdir();
+		} catch(Exception ignored) {}
         return bRes;
     }
 
@@ -331,31 +199,6 @@ public class JTools {
             return strFilePath.substring(nStart+1);
 
         return strFilePath.substring(nStart+1, nEnd);
-    }
-
-    public static Vector parseString(String strSrc, char chFlag) {
-        Vector vec = new Vector();
-        if ((strSrc == null) || (strSrc.length() == 0)) {
-            return vec;
-        }
-
-        String strTemp = null;
-        int nStart = 0;
-        int nEnd = strSrc.indexOf(chFlag);
-        while (nEnd != -1) {
-            strTemp = strSrc.substring(nStart, nEnd);
-                vec.add(strTemp);
-
-            nStart = nEnd + 1;
-            nEnd = strSrc.indexOf(chFlag, nStart);
-        }
-
-        if (nStart != -1) {
-            strTemp = strSrc.substring(nStart);
-                vec.add(strTemp);
-        }
-
-        return vec;
     }
 
     public static String format(String strSrc, Vector vec) {
@@ -582,52 +425,9 @@ public class JTools {
     	}
     	return new String(byRes);
     } 
-    
-    public static boolean converUTF8FileToGBKFile(String strUTF8File, String strGBKFile) {
 
-    	try {
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(new FileInputStream(strUTF8File), "UTF8"));
-            Writer out = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(strGBKFile), "GBK"));
-            
-            String str = in.readLine();
-            while (str != null) {
-            	out.write(str);
-            	out.write("\r\n");
-            	str = in.readLine();
-            }
-            in.close();
-            out.close();
-        } catch (UnsupportedEncodingException e) {
-        	return false;
-        } catch (IOException e) {
-        	return false;
-        }
-        
-        return true;
-    }
-    
-    public static boolean renameFileName(String strOldFilePath, String strNewFileName) throws IOException {
-    	InputStream in = new FileInputStream(new File(strOldFilePath));
-        OutputStream out = new FileOutputStream(new File(strNewFileName));
-    
-        // Transfer bytes from in to out
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = in.read(buf)) > 0) {
-            out.write(buf, 0, len);
-        }
-        in.close();
-        out.close();
-        
-        //删除源文件
-        return true;
-    }
-    
     public static boolean deleteFile(String strFile) {
-    	boolean success = (new File(strFile)).delete();
-        return success;
+		return (new File(strFile)).delete();
     } 
 
     public static String getPreDay() {
@@ -659,12 +459,9 @@ public class JTools {
     		return false;
     	}
     	int nPos = strBig.indexOf(strSmall);
-    	if (nPos != -1) {
-    		return true;
-    	}
-    	
-    	return false;
-    }
+		return nPos != -1;
+
+	}
     
     /**
      * 把数字转换成指定长度的串
@@ -783,26 +580,6 @@ public class JTools {
     	return (nEndMonthCount - nBeginMonthCount);
     }
     
-    public static String getBeforeDate8(String strDate8, int nBeforeDay) {
-    	String strYear = strDate8.substring(0, 4);
-    	String strMonth = strDate8.substring(4, 6);
-    	String strDate = strDate8.substring(6, 8);
-        
-    	GregorianCalendar calendar = new GregorianCalendar();
-    	calendar.set(Integer.parseInt(strYear), 
-    			Integer.parseInt(strMonth)-1, 
-    			Integer.parseInt(strDate),
-    			0,
-    			0,
-    			0);
-    	
-		calendar.add(GregorianCalendar.DAY_OF_MONTH, nBeforeDay);
-		
-		DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.US);
-		
-		return format.format(calendar.getTime());
-	}
-    
     public static String ipToRaw(String strIp) {
 		if (strIp == null) {
 			return null;
@@ -810,7 +587,7 @@ public class JTools {
 
 		StringTokenizer st = new StringTokenizer(strIp, ".");
 		
-		StringBuffer strBuf = new StringBuffer();
+		StringBuilder strBuf = new StringBuilder();
 		while (st.hasMoreTokens()) {
 			String token = st.nextToken();
 			int iToken = Integer.parseInt(token);
@@ -825,48 +602,4 @@ public class JTools {
 		
 		return strBuf.toString().toUpperCase();
 	}
-    
-    /**
-	 * 将字符串按照指定字符拆分成字符串数组
-	 * @param strSource 源字符串
-	 * @param chSplit 拆分标记
-	 */
-    public static String[] split(String strSource, char chSplit) {
-		List mList = new ArrayList();
-		int nLocal = strSource.indexOf(chSplit);
-		while (nLocal != -1) {
-			String strItem = strSource.substring(0, nLocal);
-			mList.add(strItem);
-			strSource = strSource.substring(nLocal + 1);
-			nLocal = strSource.indexOf(chSplit);
-		}
-		mList.add(strSource);
-		
-		String[] strRes = new String[mList.size()];
-		for(int i = 0; i < mList.size(); i ++) {
-			strRes[i] = (String) mList.get(i);
-		}
-		return strRes;
-	}
-    
-    public static String byteArrayToHexString(byte[] b) {
-    	StringBuffer sb = new StringBuffer(b.length * 2);
-    	for (int i = 0; i < b.length; i++) {
-    		sb.append("\\X");
-    		int v = b[i] & 0xff;
-    		if (v < 16) {
-    			sb.append('0');
-    		}
-    		sb.append(Integer.toHexString(v));
-    	}
-    	return sb.toString().toUpperCase();
-    }
-    
-    public static List toList(Object[] arrValues) {
-    	List arrRes = new ArrayList();
-		for (int nItem=0; nItem<arrValues.length; nItem++) {
-			arrRes.add(arrValues[nItem]);
-		}
-		return arrRes;
-    }
 }

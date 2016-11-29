@@ -11,9 +11,9 @@ import com.ge.util.file.FileWriter;
  */
 public class Timer extends Thread {
 
-	private WaitSynLinkedList<CoaInfo> mList;
+	private final WaitSynLinkedList<CoaInfo> mList;
 
-	private FileWriter logger;
+	private final FileWriter logger;
 
 	private int mSleep;
 

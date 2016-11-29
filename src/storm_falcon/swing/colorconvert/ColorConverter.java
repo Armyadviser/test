@@ -10,20 +10,20 @@ import java.util.Arrays;
  */
 public class ColorConverter extends JFrame {
 
-    private JTextField mRValue = new JTextField(3);
-    private JTextField mGValue = new JTextField(3);
-    private JTextField mBValue = new JTextField(3);
+    private final JTextField mRValue = new JTextField(3);
+    private final JTextField mGValue = new JTextField(3);
+    private final JTextField mBValue = new JTextField(3);
 
-    private JTextField mRGB = new JTextField(7);
+    private final JTextField mRGB = new JTextField(7);
 
-    private JButton mOct2Hex = new JButton("Convert");
-    private JButton mHex2Oct = new JButton("Convert");
+    private final JButton mOct2Hex = new JButton("Convert");
+    private final JButton mHex2Oct = new JButton("Convert");
 
-    private JPanel mHexShow = new JPanel();
-    private JPanel mOctShow = new JPanel();
+    private final JPanel mHexShow = new JPanel();
+    private final JPanel mOctShow = new JPanel();
 
-    private JTextField mHexRes = new JTextField();
-    private JTextField mOctRes = new JTextField();
+    private final JTextField mHexRes = new JTextField();
+    private final JTextField mOctRes = new JTextField();
 
     public ColorConverter() {
         super("Color Converter");

@@ -7,8 +7,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 /**
@@ -19,7 +17,7 @@ public class SessionProducer extends Handle {
 
     private Producer<String, DialupInfo> producer;
 
-    private String topic;
+    private final String topic;
 
     public SessionProducer(String topic) {
         this.topic = topic;

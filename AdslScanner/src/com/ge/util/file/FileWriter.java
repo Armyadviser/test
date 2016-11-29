@@ -3,6 +3,7 @@ package com.ge.util.file;
 import java.io.*;
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 public class FileWriter {
 
 	private File mFile = null;

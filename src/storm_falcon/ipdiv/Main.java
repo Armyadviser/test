@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Main {
 	
-	private static Map<String, String> mLocalMap = new HashMap<>();
+	private static final Map<String, String> mLocalMap = new HashMap<>();
 	
 	private static void initLocalMap() {
 		mLocalMap.put("沈阳", "sy");

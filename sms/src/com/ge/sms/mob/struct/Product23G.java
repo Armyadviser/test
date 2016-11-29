@@ -4,6 +4,7 @@ package com.ge.sms.mob.struct;
  * Created by Storm_Falcon on 2016/10/27.
  *
  */
+@SuppressWarnings("CanBeFinal")
 public class Product23G {
 
 	/**开通*/

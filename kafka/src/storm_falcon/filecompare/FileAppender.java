@@ -13,10 +13,10 @@ import java.util.function.Function;
  */
 public class FileAppender extends Thread {
 
-	private String path;
-	private String encode;
+	private final String path;
+	private final String encode;
 	private final Set<Object> set;
-	private Function<String, String> function;
+	private final Function<String, String> function;
 
 	public FileAppender(String path, Set<Object> set, Function<String, String> function, String encode) {
 		this.path = path;

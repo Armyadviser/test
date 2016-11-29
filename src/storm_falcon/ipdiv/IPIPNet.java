@@ -20,11 +20,11 @@ public class IPIPNet {
     }
 
     private static int offset;
-    private static int[] index = new int[256];
+    private static final int[] index = new int[256];
     private static ByteBuffer dataBuffer;
     private static ByteBuffer indexBuffer;
     private static File ipFile ;
-    private static ReentrantLock lock = new ReentrantLock();
+    private static final ReentrantLock lock = new ReentrantLock();
 
     public static void load(String filename) {
         ipFile = new File(filename);

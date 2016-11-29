@@ -17,7 +17,7 @@ public class FileHelper {
 	 * @return
 	 */
 	@SuppressWarnings({"UnusedDeclaration"})
-	public static boolean download(String strUrl, String pathToSave) {
+	public static void download(String strUrl, String pathToSave) {
 		try {
 			URL url = new URL(strUrl);
 			URLConnection conn = url.openConnection();
@@ -36,7 +36,6 @@ public class FileHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return true;
 	}
 	
 	/**

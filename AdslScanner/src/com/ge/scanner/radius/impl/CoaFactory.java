@@ -1,16 +1,10 @@
 package com.ge.scanner.radius.impl;
 
-import com.ge.scanner.Scanner;
 import com.ge.scanner.config.ScannerConfig;
 import com.ge.scanner.radius.CoaRequest;
 
-import java.io.InputStream;
-import java.util.AbstractMap;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * Created by Storm_Falcon on 2016/11/10.
@@ -18,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class CoaFactory {
 
-	private Map<String, CoaRequest> instanceMap;
+	private final Map<String, CoaRequest> instanceMap;
 
 	private CoaFactory() {
 		instanceMap = new ConcurrentHashMap<>();

@@ -53,9 +53,6 @@ abstract class BaseNode {
 
     public abstract void setValue(Object value);
 
-    @Nullable
-    public static BaseNode parseXml(String xml) { return null; }
-
     public int getLevel() {
         return mLevel;
     }

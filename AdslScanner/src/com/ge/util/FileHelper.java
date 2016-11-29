@@ -14,6 +14,7 @@ import java.io.OutputStream;
  * @author Administrator
  *
  */
+@SuppressWarnings("UnusedReturnValue")
 public class FileHelper {
 	
 	private static final int INITIAL_SIZE = 1024;
@@ -61,7 +62,6 @@ public class FileHelper {
 	/**
 	 * 检查文件全路径中去除文件名的夹是否存在,如不存在则创建
 	 * @param filePath 文件或文件夹的全路径
-	 * @return
 	 */
 	public static boolean mkdirs(String filePath) {
 		if (StringHelper.isEmpty(filePath)) {

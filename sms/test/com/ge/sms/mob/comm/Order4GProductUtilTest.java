@@ -3,8 +3,6 @@ package com.ge.sms.mob.comm;
 import com.ge.sms.mob.struct.*;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Storm_Falcon on 2016/11/2.
  *

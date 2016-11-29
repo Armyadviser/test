@@ -4,6 +4,7 @@ package com.ge.sms.mob.struct;
  * Created by Storm_Falcon on 2016/10/26.
  *
  */
+@SuppressWarnings("CanBeFinal")
 public class OrderResult23G extends OrderResult {
 	private String respCode;
 	private String effectTime;

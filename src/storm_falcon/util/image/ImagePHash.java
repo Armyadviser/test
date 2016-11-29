@@ -20,7 +20,7 @@ public class ImagePHash {
 	private double[] c;
 	
 	@NotNull
-	private ColorConvertOp colorConvert = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
+	private final ColorConvertOp colorConvert = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
 	
 	public ImagePHash() {
 		initCoefficients();

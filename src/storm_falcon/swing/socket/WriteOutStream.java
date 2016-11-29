@@ -9,11 +9,11 @@ import java.util.Map;
 
 class WriteOutStream extends Thread {
 
-	private List<MySocket> mSocList;
+	private final List<MySocket> mSocList;
 	
-	private Map<Socket, PrintWriter> mWriterMap;
+	private final Map<Socket, PrintWriter> mWriterMap;
 	
-	private MessageContext mContext;
+	private final MessageContext mContext;
 	
 	WriteOutStream(List<MySocket> socketList, MessageContext context) {
 		mSocList = socketList;

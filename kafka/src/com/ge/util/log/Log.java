@@ -11,9 +11,9 @@ import com.ge.util.JTools;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class Log {	
 	
-	protected static int TYPE_AUTOCHANGE_FILENAME = 1;
+	protected static final int TYPE_AUTOCHANGE_FILENAME = 1;
 	
-	protected static int TYPE_NOTCHANGE_FILENAME = 0;
+	protected static final int TYPE_NOTCHANGE_FILENAME = 0;
 	
 	public final static int ONE_DAY_MINUTES = 60 * 24;
 	
@@ -24,7 +24,7 @@ public abstract class Log {
 	 * 		1. 日志路径加切换时间，key为1-Path
 	 * 		2. 日志目录，按日期切换，key为2-Path
 	 */
-	private static Map mLogMap = new HashMap();
+	private static final Map<String, Log> mLogMap = new HashMap<>();
 	
 	/**
 	 * @param strPath		日志文件路径(文件)
@@ -36,7 +36,7 @@ public abstract class Log {
 		}
 		
 		String strPathModeTmp = "0-" + strPath;
-		Log mLog = (Log) mLogMap.get(strPathModeTmp);
+		Log mLog = mLogMap.get(strPathModeTmp);
 		if (mLog != null) {
 			return mLog;
 		}

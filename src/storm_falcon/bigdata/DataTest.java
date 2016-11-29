@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * Created by Storm_Falcon on 2016/4/27.
+ *
  */
 public class DataTest {
 
@@ -52,11 +53,7 @@ public class DataTest {
                 brand = brand.toUpperCase();
                 version = version.toUpperCase();
 
-                Set<String> verSet = phoneMap.get(brand);
-                if (verSet == null) {
-                    verSet = new HashSet<>();
-                    phoneMap.put(brand, verSet);
-                }
+                Set<String> verSet = phoneMap.computeIfAbsent(brand, k -> new HashSet<>());
                 verSet.add(version);
 
             } catch (ArrayIndexOutOfBoundsException e) {

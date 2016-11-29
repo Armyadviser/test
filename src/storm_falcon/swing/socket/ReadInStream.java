@@ -5,9 +5,9 @@ import java.io.InputStreamReader;
 
 class ReadInStream extends Thread {
 
-	private MessageContext mContext;
+	private final MessageContext mContext;
 	
-	private MySocket mSocket;
+	private final MySocket mSocket;
 	
 	ReadInStream(MySocket socket, MessageContext context) {
 		mSocket = socket;

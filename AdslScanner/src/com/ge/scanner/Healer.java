@@ -21,9 +21,9 @@ public class Healer extends Thread {
 	/** every this time, healer will scan the sync pool once. unit:second */
 	private long sleep;
 
-	private CoaFactory factory = CoaFactory.getInstance();
+	private final CoaFactory factory = CoaFactory.getInstance();
 
-	private WaitSynLinkedList<CoaInfo> mSyncList;
+	private final WaitSynLinkedList<CoaInfo> mSyncList;
 
 	public Healer(WaitSynLinkedList<CoaInfo> mSyncList) {
 		this.mSyncList = mSyncList;

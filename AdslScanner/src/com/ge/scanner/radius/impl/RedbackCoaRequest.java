@@ -11,7 +11,7 @@ import org.tinyradius.packet.RadiusPacket;
  */
 class RedbackCoaRequest implements CoaRequest {
 
-	private CoaRequestUtil util = new CoaRequestUtil();
+	private final CoaRequestUtil util = new CoaRequestUtil();
 
 	RedbackCoaRequest() {
 		System.out.println("redback bras");

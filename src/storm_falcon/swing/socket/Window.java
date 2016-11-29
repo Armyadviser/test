@@ -13,8 +13,8 @@ public class Window extends JFrame {
 	private JTextField mInput;
 	private JButton mSend;
 	
-	private String name;
-	private PrintWriter out;
+	private final String name;
+	private final PrintWriter out;
 
 	Window(String name, PrintWriter out) {
 		super(name);
@@ -91,8 +91,5 @@ public class Window extends JFrame {
 	private void sendMsg(String msg) {
 		out.println(msg);
 		out.flush();
-	}
-	
-	public static void main(String[] args) {
 	}
 }

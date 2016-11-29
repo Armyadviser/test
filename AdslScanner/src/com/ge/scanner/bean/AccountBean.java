@@ -2,7 +2,6 @@ package com.ge.scanner.bean;
 
 import com.cp.fields.CpFldMonthHours;
 import com.cp.fields.CpFldSlotS;
-import com.cp.fields.CpFldVlanId;
 import com.ge.scanner.conn.cm.PBaseModule;
 import com.ge.scanner.vo.Account;
 import com.portal.pcm.EBufException;

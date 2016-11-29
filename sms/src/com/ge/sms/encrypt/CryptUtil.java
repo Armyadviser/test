@@ -6,7 +6,6 @@ import sun.misc.BASE64Encoder;
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -65,7 +64,7 @@ public class CryptUtil {
 	 * @throws Exception
 	 */
 
-	public static String encryptBASE64(byte[] key) throws Exception {
+	public static String encryptBASE64(byte[] key) {
 		return (new BASE64Encoder()).encodeBuffer(key);
 	}
 

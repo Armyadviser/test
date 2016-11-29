@@ -20,8 +20,8 @@ class SubPageThread extends Thread {
      *   http://share.dmhy.org/topics/list?keyword=...
      */
     private String url = null;
-    private String torrentName;
-    private AnimeVO mVO;
+    private final String torrentName;
+    private final AnimeVO mVO;
 
     SubPageThread(AnimeVO vo) {
         url = AnimeReptile.HOST + AnimeReptile.SEARCH_URL + vo.keyword;

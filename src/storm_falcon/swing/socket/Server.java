@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Server {
 	
-	private List<MySocket> mSocList;
+	private final List<MySocket> mSocList;
 	
 	private ServerSocket mServer;
 

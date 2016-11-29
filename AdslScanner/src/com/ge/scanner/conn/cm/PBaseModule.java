@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class PBaseModule {
 
-    private static Properties properties;
+    private static final Properties properties;
 
     static {
         ScannerConfig config = ScannerConfig.getInstance();

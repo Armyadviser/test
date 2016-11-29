@@ -1,11 +1,5 @@
 package storm_falcon.streamtest;
 
-import org.apache.kafka.common.serialization.Deserializer;
-import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serializer;
-
-import java.util.Map;
-
 /**
  * Created by Storm_Falcon on 2016/8/16.
  *

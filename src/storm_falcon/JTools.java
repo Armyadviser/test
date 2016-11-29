@@ -46,35 +46,6 @@ import java.util.List;
  */
 public class JTools {
 	
-	public static String httpGet(String strHttp) {
-		StringBuilder getPost = new StringBuilder();
-		try {
-			URL url1 = new URL(strHttp);
-			HttpURLConnection url = (HttpURLConnection) url1.openConnection();
-			url.setRequestMethod("GET");
-			url.setDoOutput(true);
-			url.setDoInput(true);
-			url.setAllowUserInteraction(false);
-			url.setUseCaches(true);
-			DataOutputStream outStream = new DataOutputStream(url
-					.getOutputStream());
-			outStream.flush();
-			outStream.close();
-			InputStreamReader in = new InputStreamReader(url.getInputStream());
-			int chr = in.read();
-			while (chr != -1) {
-				getPost.append(String.valueOf((char) chr));
-				chr = in.read();
-			}
-			in.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return getPost.toString();
-	}
-	
 	public static String MD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 				'A', 'B', 'C', 'D', 'E', 'F' };
@@ -96,54 +67,6 @@ public class JTools {
 		}
 	}
 	
-    public static String getFileSuffix(String filePath) {
-        int nPos = filePath.lastIndexOf('.');
-        if (nPos == -1)
-            return "";
-
-        return filePath.substring(nPos+1).toLowerCase();
-    }
-
-    public static boolean convertUTF8FileToGBKFile(String strUTF8File, String strGBKFile) {
-
-    	try {
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(new FileInputStream(strUTF8File), "UTF8"));
-            Writer out = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(strGBKFile), "GBK"));
-            
-            String str = in.readLine();
-            while (str != null) {
-            	out.write(str);
-            	out.write("\r\n");
-            	str = in.readLine();
-            }
-            in.close();
-            out.close();
-        } catch (UnsupportedEncodingException e) {
-        	return false;
-        } catch (IOException e) {
-        	return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * 把数字转换成指定长度的串
-     * @param nNum
-     * @param nLen
-     * @return
-     */
-    public static String num2FixLengthString(int nNum, int nLen) {
-    	String str = String.valueOf(nNum);
-    	for (int i=str.length(); i<nLen; i++) {
-    		str = '0' + str;
-    	}
-    	
-    	return str;
-    }
-    
     public static byte[] ip2Bytes(String ip) {
 		if (ip == null) {
 			return null;
@@ -194,23 +117,4 @@ public class JTools {
 			).toString();
     }
     
-	public static void main(String[] args) {
-		String url = "https://share.dmhy.org..";
-	    httpGet(url);
-		MD5(url);
-
-		String filePath = "D:/text.txt";
-		getFileSuffix(filePath);
-
-		convertUTF8FileToGBKFile(filePath, "D:/text2.txt");
-		num2FixLengthString(3, 4);
-
-		ip2Bytes("127.0.0.1");
-
-		String[] ss = split(url, ".");
-		System.out.println(Arrays.toString(ss));
-
-		System.out.println(bytesToHexString(url.getBytes()));
-	}
-
 }

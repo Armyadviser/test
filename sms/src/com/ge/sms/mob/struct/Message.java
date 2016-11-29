@@ -10,6 +10,7 @@ import java.util.List;
  * Created by Storm_Falcon on 2016/10/24.
  *
  */
+@SuppressWarnings("CanBeFinal")
 public class Message implements Serializer {
 
 	/**

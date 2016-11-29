@@ -8,7 +8,7 @@ import java.util.List;
 class MessageContext {
 
 	@NotNull
-	private List<String> mList = new ArrayList<>();
+	private final List<String> mList = new ArrayList<>();
 	
 	synchronized void putMessage(String msg) {
 		System.out.println(msg);

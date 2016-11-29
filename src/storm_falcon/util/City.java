@@ -29,15 +29,11 @@ public class City {
 	public static void main(String[] args) {
 		String readPath = "I:\\3003wrong.txt";
 		String writePath = "I:\\3003（添加地市）ｗろんｇ.csv";
-		try {
-			getCity(readPath, writePath);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		getCity(readPath, writePath);
 		System.out.println("完成");
 	}
 	
-	public static void getCity(String readPath, String writePath) throws IOException {
+	public static void getCity(String readPath, String writePath) {
 		String httpUrl = "http://apis.baidu.com/showapi_open_bus/mobile/find";
 		FileReader fr = new FileReader();
 		fr.open(readPath);

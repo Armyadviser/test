@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 public class FileWriter {
 
 	private File mFile = null;

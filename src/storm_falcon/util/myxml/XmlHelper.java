@@ -12,6 +12,7 @@ import java.util.Map;
  * Created by Storm_Falcon on 2015/10/20.
  * myxml helper
  */
+@SuppressWarnings("UnusedReturnValue")
 public class XmlHelper {
 
     private BaseNode root;
@@ -228,17 +229,17 @@ public class XmlHelper {
     }
 
     public static void main(String[] args) throws XmlException {
-//        XmlHelper myxml = new XmlHelper();
-//        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key1"));
-//        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key2"));
-//        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key3"));
-//        myxml.insert("key2", new TextNode("k1", "v1"));
-//        myxml.insert("key2", new TextNode("k2", "v2"));
-//        myxml.insert("key2", new TextNode("k3", "v3"));
-//        myxml.insert("key3", new TextNode("k-1", "v-1"));
-//        myxml.insert("key3", new TextNode("k-2", "v-2"));
-//        System.out.println(myxml.toString());
-//
+        XmlHelper myxml = new XmlHelper();
+        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key1"));
+        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key2"));
+        myxml.insert(XmlProperty.NODE_KEY_DEFAULT, new Node("key3"));
+        myxml.insert("key2", new TextNode("k1", "v1"));
+        myxml.insert("key2", new TextNode("k2", "v2"));
+        myxml.insert("key2", new TextNode("k3", "v3"));
+        myxml.insert("key3", new TextNode("k-1", "v-1"));
+        myxml.insert("key3", new TextNode("k-2", "v-2"));
+        System.out.println(myxml.toString());
+
 //        Map<String, String> subMap = new LinkedHashMap<String, String>();
 //        subMap.put("k1", "v1");
 //        subMap.put("k2", "v2");

@@ -2,8 +2,6 @@ package storm_falcon.ipdiv;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Storm_Falcon on 2016/11/17.
  *

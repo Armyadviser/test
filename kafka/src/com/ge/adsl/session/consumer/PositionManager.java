@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class PositionManager extends Thread {
 	private final Map<String, Map<Integer, Long>> offsets;
 
-	private String pathStart = System.getProperty("user.dir") + File.separatorChar + "StartOffset.ini";
-	private String pathStop = System.getProperty("user.dir") + File.separatorChar + "StopOffset.ini";
+	private final String pathStart = System.getProperty("user.dir") + File.separatorChar + "StartOffset.ini";
+	private final String pathStop = System.getProperty("user.dir") + File.separatorChar + "StopOffset.ini";
 
 	private PositionManager() {
 		offsets = new ConcurrentHashMap<>();

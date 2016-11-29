@@ -2,7 +2,6 @@ package com.ge.sms.mob.comm;
 
 import java.util.Random;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * Created by Storm_Falcon on 2016/11/2.
