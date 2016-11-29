@@ -23,7 +23,8 @@ public class HttpTools {
 			conn.setDoInput(true);
 			conn.setAllowUserInteraction(false);
 			conn.setUseCaches(true);
-			conn.setReadTimeout(2000);
+			conn.setReadTimeout(1000);
+			conn.setConnectTimeout(1000);
 
 			//获得返回输入流
 			InputStreamReader in = new InputStreamReader(conn.getInputStream(), "UTF-8");
