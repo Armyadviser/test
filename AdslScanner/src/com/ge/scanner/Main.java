@@ -10,6 +10,8 @@ import com.ge.util.WaitSynLinkedList;
 public class Main {
 
     public static void main(String[] args) {
+//        System.setProperty("user.dir", "E:\\Code\\IDEAworkspace\\test\\AdslScanner");
+
         WaitSynLinkedList<CoaInfo> syncList = new WaitSynLinkedList<>(500);
 
         Scanner scanner = new Scanner(syncList);
