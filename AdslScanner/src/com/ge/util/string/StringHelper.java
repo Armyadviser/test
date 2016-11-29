@@ -151,4 +151,37 @@ public class StringHelper {
 		return new AbstractMap.SimpleEntry<>(key, value);
 	}
 
+	private StringHelper(){}
+
+	public static boolean isNotEmpty(String string) {
+		return string != null && string.length() > 0;
+	}
+
+	public static boolean isEmpty(String string) {
+		return string == null || string.length() == 0;
+	}
+
+	public static String replaceAll(String src, String old, String replacement) {
+		while (src.contains(old)) {
+			src = src.replace(old, replacement);
+		}
+		return src;
+	}
+
+	/**
+	 * 将MAC地址格式化成简单12位大写字符串
+	 * @param strMac
+	 * @return
+	 */
+	public static String macToSimple(String strMac) {
+		if (strMac == null) {
+			return null;
+		}
+		if (strMac.length() == 12) {
+			return strMac.toUpperCase();
+		}
+		strMac = replaceAll(strMac, ":", "");
+		strMac = replaceAll(strMac, "-", "");
+		return strMac;
+	}
 }
