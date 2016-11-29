@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
@@ -206,26 +205,5 @@ public class FileReader implements Closeable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		String filePath = "E:\\Document\\Big Data\\test_sort_data.txt";
-		FileReader.mapForEach(filePath, (num, e) -> {
-			if (num > 10) {
-				return null;
-			}
-			return e;
-		}).filter(e -> e != null)
-				.collect(Collectors.toList())
-				.forEach(System.out::println);
-
-		FileReader.forEach(filePath, System.out::println);
-
-		long sum = FileReader.mapForEach(
-						filePath,
-						(lineNumber, lineContent) -> lineContent.length()
-				).mapToInt(n -> n)
-				.sum();
-		System.out.println(sum);
 	}
 }

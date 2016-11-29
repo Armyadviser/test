@@ -24,9 +24,7 @@ public class ImageRecognizer {
 
 			for (String oldData : data) {
 				int distance = pHash.distance(oldData, hash);
-				if (distance < level) {
-
-				} else {
+				if (distance >= level) {
 					data.add(hash);
 				}
 			}

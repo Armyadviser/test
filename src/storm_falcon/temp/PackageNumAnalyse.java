@@ -26,11 +26,11 @@ public class PackageNumAnalyse {
 
         while (mReader.hasNext()) {
             String line = mReader.getLine();
-            String sTime = "";
+            String sTime;
             if (line.contains("2015") && line.length() == 18) {
                 sTime = line.substring(0, line.indexOf("."));
                 long lTime = Long.parseLong(sTime);
-                if (lTime < 20150928000000l || lTime > 20151010230000l) {
+                if (lTime < 20150928000000L || lTime > 20151010230000L) {
                     continue;
                 }
 

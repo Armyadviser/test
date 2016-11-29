@@ -64,7 +64,7 @@ public class MergeSort {
         FileWriter writer = new FileWriter();
         for (String fileName : mTempFiles) {
             List<String> list = FileReader.mapForEach(fileName).collect(Collectors.toList());
-            Collections.sort(list, comparator);
+            list.sort(comparator);
             writer.writeAll(fileName, list);
         }
     }

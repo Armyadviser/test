@@ -15,12 +15,7 @@ public class DateHelper {
     private final static Map<String, DateFormat> FORMATTER = new ConcurrentHashMap<>();
 
     private static DateFormat getFormatter(String format) {
-        DateFormat formatter = FORMATTER.get(format);
-		if (formatter == null) {
-			formatter = new SimpleDateFormat(format);
-			FORMATTER.put(format, formatter);
-		}
-        return formatter;
+		return FORMATTER.computeIfAbsent(format, k -> new SimpleDateFormat(format));
     }
 
     public static synchronized String getTimestamp(String format) {

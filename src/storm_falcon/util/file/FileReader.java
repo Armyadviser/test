@@ -207,24 +207,4 @@ public class FileReader implements Closeable {
 		}
 	}
 
-	public static void main(String[] args) {
-		String filePath = "E:\\Document\\Big Data\\shujudasai_1.csv";
-//		FileReader.mapForEach(filePath, (num, e) -> {
-//			if (num > 10) {
-//				return null;
-//			}
-//			return e;
-//		}).filter(e -> e != null)
-//				.collect(Collectors.toList())
-//				.forEach(System.out::println);
-//
-//		FileReader.forEach(filePath, System.out::println);
-
-		long sum = FileReader.mapForEach(
-						filePath,
-						(lineNumber, lineContent) -> lineContent.length()
-				).mapToInt(n -> n)
-				.sum();
-		System.out.println(sum);
-	}
 }

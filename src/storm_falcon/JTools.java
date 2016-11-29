@@ -1,39 +1,10 @@
-/**
- *  Change Log:
- *
- *    $Log: JTools.java,v $
- *    Revision 1.1  2009/08/17 11:05:47  zhuming
- *    v1.0 apply at 20090817
- *
- *    Revision 1.1  2009/07/31 08:21:09  zhuming
- *    *** empty log message ***
- *
- *    Revision 1.1  2008/02/27 08:12:42  gesoft
- *    *** empty log message ***
- *
- *    Revision 1.1  2008/01/11 06:05:04  yuhl
- *    *** empty log message ***
- *
- *    Revision 1.18  2007/10/10 07:46:13  yuhl
- *    *** empty log message ***
- *
- *    Revision 1.17  2007/10/10 07:44:48  yuhl
- *    dfddd
- *
- *    Revision 1.12  2007/10/10 07:41:53  hanyu
- *    *** empty log message ***
- *
- */
+
 package storm_falcon;
 
-import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

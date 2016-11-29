@@ -190,9 +190,7 @@ public class FileHelper {
 						}
 						return null;
 					})
-					.forEach(chnl -> {
-						append(chnl, channel);
-					});
+					.forEach(channel1 -> append(channel1, channel));
 
 		} catch (Exception e) {
 			e.printStackTrace();

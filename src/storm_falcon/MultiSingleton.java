@@ -13,22 +13,13 @@ public class MultiSingleton {
 	private MultiSingleton() {}
 
 	public synchronized static MultiSingleton getInstance(String id) {
-		MultiSingleton instance = mMap.get(id);
-		if (instance == null) {
-			instance = new MultiSingleton();
-			mMap.put(id, instance);
-		}
-		return instance;
+		return mMap.computeIfAbsent(id, k -> new MultiSingleton());
 	}
 
 	public static MultiSingleton getInstance2(String id) {
 		MultiSingleton instance;
 		synchronized (mMap) {
-			instance = mMap.get(id);
-			if (instance == null) {
-				instance = new MultiSingleton();
-				mMap.put(id, instance);
-			}
+			instance = mMap.computeIfAbsent(id, k -> new MultiSingleton());
 		}
 		return instance;
 	}

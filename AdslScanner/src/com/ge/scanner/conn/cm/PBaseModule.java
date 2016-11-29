@@ -69,7 +69,7 @@ public class PBaseModule {
             return 0;
         }
 
-        long nCurrentDB = 0;
+        long nCurrentDB;
         try {
             nCurrentDB = conn.getCurrentDB();
         } finally {

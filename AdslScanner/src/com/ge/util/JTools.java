@@ -16,8 +16,6 @@ import java.util.*;
  */
 public class JTools {
 	
-	public static String cvsId = "@(#)$Id: JTools.java,v 1.1 2009/08/17 11:05:47 zhuming Exp $";
-
 	public static String strToMD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 				'A', 'B', 'C', 'D', 'E', 'F' };
@@ -29,8 +27,7 @@ public class JTools {
 			int j = md.length;
 			char str[] = new char[j * 2];
 			int k = 0;
-			for (int i = 0; i < j; i++) {
-				byte byte0 = md[i];
+			for (byte byte0 : md) {
 				str[k++] = hexDigits[byte0 >>> 4 & 0xf];
 				str[k++] = hexDigits[byte0 & 0xf];
 			}
@@ -91,7 +88,7 @@ public class JTools {
     }
     
     public static String getZeroTime14() {
-    	SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmss");
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
     	GregorianCalendar cal = new GregorianCalendar();
 
@@ -99,7 +96,7 @@ public class JTools {
 		cal.set(GregorianCalendar.MINUTE, 0);
 		cal.set(GregorianCalendar.SECOND, 0);
 		
-		return dateformat.format(new Date(cal.getTimeInMillis()));
+		return dateFormat.format(new Date(cal.getTimeInMillis()));
     }
     
     private static final Random sample = new Random();
@@ -107,7 +104,7 @@ public class JTools {
         String strList[] = {
           "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-        int nRandomRes = 0;
+        int nRandomRes;
         String strRes = "";
 
         for (int i = 0; i < nLen; i++) {
@@ -209,8 +206,8 @@ public class JTools {
             return strSrc;
 
         String strFlag = "%";
-        StringBuffer strRes = new StringBuffer();
-        int nItem = 0, nStart = 0,
+        StringBuilder strRes = new StringBuilder();
+        int nItem, nStart = 0,
             nEnd = strSrc.indexOf(strFlag),
             nLen = vec.size(), nFlagLen = strFlag.length()+1;
 
@@ -239,99 +236,6 @@ public class JTools {
       return strRes.toString();
   }
 
-    //  传入数据格式:YYYYMM***
-    // add 20061009 20:40
-    /**
-     * nAfterMonth个月后的日期
-     * 如果strDate为月中,到月底算是一个月,
-     * 例如:	strDate:20061015221000		nAfterMonth:2
-     * 	结果;		20061130221000
-     * @param strStartDate			//开始时间
-     * @param nValidPeriodType		//订购周期类型(0.秒;1.分;2.小时;3.日;4.月)
-     * @param nValidPeriod			//订购周期
-     * @param nTimeType				//计费方式(0.按时间正常偏移;1.时间偏移到月底)
-     * @return
-     */
-    public static String getAfterMonth(String strStartDate, 
-    		int nValidPeriodType, int nValidPeriod, int nTimeType) {
-
-    	String strYear = strStartDate.substring(0, 4);
-    	String strMonth = strStartDate.substring(4, 6);
-    	String strDate = strStartDate.substring(6, 8);
-    	String strHour = strStartDate.substring(8, 10);
-    	String strMinute = strStartDate.substring(10, 12);
-    	String strSecond = strStartDate.substring(12, 14);
-        
-    	GregorianCalendar cal = new GregorianCalendar();
-    	cal.set(Integer.parseInt(strYear), 
-    			Integer.parseInt(strMonth)-1, 
-    			Integer.parseInt(strDate),
-    			Integer.parseInt(strHour),
-    			Integer.parseInt(strMinute),
-    			Integer.parseInt(strSecond));
-
-    	//包月并且时间偏移到月底
-    	if ((nValidPeriodType == 4) && (nTimeType == 1)) {
-    		cal.add(GregorianCalendar.MONDAY, nValidPeriod);
-    		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
-    		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
-    		cal.set(GregorianCalendar.MINUTE, 0);
-    		cal.set(GregorianCalendar.SECOND, 0);
-    		cal.add(GregorianCalendar.SECOND, -1);
-    	}
-    	
-    	else if (nTimeType == 0) {
-    		//秒
-    		if (nValidPeriodType == 0) {
-    			cal.add(GregorianCalendar.SECOND, nValidPeriod);
-    		}
-    		//分
-    		else if (nValidPeriodType == 1) {
-        		cal.add(GregorianCalendar.MINUTE, nValidPeriod);
-        	}
-    		//小时
-    		else if (nValidPeriodType == 2) {
-        		cal.add(GregorianCalendar.HOUR_OF_DAY, nValidPeriod);
-        	}
-    		//日
-    		else if (nValidPeriodType == 3) {
-        		cal.add(GregorianCalendar.DAY_OF_MONTH, nValidPeriod);
-        	}
-    		//月
-    		else if (nValidPeriodType == 4) {
-        		cal.add(GregorianCalendar.MONDAY, nValidPeriod);
-        	}
-    	}
-		
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmss");
-		return dateformat.format(new Date(cal.getTimeInMillis()));
-    }
-    
-    /**
-     * 得到下一个月的月首日期
-     * @param strDate
-     * @return
-     */
-    public static String getNextMonthFirstDay(String strDate) {
-    	SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-    	String strYear 	= strDate.substring(0, 4);
-    	String strMonth = strDate.substring(4, 6);
-    	String strDay 	= strDate.substring(6, 8);
-    	
-    	GregorianCalendar cal = new GregorianCalendar();
-		cal.set(Integer.parseInt(strYear), 
-				Integer.parseInt(strMonth)-1,
-				Integer.parseInt(strDay));
-
-		cal.add(GregorianCalendar.MONDAY, 1);
-		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
-		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
-		cal.set(GregorianCalendar.MINUTE, 0);
-		cal.set(GregorianCalendar.SECOND, 0);
-		
-		return dateformat.format(new Date(cal.getTimeInMillis()));
-    }
     /**
 	 * 判读是否为闰年
 	 * @param nThisYear
@@ -341,19 +245,6 @@ public class JTools {
 		return(((nThisYear%4==0) && (nThisYear%100!=0)) || (nThisYear%400==0));
 	}
 
-//    public static String strChange(String str) {
-//        StringBuffer s = new StringBuffer();
-//        try {
-//            byte[] bys = str.getBytes();
-//            sun.io.ByteToCharConverter cover =
-//                sun.io.ByteToCharConverter.getConverter("UTF-8");
-//            char[] chs = cover.convertAll(bys);
-//            for (int i = 0; i < chs.length; i++)
-//                s.append(chs[i]);
-//        } catch (Exception e) {}
-//        return s.toString();
-//    }
-	
 	public static String strChange(String str) {
 		byte[] data = str.getBytes();
 		try {
@@ -364,13 +255,6 @@ public class JTools {
 		return "";
 	}
 
-    //让毫秒只占两位
-    //例如:20061009000000.000
-    //转换成:20061009000000.00
-    public static String filtTimeFormat(String strTime) {
-    	return strTime;
-    }
-    
     public static String addTimeFormat(String strTime) {
     	int nPos = strTime.indexOf('.');
     	if (nPos == -1) {
@@ -378,24 +262,6 @@ public class JTools {
     	}
     	strTime = strTime + "0";
     	return strTime;
-    }
-    
-    /**
-     * 取得下一个月的开始时间
-     * 例如:当前日期:2006-10-17
-     * 返回值:2006-11-01 00:00:00
-     * @return
-     */
-    public static long getNextMonthStartTimeLong() {
-    	GregorianCalendar cal = new GregorianCalendar();
-		cal.setTime(new Date());
-		cal.add(GregorianCalendar.MONDAY, 1);
-		cal.set(GregorianCalendar.DAY_OF_MONTH, 1);
-		cal.set(GregorianCalendar.HOUR_OF_DAY, 0);
-		cal.set(GregorianCalendar.MINUTE, 0);
-		cal.set(GregorianCalendar.SECOND, 0);
-		
-		return cal.getTimeInMillis();
     }
     
     public static String fillStringToOrderLen(String strSrc, int nLen) {
@@ -417,12 +283,12 @@ public class JTools {
     	byte[] byRes = new byte[bys.length];
 
     	int nNum = 0;
-    	for (int i=0; i<bys.length; i++) {
-    		if ((bys[i] != 0x0A) && (bys[i] != 0x0D)) {
-    			byRes[nNum] = bys[i];
-    			nNum++;
-    		}
-    	}
+		for (byte by : bys) {
+			if ((by != 0x0A) && (by != 0x0D)) {
+				byRes[nNum] = by;
+				nNum++;
+			}
+		}
     	return new String(byRes);
     } 
 
@@ -497,70 +363,6 @@ public class JTools {
 		return format.format(now);
 	}
     
-    public static String getBeforeDate(String strDate14, int nBeforeDay) {
-    	String strYear = strDate14.substring(0, 4);
-    	String strMonth = strDate14.substring(4, 6);
-    	String strDate = strDate14.substring(6, 8);
-    	String strHour = strDate14.substring(8, 10);
-    	String strMinute = strDate14.substring(10, 12);
-    	String strSecond = strDate14.substring(12, 14);
-        
-    	GregorianCalendar calendar = new GregorianCalendar();
-    	calendar.set(Integer.parseInt(strYear), 
-    			Integer.parseInt(strMonth)-1, 
-    			Integer.parseInt(strDate),
-    			Integer.parseInt(strHour),
-    			Integer.parseInt(strMinute),
-    			Integer.parseInt(strSecond));
-    	
-		calendar.add(GregorianCalendar.DAY_OF_MONTH, nBeforeDay);
-		
-		DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-		
-		return format.format(calendar.getTime());
-	}
-    
-    public static String getBeforeDate(String strDate14, int nBeforeDay, String strTimeFormat) {
-    	String strYear = strDate14.substring(0, 4);
-    	String strMonth = strDate14.substring(4, 6);
-    	String strDate = strDate14.substring(6, 8);
-    	String strHour = strDate14.substring(8, 10);
-    	String strMinute = strDate14.substring(10, 12);
-    	String strSecond = strDate14.substring(12, 14);
-        
-    	GregorianCalendar calendar = new GregorianCalendar();
-    	calendar.set(Integer.parseInt(strYear), 
-    			Integer.parseInt(strMonth)-1, 
-    			Integer.parseInt(strDate),
-    			Integer.parseInt(strHour),
-    			Integer.parseInt(strMinute),
-    			Integer.parseInt(strSecond));
-    	
-		calendar.add(GregorianCalendar.DAY_OF_MONTH, nBeforeDay);
-		
-		DateFormat format = new SimpleDateFormat(strTimeFormat, Locale.US);
-		
-		return format.format(calendar.getTime());
-	}
-    
-    public static long coverDate18ToInfranet(String strDate18) {
-    	if ((strDate18 == null) || (strDate18.length() != 18)) {
-    		return -1;
-    	}
-    	
-		long nDateInfranet = -1;
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
-			Date dateInfranet = sdf.parse(strDate18);
-			nDateInfranet = dateInfranet.getTime();
-			nDateInfranet = nDateInfranet / 1000;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return nDateInfranet;
-    }
- 
     public static long subBetweenMonth(String strBeginTime, String strEndTime) {
     	if ((strBeginTime == null) || (strBeginTime.length() < 6)) {
     		return 0;

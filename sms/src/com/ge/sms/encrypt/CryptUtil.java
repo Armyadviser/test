@@ -200,11 +200,11 @@ public class CryptUtil {
 		// 创建一个密匙工厂，然后用它把DESKeySpec对象转换成
 		// 一个SecretKey对象
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
-		SecretKey securekey = keyFactory.generateSecret(dks);
+		SecretKey secureKey = keyFactory.generateSecret(dks);
 		// Cipher对象实际完成解密操作
 		Cipher cipher = Cipher.getInstance(ALGORITHM);
 		// 用密匙初始化Cipher对象
-		cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+		cipher.init(Cipher.DECRYPT_MODE, secureKey, sr);
 		// 现在，获取数据并解密
 		// 正式执行解密操作
 		return cipher.doFinal(data);
@@ -237,13 +237,13 @@ public class CryptUtil {
 
 	public static String byte2hex(byte[] b) {
 		String hs = "";
-		String stmp;
+		String ss;
 		for (byte aB : b) {
-			stmp = (Integer.toHexString(aB & 0XFF));
-			if (stmp.length() == 1)
-				hs = hs + "0" + stmp;
+			ss = (Integer.toHexString(aB & 0XFF));
+			if (ss.length() == 1)
+				hs = hs + "0" + ss;
 			else
-				hs = hs + stmp;
+				hs = hs + ss;
 		}
 		return hs.toUpperCase();
 	}
@@ -256,11 +256,11 @@ public class CryptUtil {
 		// 创建一个密匙工厂，然后用它把DESKeySpec转换成
 		// 一个SecretKey对象
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
-		SecretKey securekey = keyFactory.generateSecret(dks);
+		SecretKey secretKey = keyFactory.generateSecret(dks);
 		// Cipher对象实际完成加密操作
 		Cipher cipher = Cipher.getInstance(ALGORITHM);
 		// 用密匙初始化Cipher对象
-		cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
+		cipher.init(Cipher.ENCRYPT_MODE, secretKey, sr);
 		// 现在，获取数据并加密
 		// 正式执行加密操作
 		return cipher.doFinal(data);
@@ -271,9 +271,9 @@ public class CryptUtil {
 		// 添加要进行加密的信息
 		md5.update(vars.getBytes("UTF-8"));
 		// 开始进行加密
-		byte[] digesta = md5.digest();
+		byte[] digest = md5.digest();
 		BASE64Encoder base64 = new BASE64Encoder();
-		return base64.encode(digesta);
+		return base64.encode(digest);
 	}
 
 	public static String getSHA(String vars) throws Exception {
@@ -282,15 +282,15 @@ public class CryptUtil {
 		// 添加要进行加密的信息
 		md5.update(vars.getBytes("UTF-8"));
 		// 开始进行加密
-		byte[] digesta = md5.digest();
+		byte[] digest = md5.digest();
 		BASE64Encoder base64 = new BASE64Encoder();
-		return base64.encode(digesta);
+		return base64.encode(digest);
 	}
 
 	
 	public static void main(String[] args) {
 		try {
-			String s = "syscc";
+			String s = "sys";
 			byte[] c;
 			/*String b = com.ge.sms.encrypt.CryptUtil.encryptBASE64(s.getBytes("UTF-8"));
 			System.out.println("BASE64加密后:" + b);
@@ -309,7 +309,7 @@ public class CryptUtil {
 			 */
 			String key = "CY9rzUYh03PK3k6DJie09g==";
 			System.out.println(ALGORITHM + "密钥:\t" + key);
-			String md5Password = "syscc";
+			String md5Password = "sys";
 			String str = encrypt(md5Password,key);
 			System.out.println("str:"+str);
 			str = decrypt(str,key);

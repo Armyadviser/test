@@ -71,7 +71,7 @@ public abstract class Log {
 		}
 		
 		String strPathModeTmp = "1-" + strPath;
-		Log mLog = (Log) mLogMap.get(strPathModeTmp);
+		Log mLog = mLogMap.get(strPathModeTmp);
 		if (mLog != null) {
 			return mLog;
 		}
@@ -111,7 +111,7 @@ public abstract class Log {
 		}
 		
 		String strPathModeTmp = "2-" + strPath;
-		Log mLog = (Log) mLogMap.get(strPathModeTmp);
+		Log mLog = mLogMap.get(strPathModeTmp);
 		if (mLog != null) {
 			return mLog;
 		}

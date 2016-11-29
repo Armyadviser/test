@@ -281,13 +281,10 @@ public class TreatedData {
 
 		Set<String> set = locList.stream().map(Location::toString).collect(Collectors.toSet());
 
-		List<Location> resList = new ArrayList<>();
-		for (String s : set) {
-			String[] ss = s.split(",");
-			resList.add(new Location(Double.parseDouble(ss[0]), Double.parseDouble(ss[1])));
-		}
-
-		return resList;
+		return set.stream()
+			.map(s -> s.split(","))
+			.map(ss -> new Location(Double.parseDouble(ss[0]), Double.parseDouble(ss[1])))
+			.collect(Collectors.toList());
 	}
 	
 	public String toString() {

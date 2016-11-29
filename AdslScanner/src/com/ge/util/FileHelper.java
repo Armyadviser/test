@@ -67,26 +67,23 @@ public class FileHelper {
 		if (StringHelper.isEmpty(filePath)) {
 			return false;
 		}
-		
-		String foderPath = null;
-		
+
+		String folderPath;
+
 		if (filePath.endsWith(File.separator)) {
-			foderPath = filePath;
+			folderPath = filePath;
 		} else {
 			int endPoint = filePath.lastIndexOf(File.separator);
 			if (endPoint == -1) {
 				return false;
 			}
 
-			foderPath = filePath.substring(0, endPoint);
+			folderPath = filePath.substring(0, endPoint);
 		}
 
-		File file = new File(foderPath);
-		if (!file.exists()) {
-			return file.mkdirs();
-		}
-		
-		return false;
+		File file = new File(folderPath);
+		return !file.exists() && file.mkdirs();
+
 	}
 	
 	/**
@@ -158,17 +155,17 @@ public class FileHelper {
 			strNewFilePathTemp += File.separator;
 		}
 
-		for (int i = 0; i < strFileNameList.length; i++) {	
-			
-			String strOldFileName = strOldFilePathTemp + strFileNameList[i];
+		for (String aStrFileNameList : strFileNameList) {
+
+			String strOldFileName = strOldFilePathTemp + aStrFileNameList;
 			if (new File(strOldFileName).isDirectory()) {
 				continue;
 			}
-			
-			String strFileBackUpName = strNewFilePathTemp + strFileNameList[i];
+
+			String strFileBackUpName = strNewFilePathTemp + aStrFileNameList;
 
 			FileHelper.cp(strOldFileName, strFileBackUpName);
-			
+
 			System.out.println(strOldFileName + " -> " + strFileBackUpName);
 		}
 		
@@ -214,17 +211,19 @@ public class FileHelper {
 
 	    try {
 	    	File[] fps = fp.listFiles();
-	    	for (int i=0; i<fps.length; i++) {
-	    		File fpTemp = fps[i];
-	    		if (fpTemp.isFile()) {
-	    			fpTemp.delete();
-	    			continue;
-	    		}
-	    		
-	    		if (fpTemp.isDirectory()) {
-	    			delFolder(fpTemp.getAbsolutePath());
-	    		}
-	    	}
+	    	if (fps == null) {
+	    		return false;
+			}
+			for (File fpTemp : fps) {
+				if (fpTemp.isFile()) {
+					fpTemp.delete();
+					continue;
+				}
+
+				if (fpTemp.isDirectory()) {
+					delFolder(fpTemp.getAbsolutePath());
+				}
+			}
 	        
 	    	fp.delete();
 	    } catch (Exception e) {
@@ -241,29 +240,26 @@ public class FileHelper {
 	* @param newFileName 新文件名
 	* @return 
 	*/ 
-	public static boolean renameFile(String oldFileName, String newFileName){   
+	public static boolean renameFile(String oldFileName, String newFileName) {
 		if (StringHelper.isEmpty(oldFileName)) {
 			return false;
 		}
 		if (StringHelper.isEmpty(newFileName)) {
 			return false;
 		}
-		
-	    if (oldFileName.equals(newFileName)) {
-	    	return false;
-	    }
-	    
-	    File oldfile = new File(oldFileName);
-        if (!oldfile.exists() || oldfile.isDirectory()) { 
-            return false;
-        }
-        
-        File newfile = new File(newFileName);   
-        if (newfile.exists() || newfile.isDirectory()) { 
-            return false;
-        }
 
-        return oldfile.renameTo(newfile);     
+		if (oldFileName.equals(newFileName)) {
+			return false;
+		}
+
+		File oldFile = new File(oldFileName);
+		if (!oldFile.exists() || oldFile.isDirectory()) {
+			return false;
+		}
+
+		File newFile = new File(newFileName);
+		return !(newFile.exists() || newFile.isDirectory()) && oldFile.renameTo(newFile);
+
 	}
 	
 	/**
@@ -312,20 +308,4 @@ public class FileHelper {
 		return file;
 	}
 	
-	public static void main(String[] args) {
-		String[] arr = FileHelper.ls("c:\\");
-		for (int i=0; i<arr.length; i++) {
-			System.out.println(arr[i]);
-		}
-		
-		//FileHelper.mkdirs("c:\\1\\2\\3\\4\\5.txt");
-		
-		//FileHelper.cp("c:\\1\\2\\3\\4\\5.txt", "c:\\1\\2\\3\\4\\6.txt");
-		
-		//FileHelper.fileCopy("c:\\1\\2\\3\\4", "c:\\1\\2\\3\\5");
-		
-		//System.out.println(FileHelper.rm("c:\\1\\2\\3\\4\\5.txt"));
-		
-		System.out.println(FileHelper.delFolder("c:\\1\\2\\3\\4"));
-	}
 }

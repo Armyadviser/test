@@ -71,26 +71,24 @@ public abstract class Log {
 		}
 		
 		String strPathModeTmp = "1-" + strPath;
-		Log mLog = (Log) mLogMap.get(strPathModeTmp);
+		Log mLog = mLogMap.get(strPathModeTmp);
 		if (mLog != null) {
 			return mLog;
 		}
 		
 		final Log mLogTmp = new LocalLog(strPath, TYPE_AUTOCHANGE_FILENAME, strPostfix);
 		
-		Thread mThread = new Thread() {
-			public void run() {
-				long nSleepT = nTime * 60 * 1000;
-				
-				while (mLogTmp.bRunThread) {
-					try {
-						Thread.sleep(nSleepT);
-					} catch (InterruptedException ignored) {
-					}
-					mLogTmp.bChangeFileName = true;
+		Thread mThread = new Thread(() -> {
+			long nSleepT = nTime * 60 * 1000;
+
+			while (mLogTmp.bRunThread) {
+				try {
+					Thread.sleep(nSleepT);
+				} catch (InterruptedException ignored) {
 				}
+				mLogTmp.bChangeFileName = true;
 			}
-		};
+		});
 		
 		mThread.start();
 		
@@ -111,54 +109,52 @@ public abstract class Log {
 		}
 		
 		String strPathModeTmp = "2-" + strPath;
-		Log mLog = (Log) mLogMap.get(strPathModeTmp);
+		Log mLog = mLogMap.get(strPathModeTmp);
 		if (mLog != null) {
 			return mLog;
 		}
 		
 		final Log mLogTmp = new LocalLog(strPath, "yyyy-MM-dd", TYPE_AUTOCHANGE_FILENAME);
 		
-		Thread mThread = new Thread() {
-			public void run() {
-				while (mLogTmp.bRunThread) {
-					
-					String strStartD = JTools.getSysTimeStr("yyyy-MM-dd");
-					
-					long nStart = System.currentTimeMillis();
-					
-					GregorianCalendar calendar = new GregorianCalendar(Locale.US);
-					calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
-					calendar.set(GregorianCalendar.HOUR_OF_DAY, 0);
-					calendar.set(GregorianCalendar.MINUTE, 0);
-					calendar.set(GregorianCalendar.SECOND, 0);
-					calendar.set(GregorianCalendar.MILLISECOND, 0);
-					Date dateEnd = calendar.getTime();
-					
-					long nEnd = dateEnd.getTime();
-					
-					long nSleepT = nEnd - nStart;
+		Thread mThread = new Thread(() -> {
+			while (mLogTmp.bRunThread) {
+
+				String strStartD = JTools.getSysTimeStr("yyyy-MM-dd");
+
+				long nStart = System.currentTimeMillis();
+
+				GregorianCalendar calendar = new GregorianCalendar(Locale.US);
+				calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+				calendar.set(GregorianCalendar.HOUR_OF_DAY, 0);
+				calendar.set(GregorianCalendar.MINUTE, 0);
+				calendar.set(GregorianCalendar.SECOND, 0);
+				calendar.set(GregorianCalendar.MILLISECOND, 0);
+				Date dateEnd = calendar.getTime();
+
+				long nEnd = dateEnd.getTime();
+
+				long nSleepT = nEnd - nStart;
+				try {
+					Thread.sleep(nSleepT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				String strStopD = JTools.getSysTimeStr("yyyy-MM-dd");
+				while (strStartD.equals(strStopD)) {
+
 					try {
-						Thread.sleep(nSleepT);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					
-					String strStopD = JTools.getSysTimeStr("yyyy-MM-dd");
-					while (strStartD.equals(strStopD)) {
-						
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						
-						strStopD = JTools.getSysTimeStr("yyyy-MM-dd");
-					}
 
-					mLogTmp.bChangeFileName = true;
+					strStopD = JTools.getSysTimeStr("yyyy-MM-dd");
 				}
+
+				mLogTmp.bChangeFileName = true;
 			}
-		};
+		});
 		
 		mThread.start();
 		

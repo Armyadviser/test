@@ -5,7 +5,6 @@ import storm_falcon.util.file.FileWriter;
 import storm_falcon.util.string.StringHelper;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -69,31 +68,29 @@ public class City {
 	 * @return 返回结果
 	 */
 	public static String request(String httpUrl, String httpArg) {
-	    BufferedReader reader = null;
-	    String result = null;
-	    StringBuffer sbf = new StringBuffer();
-	    httpUrl = httpUrl + "?" + httpArg;
 
-	    try {
-	        URL url = new URL(httpUrl);
-	        HttpURLConnection connection = (HttpURLConnection) url
+		try {
+			httpUrl = httpUrl + "?" + httpArg;
+			URL url = new URL(httpUrl);
+			HttpURLConnection connection = (HttpURLConnection) url
 	                .openConnection();
-	        connection.setRequestMethod("GET");
-	        // 填入apikey到HTTP header
-	        connection.setRequestProperty("apikey",  "ae1013cc1ead9ee1732d2edb2a9dbdca");
-	        connection.connect();
-	        InputStream is = connection.getInputStream();
-	        reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-	        String strRead = null;
-	        while ((strRead = reader.readLine()) != null) {
-	            sbf.append(strRead);
-	            sbf.append("\r\n");
-	        }
-	        reader.close();
-	        result = sbf.toString();
+			connection.setRequestMethod("GET");
+			// 填入apikey到HTTP header
+			connection.setRequestProperty("apikey",  "ae1013cc1ead9ee1732d2edb2a9dbdca");
+			connection.connect();
+			InputStream is = connection.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			String strRead;
+			StringBuilder sbf = new StringBuilder();
+			while ((strRead = reader.readLine()) != null) {
+				sbf.append(strRead);
+				sbf.append("\r\n");
+			}
+			reader.close();
+			return sbf.toString();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return result;
+	    return "";
 	}
 }

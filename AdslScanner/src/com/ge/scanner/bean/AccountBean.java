@@ -62,13 +62,13 @@ public class AccountBean {
 		in.setElement(FldArgs.getInst(), 1, args1);
 		in.setElement(FldArgs.getInst(), 3, args2);
 
-		FList servIp = new FList();
-		servIp.set(CpFldSlotS.getInst());
+		FList serviceIp = new FList();
+		serviceIp.set(CpFldSlotS.getInst());
 
 		FList result = new FList();
 		result.set(FldPoid.getInst());
 		result.set(FldLogin.getInst());
-		result.set(FldServiceIp.getInst(), servIp);
+		result.set(FldServiceIp.getInst(), serviceIp);
 		in.setElement(FldResults.getInst(), 400, result);
 
 		return in;
@@ -84,8 +84,8 @@ public class AccountBean {
 			account.poid = poid;
 			account.login = flist.get(FldLogin.getInst());
 
-			FList servIp = flist.get(FldServiceIp.getInst());
-			String slotS = servIp.get(CpFldSlotS.getInst());
+			FList serviceIp = flist.get(FldServiceIp.getInst());
+			String slotS = serviceIp.get(CpFldSlotS.getInst());
 			if (slotS != null && slotS.length() != 0) {
 				String[] item = slotS.split(",");
 				if (item.length == 3) {

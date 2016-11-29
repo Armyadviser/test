@@ -30,7 +30,7 @@ public class TestLambda4 {
                 numbers.parallelStream()
                         .reduce(
                                 (integer, integer2) -> integer + integer2
-                        ).get()
+                        )
         );
         System.out.println(separator);
 

@@ -193,10 +193,10 @@ public class FileHelper {
 						return null;
 					})
 					.filter(Objects::nonNull)
-					.forEach(chnl -> {
-						append(chnl, channel);
+					.forEach(channel1 -> {
+						append(channel1, channel);
 						try {
-							chnl.close();
+							channel1.close();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

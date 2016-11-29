@@ -7,16 +7,16 @@ import java.util.List;
  * Created by Storm_Falcon on 2016/7/3.
  * 宏，定义了一系列的Action操作
  */
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
 public class Macro {
 
 	private final List<Action> actions;
 
-	private final List<Runnable> runnables;
+	private final List<Runnable> runnableList;
 
 	public Macro() {
 		actions = new ArrayList<>();
-		runnables = new ArrayList<>();
+		runnableList = new ArrayList<>();
 	}
 
 	public void record(Action action) {
@@ -24,7 +24,7 @@ public class Macro {
 	}
 
 //	public void record(Runnable action) {
-//		runnables.add(action);
+//		runnableList.add(action);
 //	}
 
 	public void run() {

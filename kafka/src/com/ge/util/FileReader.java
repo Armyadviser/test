@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -215,7 +216,7 @@ public class FileReader implements Closeable {
 				return null;
 			}
 			return e;
-		}).filter(e -> e != null)
+		}).filter(Objects::nonNull)
 				.collect(Collectors.toList())
 				.forEach(System.out::println);
 

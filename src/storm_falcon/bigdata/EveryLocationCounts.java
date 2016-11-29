@@ -50,6 +50,7 @@ public class EveryLocationCounts {
         return td;
     }
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private static void analyse() {
         Map<String, TreatedData> map = parseFile2Map();
         System.out.println("Map size:" + map.size());
@@ -72,7 +73,7 @@ public class EveryLocationCounts {
 //            }
 //        );
 
-        Collections.sort(list, (o1, o2) -> o2[1] - o1[1]);
+        list.sort((o1, o2) -> o2[1] - o1[1]);
         list.forEach(array -> System.out.println(Arrays.toString(array)));
     }
 

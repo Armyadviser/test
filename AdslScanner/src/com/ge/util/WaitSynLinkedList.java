@@ -6,7 +6,7 @@ public class WaitSynLinkedList<T> {
 
 	protected long lSize = -1;
 	
-	protected final LinkedList<T> mList = new LinkedList<T>();
+	protected final LinkedList<T> mList = new LinkedList<>();
 	
 	public WaitSynLinkedList(long size) {
 		this.lSize = size;
@@ -39,7 +39,7 @@ public class WaitSynLinkedList<T> {
 	}
 
 	public T removeFirst() {
-		T obj = null;
+		T obj;
 		synchronized (mList) {
 			while (mList.isEmpty()) {
 				try {

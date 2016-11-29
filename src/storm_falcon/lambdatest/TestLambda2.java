@@ -44,7 +44,6 @@ public class TestLambda2 {
                                     .count()
                                 )
                         )
-                .get()
         );
     }
 }

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class JToolsTest {
 	@Test
 	public void MD5() throws Exception {
-		String s = JTools.MD5("qwert");
+		String s = JTools.MD5("abc");
 		assertEquals("bnm", s);
 	}
 

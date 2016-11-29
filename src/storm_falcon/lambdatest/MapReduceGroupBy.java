@@ -3,6 +3,7 @@ package storm_falcon.lambdatest;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class MapReduceGroupBy {
             numbers.parallelStream()
                 .reduce(
                     (integer, integer2) -> integer + integer2
-                ).get()
+                )
         );
 
         //累加3
@@ -86,20 +87,20 @@ public class MapReduceGroupBy {
         );
 
         //筛选姓名最长的人
-        Comparator<Person> comparator = (o1, o2) -> o1.getName().length() - o2.getName().length();//按姓名长度的比较器
-        Person longestPerson = persons.parallelStream()
+        Comparator<Person> comparator = Comparator.comparingInt(o -> o.getName().length());//按姓名长度的比较器
+        Optional<Person> longestPerson = persons.parallelStream()
             .reduce((accumulator, person) -> //BinaryOperator
                 comparator.compare(accumulator, person) > 0 ? accumulator : person //返回通过比较器比较后较大的值
-            ).get();//返回Optional，需要get
+            );//返回Optional，需要get
         System.out.println(longestPerson);
 
         //筛选姓名最长的人2
-        Person longestPerson2 = persons.parallelStream()
+        Optional<Person> longestPerson2 = persons.parallelStream()
             .reduce(
                 BinaryOperator.maxBy(
-                    (o1, o2) -> o1.getName().length() - o2.getName().length()
+                    Comparator.comparingInt(o -> o.getName().length())
                 )
-            ).get();
+            );
         System.out.println(longestPerson2);
     }
 }

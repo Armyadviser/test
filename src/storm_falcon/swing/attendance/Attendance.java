@@ -148,23 +148,20 @@ public class Attendance extends JFrame {
     }
 
     private void setListener() {
-        mGenerate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String filePath = mPath.getText();
-                    String date = mYear.getText() + "/" + mMonth.getText() + "/" + mDay.getText();
-                    String gozennContent = mGozenn.getText();
-                    String gogoContent = mGogo.getText();
+        mGenerate.addActionListener(e -> {
+			try {
+				String filePath = mPath.getText();
+				String date = mYear.getText() + "/" + mMonth.getText() + "/" + mDay.getText();
+				String gozennContent = mGozenn.getText();
+				String gogoContent = mGogo.getText();
 
-                    createExcel(filePath, date, gozennContent, gogoContent);
+				createExcel(filePath, date, gozennContent, gogoContent);
 
-                    finish();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
+				finish();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
     }
 
     /**
