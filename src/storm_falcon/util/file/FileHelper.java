@@ -15,8 +15,11 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
 import java.nio.channels.FileChannel;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @SuppressWarnings("UnusedReturnValue")
 public class FileHelper {
@@ -149,7 +152,59 @@ public class FileHelper {
 			}
 		}
 	}
-	
+
+	/**
+	 * 遍历目录查找文件
+	 * @param dir
+	 * @param suffixes
+	 * @return
+	 */
+	public static Stream<File> findFiles(String dir, String...suffixes) {
+		Path parent = Paths.get(dir);
+		FindFileVisitor visitor = new FindFileVisitor(suffixes);
+		try {
+			Files.walkFileTree(parent, visitor);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return visitor.getFiles();
+	}
+
+	private static class FindFileVisitor extends SimpleFileVisitor<Path> {
+
+		private final List<File> files = new ArrayList<>();
+		private final String[] suffixes;
+
+		public FindFileVisitor(String...suffixes) {
+			this.suffixes = suffixes;
+		}
+
+		@Override
+		public FileVisitResult visitFile(Path dir, BasicFileAttributes attrs) throws IOException {
+			File file = dir.toFile();
+			if (isMatchSuffix(file.getName())) {
+				files.add(file);
+			}
+			return FileVisitResult.CONTINUE;
+		}
+
+		@Override
+		public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+			return FileVisitResult.CONTINUE;
+		}
+
+		public Stream<File> getFiles() {
+			return files.stream();
+		}
+
+		private boolean isMatchSuffix(String fileName) {
+			return suffixes == null
+				|| suffixes.length == 0
+				|| Arrays.stream(suffixes)
+					.anyMatch(fileName::endsWith);
+		}
+	}
+
 	/**
 	 * 文件不存在则创建新文件
 	 * @param strFilePath
