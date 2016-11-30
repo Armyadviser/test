@@ -234,7 +234,7 @@ public class FileHelper {
 	}
 
 	/**
-	 * 将dir目录下多有文件内容整合成一个文件
+	 * 将dir目录下所有文件内容整合成一个文件
 	 * @param dir
 	 * @param out
 	 * @return
