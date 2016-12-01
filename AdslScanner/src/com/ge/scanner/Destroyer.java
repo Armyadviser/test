@@ -25,7 +25,7 @@ public class Destroyer {
 			request.moveToVpn(coaInfo);
 		});
 
-		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");
+		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		Log logger = Log.getSystemLog(logPath);
 		logger.toLog(list.size() + " coa info kicked off.");
 	}

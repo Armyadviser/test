@@ -17,10 +17,10 @@ public class PBaseModule {
 
     static {
         ScannerConfig config = ScannerConfig.getInstance();
-        String host = config.getCmInfo("host");
-        String login = config.getCmInfo("login");
-        String pwd = config.getCmInfo("password");
-        String port = config.getCmInfo("port");
+        String host = config.getCmInfo("Host");
+        String login = config.getCmInfo("Login");
+        String pwd = config.getCmInfo("Password");
+        String port = config.getCmInfo("Port");
         properties = new Properties();
         properties.put("infranet.connection",
             "pcp://" + login + ":" + pwd + "@" + host +

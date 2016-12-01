@@ -27,9 +27,9 @@ public class Healer extends Thread {
 
 	public Healer(WaitSynLinkedList<CoaInfo> mSyncList) {
 		this.mSyncList = mSyncList;
-		timeLimit = ScannerConfig.getInstance().getHealerValue("timelimit");
+		timeLimit = ScannerConfig.getInstance().getHealerValue("TimeLimit");
 		timeLimit = timeLimit * 1000;
-		sleep = ScannerConfig.getInstance().getHealerValue("sleep");
+		sleep = ScannerConfig.getInstance().getHealerValue("Sleep");
 		sleep = sleep * 1000;
 	}
 

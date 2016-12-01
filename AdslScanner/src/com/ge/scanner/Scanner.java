@@ -45,30 +45,45 @@ public class Scanner extends Thread {
 	}
 
 	public void run() {
-		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");
+		ScannerConfig config = ScannerConfig.getInstance();
+		String logPath = config.getScannerValue("LogPath");
+		String sMaxScanSize = config.getScannerValue("MaxScanSize");
+		int nMaxScanSize = Integer.valueOf(sMaxScanSize);
 		Log logger = Log.getSystemLog(logPath);
+
 		while (true) {
 			logger.toLog(new Date().toString());
 
 			//search users.
-			List<Account> users = CmUtils.getAccountList();
+			List<Account> users = CmUtils.getAccountList(nMaxScanSize);
 			logger.toLog("There are " + users.size() + " users to be moved to vpn.");
 
-			//filter users which are not needed offer, query crm.
+			//check users if need offer, query crm.
 			users = users.stream()
-				.filter(CrmModule::isNeedOffer)
-				.collect(toList());
+				.map(user -> {
+					user.isNeedOffer = CrmModule.isNeedOffer(user);
+					return user;
+				}).collect(toList());
+
+			//update users' offer sign to 4, crm not needed to offer.
+			int nUpdateSucc = users.stream()
+				.mapToInt(user -> CmUtils.updateOfferSign(user, 4) ? 1 : 0)
+				.sum();
+			logger.toLog("Update offer sign to 4. " + nUpdateSucc + " success.");
+
+			//filter not need.
+			users = users.stream().filter(user -> user.isNeedOffer).collect(toList());
 			logger.toLog("After search crm. " + users.size() + " users left.");
 
 			//convert to coa info.
 			List<CoaInfo> coaInfos = account2CoaInfos(users);
-			logger.toLog("Convert to " + coaInfos.size() + " CoaInfos.");
+			logger.toLog("Convert to " + coaInfos.size() + " CoaInfos.(" + coaInfos.size() + " users online).");
 
-			//update offer sign.
-			int nSucNum = coaInfos.stream()
-					.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account) ? 1 : 0)
-					.sum();
-			logger.toLog("Update user's vlan_id " + nSucNum + " success.");
+			//update users' offer sign to 2, has offered.
+			nUpdateSucc = coaInfos.stream()
+				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0)
+				.sum();
+			logger.toLog("Update offer sign to 2. " + nUpdateSucc + " success.");
 
 			//kick them off.
 			Destroyer.kickOff(coaInfos);
@@ -82,7 +97,7 @@ public class Scanner extends Thread {
 	}
 
 	private void sleep() {
-		String sTime = ScannerConfig.getInstance().getScannerValue("sleep");
+		String sTime = ScannerConfig.getInstance().getScannerValue("Sleep");
 		int nTime = Integer.valueOf(sTime);
 		try {
 			Thread.sleep(nTime * 60 * 1000);

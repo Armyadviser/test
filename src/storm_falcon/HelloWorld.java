@@ -1,5 +1,7 @@
 package storm_falcon;
 
+import java.util.Objects;
+
 /**
  * Created by Storm_Falcon on 2015/10/10.
  *
@@ -8,7 +10,7 @@ package storm_falcon;
  */
 public class HelloWorld {
     public static void main(String[] args) throws Exception {
-
+		Objects.nonNull(null);
 	}
 }
 

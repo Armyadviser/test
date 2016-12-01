@@ -21,8 +21,8 @@ public class Timer extends Thread {
 		this.mList = mList;
 
 		ScannerConfig config = ScannerConfig.getInstance();
-		String path = config.getTimeLogValue("path");
-		mSleep = Integer.valueOf(config.getTimeLogValue("timegap"));
+		String path = config.getTimeLogValue("Path");
+		mSleep = Integer.valueOf(config.getTimeLogValue("TimeGap"));
 		mSleep = mSleep * 1000;
 
 		logger = new FileWriter();

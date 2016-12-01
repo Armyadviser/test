@@ -19,6 +19,9 @@ public class Account {
 	/** 到期资费编码 */
 	public String rpInstId;
 
+	/** 查询CRM返回结果，是否需要推送 */
+	public boolean isNeedOffer;
+
     @Override
     public String toString() {
         return "Account{" +

@@ -20,9 +20,13 @@ public class CrmModule {
 			ScannerConfig config = ScannerConfig.getInstance();
 			String url = config.getCrmProxy();
 
-			url = url.replace("<mobileno>", account.mobileNo);
-			url = url.replace("<servid>", account.userId);
-			url = url.replace("<rpinstid>", account.rpInstId);
+			try {
+				url = url.replace("<mobileno>", account.mobileNo);
+				url = url.replace("<servid>", account.userId);
+				url = url.replace("<rpinstid>", account.rpInstId);
+			} catch (Exception e) {
+				return false;
+			}
 
 			String resp = HttpTools.get(url);
 			if (resp == null) {

@@ -32,18 +32,19 @@ public class CmUtils {
 	private static final Log logger;
 
 	static {
-		String logPath = ScannerConfig.getInstance().getScannerValue("logpath");
+		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		logger = Log.getSystemLog(logPath);
 	}
 
 	/**
 	 * Search users which need offer.
+	 * @param pageSize
 	 * @return
 	 */
-	public static List<Account> getAccountList() {
+	public static List<Account> getAccountList(int pageSize) {
 		List<Account> list = new ArrayList<>();
 
-		FList in = AccountBean.getSearchFList();
+		FList in = AccountBean.getSearchFList(pageSize);
 
 		FList out = null;
 		try {
@@ -142,15 +143,15 @@ public class CmUtils {
 
 	/**
 	 * Update user offer status.
-	 * Set vlan_id=1
 	 * @param account
-	 * @return true: success; false: fail.
+	 * @param status
+	 * @return {@code true}: success; {@code false}: fail.
 	 */
-	public static boolean updateOfferSign(Account account) {
+	public static boolean updateOfferSign(Account account, int status) {
 		FList in = new FList();
 		in.set(FldPoid.getInst(), account.poid);
 		FList args = new FList();
-		args.set(CpFldVlanId.getInst(), 1);
+		args.set(CpFldVlanId.getInst(), status);
 		in.set(FldServiceIp.getInst(), args);
 
 		try {

@@ -31,12 +31,6 @@ public class FibonacciUseMap {
 			int result = map.computeIfAbsent(i, key -> {
 				Integer value1 = map.get(key - 1);
 				Integer value2 = map.get(key - 2);
-				if (value1 == null) {
-					value1 = 0;
-				}
-				if (value2 == null) {
-					value2 = 0;
-				}
 
 				return value1 + value2;
 			});
@@ -48,6 +42,8 @@ public class FibonacciUseMap {
 	    for (int i = 1; i < 10; i++) {
 			System.out.print(get(i) + " ");
 		}
+
+		System.out.println();
 
 		f3();
 	}

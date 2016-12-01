@@ -38,7 +38,7 @@ public class ScannerConfig {
 	}
 
 	public String getCrmProxy() {
-		return mIni.getKeyValue("CRM-Proxy", "url");
+		return mIni.getKeyValue("CRM-Proxy", "Url");
 	}
 
 	public String getTimeLogValue(String key) {
