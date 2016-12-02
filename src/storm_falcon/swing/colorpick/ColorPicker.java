@@ -1,7 +1,5 @@
 package storm_falcon.swing.colorpick;
 
-import javafx.scene.input.KeyCode;
-
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
@@ -35,17 +33,15 @@ public class ColorPicker extends JFrame {
         thread.start();
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventPostProcessor(new KeyEventPostProcessor() {
-            @Override
-            public boolean postProcessKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    boolean pause = thread.getPause();
-                    pause = !pause;
-                    thread.setPause(pause);
-                    return false;
-                }
+        manager.addKeyEventPostProcessor(e -> {
+            if (e.getID() != KeyEvent.KEY_PRESSED
+                    || e.getKeyCode() != KeyEvent.VK_SPACE)
                 return true;
-            }
+
+            boolean pause = thread.getPause();
+            pause = !pause;
+            thread.setPause(pause);
+            return false;
         });
 
         pack();
