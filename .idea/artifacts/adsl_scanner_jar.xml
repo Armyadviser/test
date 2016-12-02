@@ -4,7 +4,6 @@
     <root id="archive" name="adsl-scanner.jar">
       <element id="module-output" name="AdslScanner" />
       <element id="extracted-dir" path="$PROJECT_DIR$/AdslScanner/lib/adsl-radius-coa.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/AdslScanner/lib/ge-tinyradius.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/AdslScanner/lib/ecaop-client.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/AdslScanner/lib/cp.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/AdslScanner/lib/pcm.jar" path-in-jar="/" />

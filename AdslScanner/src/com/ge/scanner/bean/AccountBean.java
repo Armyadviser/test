@@ -55,7 +55,7 @@ public class AccountBean {
 		String sql = "select X " +
 			"from /service/cp_broadband " +
 			"where service_t.poid_type = '/service/cp_broadband' " +
-			"and F1 <= V1 and F3 != V3";
+			"and F1 <= V1 and F2 = V2 and F3 != V3";
 		in.set(FldTemplate.getInst(), sql);
 
 		FList args1_2 = new FList();
