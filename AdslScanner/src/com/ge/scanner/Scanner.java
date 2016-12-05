@@ -67,9 +67,9 @@ public class Scanner extends Thread {
 
 			//update users' offer sign to 4, crm not needed to offer.
 			int nUpdateSucc = users.stream()
-				.mapToInt(user -> CmUtils.updateOfferSign(user, 4) ? 1 : 0)
+				.mapToInt(user -> CmUtils.updateOfferSign(user, 5) ? 1 : 0)
 				.sum();
-			logger.toLog("Update offer sign to 4. " + nUpdateSucc + " success.");
+			logger.toLog("Update offer sign to 5. " + nUpdateSucc + " success.");
 
 			//filter not need.
 			users = users.stream().filter(user -> user.isNeedOffer).collect(toList());
