@@ -1,6 +1,6 @@
 package storm_falcon;
 
-import java.util.Objects;
+import java.nio.file.Files;
 
 /**
  * Created by Storm_Falcon on 2015/10/10.
@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class HelloWorld {
     public static void main(String[] args) throws Exception {
-		Objects.nonNull(null);
-	}
+        Files.lines(null);
+    }
 }
 

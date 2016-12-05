@@ -4,9 +4,13 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by Storm_Falcon on 2016/6/17.
@@ -149,17 +153,35 @@ public class FileReader implements Closeable {
 	private static <T> Stream<T> forEachWithProcessor(String filePath, String encode, BiFunction<Integer, String, T> processor) {
 		try (FileReader reader = new FileReader()) {
 			reader.open(filePath, encode);
-			Stream<T> stream = Stream.empty();
 
-			while (reader.hasNext()) {
-				int lineNumber = reader.getLineNumber();
-				String line = reader.getLine();
-				T t = processor.apply(lineNumber, line);
-				stream = Stream.concat(stream, Stream.of(t));
-			}
+			Iterator<T> iterator = new Iterator<T>() {
+				@Override
+				public boolean hasNext() {
+					return reader.hasNext();
+				}
 
-			return stream;
+				@Override
+				public T next() {
+					String line = reader.getLine();
+					int lineNumber = reader.getLineNumber();
+					return processor.apply(lineNumber, line);
+				}
+			};
+
+			return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
+					iterator, Spliterator.ORDERED | Spliterator.NONNULL
+				), false).onClose(asUncheckedRunnable(reader));
 		}
+	}
+
+	private static Runnable asUncheckedRunnable(Closeable c) {
+		return () -> {
+			try {
+				c.close();
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+		};
 	}
 
 	/**
