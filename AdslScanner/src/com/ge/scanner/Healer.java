@@ -1,7 +1,7 @@
 package com.ge.scanner;
 
 import com.ge.scanner.config.ScannerConfig;
-import com.ge.scanner.radius.CoaRequest;
+import com.ge.scanner.radius.CoaUtil;
 import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.util.WaitSynLinkedList;
@@ -56,8 +56,8 @@ public class Healer extends Thread {
 
 	private void doCoa(CoaInfo coaInfo) {
 		System.out.println("------Move back to Internet:" + coaInfo.session.account.login + "--at:" + new Date() + "------");
-		CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
-		request.moveBackToInternet(coaInfo);
+		CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+		request.unlock(coaInfo);
 	}
 
 	private void sleep() {

@@ -1,7 +1,7 @@
 package com.ge.scanner.radius.impl;
 
 import com.ge.scanner.config.ScannerConfig;
-import com.ge.scanner.radius.CoaRequest;
+import com.ge.scanner.radius.CoaUtil;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,16 +12,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CoaFactory {
 
-	private final Map<String, CoaRequest> instanceMap;
+	private final Map<Integer, CoaUtil> instanceMap;
 
 	private CoaFactory() {
 		instanceMap = new ConcurrentHashMap<>();
 	}
 
-	private CoaRequest newInstance(String className) {
+	private CoaUtil newInstance(String className) {
 		try {
 			Class<?> cls = Class.forName(className);
-			return (CoaRequest) cls.newInstance();
+			return (CoaUtil) cls.newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,8 +36,8 @@ public class CoaFactory {
 		return instance;
 	}
 
-	public CoaRequest getCoaRequest(String vendorId) {
-		CoaRequest inst = instanceMap.get(vendorId);
+	public CoaUtil getCoaRequest(int vendorId) {
+		CoaUtil inst = instanceMap.get(vendorId);
 		if (inst == null) {
 			ScannerConfig config = ScannerConfig.getInstance();
 			String coaClassName = config.getCoaClassName(vendorId);

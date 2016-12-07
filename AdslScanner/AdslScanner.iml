@@ -9,6 +9,17 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
+          <library name="ge-tinyradius">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/lib/ge-tinyradius.jar!/" />
+            </CLASSES>
+            <JAVADOC />
+            <SOURCES>
+              <root url="jar://$MODULE_DIR$/lib/ge-tinyradius.jar!/" />
+            </SOURCES>
+          </library>
+        </orderEntry>
+    <orderEntry type="module-library">
       <library name="pcm">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/pcm.jar!/" />
@@ -31,22 +42,18 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="adsl-radius-coa">
+      <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/adsl-radius-coa.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/ge-tinyradius.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/ecaop-client.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/adsl-radius-coa.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/ge-tinyradius.jar!/" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ecaop-client.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

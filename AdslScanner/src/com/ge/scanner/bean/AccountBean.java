@@ -20,7 +20,7 @@ import java.util.Date;
 public class AccountBean {
 	/**
 	 * select * from service_cp_broadband_t
-	 * where month_hours <= 20161201
+	 * where month_hours <= 2016120108
 	 * and month_hours != 0
 	 * and vlan_id = 1;
 	 *

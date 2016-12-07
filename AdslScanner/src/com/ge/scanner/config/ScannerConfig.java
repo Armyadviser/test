@@ -33,8 +33,8 @@ public class ScannerConfig {
 		return mIni.getKeyValue("CM", key);
 	}
 
-	public String getCoaClassName(String vendorId) {
-		return mIni.getKeyValue("Coa-Classes", vendorId);
+	public String getCoaClassName(int vendorId) {
+		return mIni.getKeyValue("Coa-Classes", String.valueOf(vendorId));
 	}
 
 	public String getCrmProxy() {

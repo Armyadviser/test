@@ -6,7 +6,7 @@ package com.ge.scanner.vo;
  */
 public class Bras {
     public String ip;
-    public String vendorId;
+    public int vendorId;
     public String secret;
     public String context;
 

@@ -42,7 +42,7 @@ public class BrasBean {
 			flist = sparseArray.elementAt(0);
 
 			Bras bras = new Bras();
-			bras.vendorId = String.valueOf(flist.get(CpFldVendorId.getInst()));
+			bras.vendorId = flist.get(CpFldVendorId.getInst());
 			bras.ip = flist.get(FldTermservId.getInst());
 
 			String string = flist.get(FldString.getInst());//secret=ln2008ok;context=163

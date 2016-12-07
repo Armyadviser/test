@@ -4,17 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 
 /**
  * Java文件相关操作工具类
  * @author Administrator
  *
  */
-@SuppressWarnings("UnusedReturnValue")
 public class FileHelper {
 	
 	private static final int INITIAL_SIZE = 1024;
@@ -62,6 +59,7 @@ public class FileHelper {
 	/**
 	 * 检查文件全路径中去除文件名的夹是否存在,如不存在则创建
 	 * @param filePath 文件或文件夹的全路径
+	 * @return
 	 */
 	public static boolean mkdirs(String filePath) {
 		if (StringHelper.isEmpty(filePath)) {
@@ -212,7 +210,7 @@ public class FileHelper {
 	    try {
 	    	File[] fps = fp.listFiles();
 	    	if (fps == null) {
-	    		return false;
+	    		return true;
 			}
 			for (File fpTemp : fps) {
 				if (fpTemp.isFile()) {
@@ -252,13 +250,13 @@ public class FileHelper {
 			return false;
 		}
 
-		File oldFile = new File(oldFileName);
-		if (!oldFile.exists() || oldFile.isDirectory()) {
+		File oldfile = new File(oldFileName);
+		if (!oldfile.exists() || oldfile.isDirectory()) {
 			return false;
 		}
 
-		File newFile = new File(newFileName);
-		return !(newFile.exists() || newFile.isDirectory()) && oldFile.renameTo(newFile);
+		File newfile = new File(newFileName);
+		return !(newfile.exists() || newfile.isDirectory()) && oldfile.renameTo(newfile);
 
 	}
 	
@@ -278,34 +276,6 @@ public class FileHelper {
         }
         
         return fp.getName();
-	}
-	
-	/**
-	 * 文件不存在则创建新文件
-	 * @param strFilePath
-	 * @return 返回创建的文件对象
-	 */
-	public static File createFile(String strFilePath) {
-		int endIndex = strFilePath.lastIndexOf("/");
-		if (endIndex == -1) {
-			endIndex = strFilePath.lastIndexOf("\\");
-		}
-		String path = strFilePath.substring(0, endIndex);
-		File dir = new File(path);
-		
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		
-		File file = new File(strFilePath);
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return file;
 	}
 	
 }

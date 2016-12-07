@@ -28,7 +28,7 @@ public class PBaseModule {
         properties.put("infranet.login.type", "1");
     }
 
-    private static PortalContext getConnection() {
+    static PortalContext getConnection() {
         try {
             PortalContext conn = new PortalContext();
             conn.connect(properties);
@@ -39,7 +39,7 @@ public class PBaseModule {
         return null;
     }
 
-    private static void freeConnection(PortalContext conn) {
+    static void freeConnection(PortalContext conn) {
         try {
             conn.close(true);
         } catch (EBufException e) {

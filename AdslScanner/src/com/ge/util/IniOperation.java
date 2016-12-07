@@ -242,7 +242,19 @@ public class IniOperation {
           return false;
       }
       String strReValue = getKeyValue(strSection, strKey);
-      return strReValue != null && strReValue.length() != 0 && strReValue.compareTo("0") != 0;
+      if ("true".equals(strReValue)) {
+          return true;
+      }
+      if ("false".equals(strReValue)) {
+          return false;
+      }
+      if ("1".equals(strReValue)) {
+          return true;
+      }
+      if ("0".equals(strReValue)) {
+          return false;
+      }
+      return false;
   }
 
   //鍙栧瓧绗﹀瀷鍊�

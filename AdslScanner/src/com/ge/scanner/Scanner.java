@@ -5,9 +5,10 @@ import com.ge.scanner.conn.cm.CmUtils;
 import com.ge.scanner.conn.crm.CrmModule;
 import com.ge.scanner.vo.Account;
 import com.ge.scanner.vo.CoaInfo;
-import com.ge.util.WaitSynLinkedList;
 import com.ge.util.log.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -21,11 +22,7 @@ import static java.util.stream.Collectors.toList;
  */
 public class Scanner extends Thread {
 
-	private WaitSynLinkedList<CoaInfo> mSyncList;
-
-	public Scanner(WaitSynLinkedList<CoaInfo> mSyncList) {
-		this.mSyncList = mSyncList;
-	}
+	private DateFormat formatter = new SimpleDateFormat("[HH:mm:ss]");
 
 	/**
 	 * Get coa needed information from user's info.
@@ -56,7 +53,7 @@ public class Scanner extends Thread {
 
 			//search users.
 			List<Account> users = CmUtils.getAccountList(nMaxScanSize);
-			logger.toLog("There are " + users.size() + " users to be moved to vpn.");
+			int nScanUserSize = users.size();
 
 			//check users if need offer, query crm.
 			users = users.stream()
@@ -65,33 +62,39 @@ public class Scanner extends Thread {
 					return user;
 				}).collect(toList());
 
-			//update users' offer sign to 4, crm not needed to offer.
-			int nUpdateSucc = users.stream()
+			//update users' offer sign to 5, crm not needed to offer.
+			int nUpdate5Succ = users.stream()
+				.filter(user -> !user.isNeedOffer)
 				.mapToInt(user -> CmUtils.updateOfferSign(user, 5) ? 1 : 0)
 				.sum();
-			logger.toLog("Update offer sign to 5. " + nUpdateSucc + " success.");
 
 			//filter not need.
 			users = users.stream().filter(user -> user.isNeedOffer).collect(toList());
-			logger.toLog("After search crm. " + users.size() + " users left.");
+			int nLeftUserSize = users.size();
 
 			//convert to coa info.
 			List<CoaInfo> coaInfos = account2CoaInfos(users);
-			logger.toLog("Convert to " + coaInfos.size() + " CoaInfos.(" + coaInfos.size() + " users online).");
-
-			//update users' offer sign to 2, has offered.
-			nUpdateSucc = coaInfos.stream()
-				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0)
-				.sum();
-			logger.toLog("Update offer sign to 2. " + nUpdateSucc + " success.");
 
 			//kick them off.
 			Destroyer.kickOff(coaInfos);
+			//update users' offer sign to 2, has offered.
 
-			//add to sync pool.
-//			coaInfos.forEach(mSyncList::addLast);
+			int nUpdate2Succ = coaInfos.stream()
+				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0)
+				.sum();
 
-			logger.toLog("-------------------------------------\n");
+			logger.toLog("\n\n" + formatter.format(new Date()) +
+				" There are " + nScanUserSize + " users to be moved to vpn.");
+			logger.toLog(formatter.format(new Date()) +
+				" Update offer sign to 5. " + nUpdate5Succ + " success.");
+			logger.toLog(formatter.format(new Date()) +
+				" After search crm. " + nLeftUserSize + " users left.");
+			logger.toLog(formatter.format(new Date()) +
+				" Convert to " + coaInfos.size() + " CoaInfos.(" + coaInfos.size() + " users online).");
+			logger.toLog(formatter.format(new Date()) +
+				" Update offer sign to 2. " + nUpdate2Succ + " success.");
+
+			logger.toLog("-------------------------------------\n\n");
 			sleep();
 		}
 	}

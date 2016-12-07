@@ -1,11 +1,15 @@
 package com.ge.scanner;
 
 import com.ge.scanner.config.ScannerConfig;
-import com.ge.scanner.radius.CoaRequest;
+import com.ge.scanner.radius.CoaUtil;
 import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.util.log.Log;
+import org.tinyradius.packet.RadiusPacket;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,19 +18,24 @@ import java.util.List;
  */
 public class Destroyer {
 
+	private static DateFormat formatter = new SimpleDateFormat("[HH:mm:ss]");
+
 	/**
 	 * Kick off a list of CoaInfos.
 	 * @param list
 	 */
 	public static void kickOff(List<CoaInfo> list) {
+		CoaFactory factory = CoaFactory.getInstance();
 		list.forEach(coaInfo -> {
-			CoaFactory factory = CoaFactory.getInstance();
-			CoaRequest request = factory.getCoaRequest(coaInfo.bras.vendorId);
-			request.moveToVpn(coaInfo);
+			CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+			RadiusPacket response = request.lock(coaInfo);
+			System.out.println(response);
+			System.out.println("-------------------------\n");
 		});
 
 		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		Log logger = Log.getSystemLog(logPath);
-		logger.toLog(list.size() + " coa info kicked off.");
+		logger.toLog(formatter.format(new Date()) +
+			" " + list.size() + " coa info kicked off.");
 	}
 }

@@ -18,7 +18,10 @@ import com.portal.pcm.fields.FldPoid;
 import com.portal.pcm.fields.FldResults;
 import com.portal.pcm.fields.FldServiceIp;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Stream;
@@ -30,6 +33,8 @@ import java.util.stream.Stream;
 public class CmUtils {
 
 	private static final Log logger;
+
+	private static DateFormat formatter = new SimpleDateFormat("[HH:mm:ss]");
 
 	static {
 		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
@@ -45,36 +50,29 @@ public class CmUtils {
 		List<Account> list = new ArrayList<>();
 
 		FList in = AccountBean.getSearchFList(pageSize);
+		ObjectReader objReader = new ObjectReader(in);
 
-		FList out = null;
-		try {
-			out = PBaseModule.runOpcode(PortalOp.SEARCH, in);
-		} catch (EBufException e) {
-			e.printStackTrace();
-		}
-
-		if (out == null || !out.hasField(FldResults.getInst())) {
-			return list;
-		}
-
-		try {
-			SparseArray sparseArray = out.get(FldResults.getInst());
-			if (sparseArray == null) {
-				return list;
-			}
-			Enumeration results = sparseArray.getValueEnumerator();
-			while (results.hasMoreElements()) {
-				FList flist = (FList) results.nextElement();
-				Account account = AccountBean.parse(flist);
-				if (account != null) {
-					list.add(account);
+		FList out = objReader.stepSearch();
+		while (out != null && out.hasField(FldResults.getInst())) {
+			try {
+				SparseArray sparseArray = out.get(FldResults.getInst());
+				if (sparseArray == null) {
+					break;
 				}
+				Enumeration results = sparseArray.getValueEnumerator();
+				while (results.hasMoreElements()) {
+					FList flist = (FList) results.nextElement();
+					Account account = AccountBean.parse(flist);
+					if (account != null) {
+						list.add(account);
+					}
+				}
+			} catch (EBufException e) {
+				e.printStackTrace();
 			}
-
-			return list;
-		} catch (EBufException e) {
-			e.printStackTrace();
+			out = objReader.stepNext();
 		}
+		objReader.stepEnd();
 
 		return list;
 	}
@@ -90,12 +88,14 @@ public class CmUtils {
 		}
 
 		if (out == null || !out.hasField(FldResults.getInst())) {
+			logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
 			return Stream.empty();
 		}
 
 		try {
 			SparseArray sparseArray = out.get(FldResults.getInst());
 			if (sparseArray == null) {
+				logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
 				return Stream.empty();
 			}
 
@@ -113,12 +113,12 @@ public class CmUtils {
 				list.add(session);
 			}
 
-			logger.toLog("Find " + list.size() + " sessions of " + account.login);
+			logger.toLog(formatter.format(new Date()) + " Find " + list.size() + " sessions of " + account.login);
 			return list.stream();
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
-
+		logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
 		return Stream.empty();
 	}
 
@@ -128,13 +128,16 @@ public class CmUtils {
 		try {
 			out = PBaseModule.runOpcode(PortalOp.SEARCH, in);
 		} catch (EBufException e) {
+			logger.toLog(formatter.format(new Date()) + " Bras info error of " + session.account.login);
 			e.printStackTrace();
 		}
 		if (out == null) {
+			logger.toLog(formatter.format(new Date()) + " Bras info error of " + session.account.login);
 			return null;
 		}
 		Bras bras = BrasBean.parse(out);
 		if (bras == null) {
+			logger.toLog(formatter.format(new Date()) + " Bras info error of " + session.account.login);
 			return null;
 		}
 
@@ -156,9 +159,11 @@ public class CmUtils {
 
 		try {
 			PBaseModule.runOpcode(PortalOp.WRITE_FLDS, in);
+			logger.toLog(formatter.format(new Date()) + " Update " + account.login + " sign to " + status + " success.");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.toLog(formatter.format(new Date()) + " Update " + account.login + " sign to " + status + " failed.");
 			return false;
 		}
 	}
