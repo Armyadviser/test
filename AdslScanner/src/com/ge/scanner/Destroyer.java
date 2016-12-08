@@ -35,7 +35,7 @@ public class Destroyer {
 
 		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		Log logger = Log.getSystemLog(logPath);
-		logger.toLog(formatter.format(new Date()) +
+		logger.toLog("\n\n" + formatter.format(new Date()) +
 			" " + list.size() + " coa info kicked off.");
 	}
 }

@@ -83,7 +83,7 @@ public class Scanner extends Thread {
 				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0)
 				.sum();
 
-			logger.toLog("\n\n" + formatter.format(new Date()) +
+			logger.toLog(formatter.format(new Date()) +
 				" There are " + nScanUserSize + " users to be moved to vpn.");
 			logger.toLog(formatter.format(new Date()) +
 				" Update offer sign to 5. " + nUpdate5Succ + " success.");
