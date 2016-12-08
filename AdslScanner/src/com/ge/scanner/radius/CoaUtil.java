@@ -1,5 +1,7 @@
 package com.ge.scanner.radius;
 
+import com.ge.scanner.bean.BrasBean;
+import com.ge.scanner.vo.Bras;
 import com.ge.scanner.vo.CoaInfo;
 import org.tinyradius.attribute.RadiusAttribute;
 import org.tinyradius.packet.RadiusPacket;
@@ -52,9 +54,9 @@ public abstract class CoaUtil {
 		return ra;
 	}
 
-	private RadiusPacket communicate(String brasIp, String secret, RadiusPacket packet) {
+	private RadiusPacket communicate(Bras bras, RadiusPacket packet) {
 		try {
-			RadiusClient e = new RadiusClient(brasIp, secret);
+			RadiusClient e = new RadiusClient(bras.ip, BrasBean.getSecret(bras));
 			e.setRetryCount(1);
 			e.setSocketTimeout(10000);
 			return e.communicate(packet, 3799);
@@ -68,13 +70,13 @@ public abstract class CoaUtil {
 		RadiusPacket packet = getLockPacket(info);
 		System.out.println("-------" + new Date() + "----------");
 		System.out.println(packet);
-		return communicate(info.bras.ip, info.bras.secret, packet);
+		return communicate(info.bras, packet);
 	}
 
 	public RadiusPacket unlock(CoaInfo info) {
 		RadiusPacket packet = getUnlockPacket(info);
 		System.out.println("-------" + new Date() + "----------");
 		System.out.println(packet);
-		return communicate(info.bras.ip, info.bras.secret, packet);
+		return communicate(info.bras, packet);
 	}
 }

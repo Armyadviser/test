@@ -16,17 +16,22 @@ public class LogHandle {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		getLoginFromFile("D:/2016-12-06.log", "Find")
-// 			.map(line -> line.substring(30, line.length)
-//          .forEach(System.out::println);
-//		getLoginFromFile("D:/2016-12-07.log", "Find").forEach(System.out::println);
-
-		filterLinesFromFile("D:/201612061900-201612070830.log", "CRM response info")
-			.filter(line -> line.contains("null"))
-			.map(line -> {
-				int index = line.indexOf("----");
-				return line.substring(11, index);
-			})
+		filterLinesFromFile("D:/2016-12-06.log", "Find")
+ 			.map(line -> line.substring(30, line.length()))
+            .forEach(System.out::println);
+		filterLinesFromFile("D:/2016-12-07.log", "Find")
+			.map(line -> line.substring(30, line.length()))
 			.forEach(System.out::println);
+		filterLinesFromFile("D:/2016-12-08.log", "Find")
+			.map(line -> line.substring(30, line.length()))
+			.forEach(System.out::println);
+
+//		filterLinesFromFile("D:/201612061900-201612070830.log", "CRM response info")
+//			.filter(line -> line.contains("null"))
+//			.map(line -> {
+//				int index = line.indexOf("----");
+//				return line.substring(11, index);
+//			})
+//			.forEach(System.out::println);
 	}
 }

@@ -44,24 +44,39 @@ public class BrasBean {
 			Bras bras = new Bras();
 			bras.vendorId = flist.get(CpFldVendorId.getInst());
 			bras.ip = flist.get(FldTermservId.getInst());
-
-			String string = flist.get(FldString.getInst());//secret=ln2008ok;context=163
-			if (string == null) {
-				return null;
-			}
-
-			String[] item = string.split(";");//[secret=ln2008ok, context=163]
-			if (item.length != 2) {
-				return null;
-			}
-
-			bras.secret = StringHelper.parseKeyValue(item[0]).getValue();//[secret=ln2008ok]
-			bras.context = StringHelper.parseKeyValue(item[1]).getValue();//[context=163]
-
+			bras.brasCodes = flist.get(FldString.getInst());//secret=ln2008ok;context=163
 			return bras;
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static String getSecret(Bras bras) {
+		try {
+			String[] item = bras.brasCodes.split(";");//[secret=ln2008ok, context=163]
+			if (item.length != 2) {
+				return "";
+			}
+
+			return StringHelper.parseKeyValue(item[0]).getValue();//[secret=ln2008ok]
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
+	public static String getContext(Bras bras) {
+		try {
+			String[] item = bras.brasCodes.split(";");//[secret=ln2008ok, context=163]
+			if (item.length != 2) {
+				return "";
+			}
+
+			return StringHelper.parseKeyValue(item[1]).getValue();//[context=163]
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

@@ -23,8 +23,7 @@ public class CoaRequestTest {
 		Bras bras = new Bras();
 		bras.vendorId = 2352;
 		bras.ip = "202.96.74.21";
-		bras.secret = "ln2008ok";
-		bras.context = "163";
+		bras.brasCodes = "secret=ln2008ok;context=163";
 		CoaInfo info = new CoaInfo(session, bras);
 
 		CoaFactory factory = CoaFactory.getInstance();
