@@ -10,10 +10,7 @@ import com.ge.scanner.vo.Bras;
 import com.ge.scanner.vo.CoaInfo;
 import com.ge.scanner.vo.Session;
 import com.ge.util.log.Log;
-import com.portal.pcm.EBufException;
-import com.portal.pcm.FList;
-import com.portal.pcm.PortalOp;
-import com.portal.pcm.SparseArray;
+import com.portal.pcm.*;
 import com.portal.pcm.fields.FldPoid;
 import com.portal.pcm.fields.FldResults;
 import com.portal.pcm.fields.FldServiceIp;
@@ -39,6 +36,28 @@ public class CmUtils {
 	static {
 		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		logger = Log.getSystemLog(logPath);
+	}
+
+	public static Account getAccountByLogin(String login) {
+		FList in = AccountBean.getAccountPoidFList(login);
+		FList out = null;
+		try {
+			out = PBaseModule.runOpcode(PortalOp.ACT_FIND, in);
+
+			if (out == null || !out.hasField(FldPoid.getInst())) {
+				return null;
+			}
+			Poid poid = out.get(FldPoid.getInst());
+			in = new FList();
+			in.set(FldPoid.getInst(), poid);
+
+			out = PBaseModule.runOpcode(PortalOp.READ_OBJ, in);
+			return AccountBean.parse(out);
+		} catch (EBufException e) {
+			System.out.println("search error:" + login);
+		}
+
+		return null;
 	}
 
 	/**

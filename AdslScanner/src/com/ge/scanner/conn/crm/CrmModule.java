@@ -24,6 +24,22 @@ public class CrmModule {
 		logger = Log.getSystemLog(config.getScannerValue("LogPath"));
 	}
 
+	public static String queryCrm(Account account) {
+		ScannerConfig config = ScannerConfig.getInstance();
+		String url = config.getCrmProxy();
+
+		try {
+			url = url.replace("<mobileno>", account.mobileNo);
+			url = url.replace("<servid>", account.userId);
+			url = url.replace("<rpinstid>", account.rpInstId);
+		} catch (Exception e) {
+			logger.toLog(formatter.format(new Date()) + " " + account.login +" CRM required info null");
+			return null;
+		}
+
+		return HttpTools.get(url);
+	}
+
 	public static boolean isNeedOffer(Account account) {
 		try {
 			if (account.login.startsWith("ln_boss_gd_test")) {
@@ -31,19 +47,7 @@ public class CrmModule {
 				return true;
 			}
 
-			ScannerConfig config = ScannerConfig.getInstance();
-			String url = config.getCrmProxy();
-
-			try {
-				url = url.replace("<mobileno>", account.mobileNo);
-				url = url.replace("<servid>", account.userId);
-				url = url.replace("<rpinstid>", account.rpInstId);
-			} catch (Exception e) {
-				logger.toLog(formatter.format(new Date()) + " " + account.login +" CRM required info null");
-				return false;
-			}
-
-			String resp = HttpTools.get(url);
+			String resp = queryCrm(account);
 			if (resp != null) {
 				resp = resp.replace("\n", "");
 				resp = resp.replace("\r", "");

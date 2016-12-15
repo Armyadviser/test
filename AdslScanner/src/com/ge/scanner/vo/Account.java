@@ -22,11 +22,14 @@ public class Account {
 	/** 查询CRM返回结果，是否需要推送 */
 	public boolean isNeedOffer;
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "poid=" + poid +
-                ", login='" + login + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Account{" +
+			"login='" + login + '\'' +
+			", userId='" + userId + '\'' +
+			", mobileNo='" + mobileNo + '\'' +
+			", rpInstId='" + rpInstId + '\'' +
+			", isNeedOffer=" + isNeedOffer +
+			'}';
+	}
 }

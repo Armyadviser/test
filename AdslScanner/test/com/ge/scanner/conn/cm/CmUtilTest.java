@@ -18,10 +18,14 @@ public class CmUtilTest {
 //	    list.forEach(account -> System.out.println(account.login));
 //		System.out.println(list.size());
 
-		Session session = new Session();
-		session.brasIp = "221.203.141.61";
-		CoaInfo coaInfo = CmUtils.getCoaInfoBySession(session);
-		System.out.println(coaInfo);
+//		Session session = new Session();
+//		session.brasIp = "221.203.141.61";
+//		CoaInfo coaInfo = CmUtils.getCoaInfoBySession(session);
+//		System.out.println(coaInfo);
+
+		String login = "lyexgxe1216dhy";
+		Account account = CmUtils.getAccountByLogin(login);
+		System.out.println(account);
 
 	}
 }

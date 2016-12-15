@@ -16,15 +16,16 @@ public class LogHandle {
 	}
 
 	public static void main(String[] args) throws Exception {
-		filterLinesFromFile("D:/2016-12-06.log", "Find")
- 			.map(line -> line.substring(30, line.length()))
-            .forEach(System.out::println);
-		filterLinesFromFile("D:/2016-12-07.log", "Find")
-			.map(line -> line.substring(30, line.length()))
-			.forEach(System.out::println);
-		filterLinesFromFile("D:/2016-12-08.log", "Find")
-			.map(line -> line.substring(30, line.length()))
-			.forEach(System.out::println);
+		Stream<String> stream1 = filterLinesFromFile("D:/2016-12-06.log", "Find")
+ 			.map(line -> line.substring(30, line.length()));
+		Stream<String> stream2 = filterLinesFromFile("D:/2016-12-07.log", "Find")
+			.map(line -> line.substring(30, line.length()));
+		Stream<String> stream3 = filterLinesFromFile("D:/2016-12-08.log", "Find")
+			.map(line -> line.substring(30, line.length()));
+
+		Stream<String> stream = Stream.concat(stream1, stream2);
+		stream = Stream.concat(stream, stream3);
+		stream.distinct().forEach(System.out::println);
 
 //		filterLinesFromFile("D:/201612061900-201612070830.log", "CRM response info")
 //			.filter(line -> line.contains("null"))

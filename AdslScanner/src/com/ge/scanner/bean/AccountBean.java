@@ -89,6 +89,14 @@ public class AccountBean {
 		return in;
 	}
 
+	public static FList getAccountPoidFList(String login) {
+		Poid poid = new Poid(PBaseModule.getCurrentDB(), -1, "/service/cp_broadband");
+		FList in = new FList();
+		in.set(FldPoid.getInst(), poid);
+		in.set(FldLogin.getInst(), login);
+		return in;
+	}
+
 	public static Account parse(FList flist) {
 		try {
 			Poid poid = flist.get(FldPoid.getInst());
