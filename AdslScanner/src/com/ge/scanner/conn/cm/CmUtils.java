@@ -40,7 +40,7 @@ public class CmUtils {
 
 	public static Account getAccountByLogin(String login) {
 		FList in = AccountBean.getAccountPoidFList(login);
-		FList out = null;
+		FList out;
 		try {
 			out = PBaseModule.runOpcode(PortalOp.ACT_FIND, in);
 
@@ -132,7 +132,7 @@ public class CmUtils {
 				list.add(session);
 			}
 
-			logger.toLog(formatter.format(new Date()) + " Find " + list.size() + " sessions of " + account.login);
+//			logger.toLog(formatter.format(new Date()) + " Find " + list.size() + " sessions of " + account.login);
 			return list.stream();
 		} catch (EBufException e) {
 			e.printStackTrace();

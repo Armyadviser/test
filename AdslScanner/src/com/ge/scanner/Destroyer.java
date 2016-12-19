@@ -25,17 +25,20 @@ public class Destroyer {
 	 * @param list
 	 */
 	public static void kickOff(List<CoaInfo> list) {
+		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
+		Log logger = Log.getSystemLog(logPath);
+
 		CoaFactory factory = CoaFactory.getInstance();
 		list.forEach(coaInfo -> {
 			CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
 			RadiusPacket response = request.lock(coaInfo);
 			System.out.println(response);
 			System.out.println("-------------------------\n");
+			logger.toLog(formatter.format(new Date()) + " Kick off:" + coaInfo.session.account.login +
+				"," + coaInfo.bras.city);
 		});
 
-		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
-		Log logger = Log.getSystemLog(logPath);
 		logger.toLog("\n\n" + formatter.format(new Date()) +
-			" " + list.size() + " coa info kicked off.");
+			" " + list.size() + " coa info kicked off.\n\n");
 	}
 }

@@ -8,4 +8,5 @@ public class Bras {
     public String ip;
     public int vendorId;
     public String brasCodes;
+    public String city;
 }

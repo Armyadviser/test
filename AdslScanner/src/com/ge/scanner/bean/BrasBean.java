@@ -1,5 +1,6 @@
 package com.ge.scanner.bean;
 
+import com.cp.fields.CpFldCityCode;
 import com.cp.fields.CpFldVendorId;
 import com.ge.scanner.conn.cm.PBaseModule;
 import com.ge.scanner.vo.Bras;
@@ -30,6 +31,7 @@ public class BrasBean {
 		result.set(CpFldVendorId.getInst());
 		result.set(FldString.getInst());
 		result.set(FldTermservId.getInst());
+		result.set(CpFldCityCode.getInst());
 
 		in.setElement(FldResults.getInst(), Element.ELEMID_ANY, result);
 
@@ -44,6 +46,7 @@ public class BrasBean {
 			Bras bras = new Bras();
 			bras.vendorId = flist.get(CpFldVendorId.getInst());
 			bras.ip = flist.get(FldTermservId.getInst());
+			bras.city = flist.get(CpFldCityCode.getInst());
 			bras.brasCodes = flist.get(FldString.getInst());//secret=ln2008ok;context=163
 			return bras;
 		} catch (EBufException e) {

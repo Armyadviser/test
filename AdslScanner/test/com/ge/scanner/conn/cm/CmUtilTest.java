@@ -12,20 +12,20 @@ import java.util.List;
  */
 public class CmUtilTest {
 	public static void main(String[] args) {
-		System.setProperty("user.dir", "E:\\Code\\IDEAworkspace\\test\\AdslScanner");
+		System.setProperty("user.dir", "D:\\ideaProjects\\test\\AdslScanner");
 
-//	    List<Account> list = CmUtils.getAccountList(100);
-//	    list.forEach(account -> System.out.println(account.login));
-//		System.out.println(list.size());
+	    List<Account> list = CmUtils.getAccountList(100);
+	    list.forEach(account -> System.out.println(account.login));
+		System.out.println(list.size());
 
 //		Session session = new Session();
 //		session.brasIp = "221.203.141.61";
 //		CoaInfo coaInfo = CmUtils.getCoaInfoBySession(session);
 //		System.out.println(coaInfo);
 
-		String login = "lyexgxe1216dhy";
-		Account account = CmUtils.getAccountByLogin(login);
-		System.out.println(account);
+//		String login = "lyexgxe1216dhy";
+//		Account account = CmUtils.getAccountByLogin(login);
+//		System.out.println(account);
 
 	}
 }
