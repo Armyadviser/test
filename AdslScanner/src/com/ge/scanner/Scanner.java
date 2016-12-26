@@ -88,7 +88,7 @@ public class Scanner extends Thread {
 			//kick them off.
 			int nKickedOff = Destroyer.kickOff(coaInfos);
 
-			logger.toLog(formatter.format(new Date()) +
+			logger.toLog("\n\n" + formatter.format(new Date()) +
 				" There are " + nScanUserSize + " users to be moved to vpn.");
 			logger.toLog(formatter.format(new Date()) +
 				" Update offer sign to 5. " + nUpdate5Succ + " success.");
@@ -96,7 +96,7 @@ public class Scanner extends Thread {
 				" After search crm. " + nLeftUserSize + " users left.");
 			logger.toLog(formatter.format(new Date()) +
 				" Convert to " + coaInfos.size() + " CoaInfos.(" + coaInfos.size() + " users online).");
-            logger.toLog("\n\n" + formatter.format(new Date()) +
+            logger.toLog(formatter.format(new Date()) +
                     " " + nKickedOff + " coa info kicked off.\n\n");
 
 			logger.toLog("-------------------------------------\n\n");

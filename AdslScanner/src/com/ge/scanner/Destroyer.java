@@ -33,16 +33,20 @@ public class Destroyer {
 		return list.stream()
             .mapToInt(coaInfo -> {
                 CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+
                 RadiusPacket response = request.lock(coaInfo);
-                String res = response.toString();
-                int result = 0;
-                if (res != null && res.contains("ACK")) {
-                    result = CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0;
-                }
                 System.out.println(response);
                 System.out.println("-------------------------\n");
-                logger.toLog(formatter.format(new Date()) + " Kick off:" + coaInfo.session.account.login +
-                    "," + coaInfo.bras.city);
+
+                String res = response.toString();
+                int result = 0;
+                boolean bSucc = false;
+                if (res != null && res.contains("ACK")) {
+                    bSucc = CmUtils.updateOfferSign(coaInfo.session.account, 2);
+                    result = bSucc ? 1 : 0;
+                }
+                logger.toLog(formatter.format(new Date()) + " Kick off succ:" + bSucc + ":" +
+                        coaInfo.session.account.login + "," + coaInfo.bras.city);
                 return result;
             }).sum();
 	}
