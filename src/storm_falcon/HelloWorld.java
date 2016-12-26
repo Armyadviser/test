@@ -1,7 +1,5 @@
 package storm_falcon;
 
-import java.nio.file.Files;
-
 /**
  * Created by Storm_Falcon on 2015/10/10.
  *
@@ -10,7 +8,7 @@ import java.nio.file.Files;
  */
 public class HelloWorld {
     public static void main(String[] args) throws Exception {
-        Files.lines(null);
+        System.out.println("Hello World.");
     }
 }
 

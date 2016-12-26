@@ -1,6 +1,7 @@
 package com.ge.scanner;
 
 import com.ge.scanner.config.ScannerConfig;
+import com.ge.scanner.conn.cm.CmUtils;
 import com.ge.scanner.radius.CoaUtil;
 import com.ge.scanner.radius.impl.CoaFactory;
 import com.ge.scanner.vo.CoaInfo;
@@ -24,21 +25,25 @@ public class Destroyer {
 	 * Kick off a list of CoaInfos.
 	 * @param list
 	 */
-	public static void kickOff(List<CoaInfo> list) {
+	public static int kickOff(List<CoaInfo> list) {
 		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
 		Log logger = Log.getSystemLog(logPath);
 
 		CoaFactory factory = CoaFactory.getInstance();
-		list.forEach(coaInfo -> {
-			CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
-			RadiusPacket response = request.lock(coaInfo);
-			System.out.println(response);
-			System.out.println("-------------------------\n");
-			logger.toLog(formatter.format(new Date()) + " Kick off:" + coaInfo.session.account.login +
-				"," + coaInfo.bras.city);
-		});
-
-		logger.toLog("\n\n" + formatter.format(new Date()) +
-			" " + list.size() + " coa info kicked off.\n\n");
+		return list.stream()
+            .mapToInt(coaInfo -> {
+                CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+                RadiusPacket response = request.lock(coaInfo);
+                String res = response.toString();
+                int result = 0;
+                if (res != null && res.contains("ACK")) {
+                    result = CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0;
+                }
+                System.out.println(response);
+                System.out.println("-------------------------\n");
+                logger.toLog(formatter.format(new Date()) + " Kick off:" + coaInfo.session.account.login +
+                    "," + coaInfo.bras.city);
+                return result;
+            }).sum();
 	}
 }

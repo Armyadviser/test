@@ -457,7 +457,7 @@
     <pattern value="storm_falcon.util.myxml.XmlHelper" />
     <pattern value="storm_falcon.util.myxml.XmlProperty" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="jdk1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

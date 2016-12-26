@@ -5,6 +5,7 @@ import com.ge.scanner.conn.cm.CmUtils;
 import com.ge.scanner.conn.crm.CrmModule;
 import com.ge.scanner.vo.Account;
 import com.ge.scanner.vo.CoaInfo;
+import com.ge.scanner.vo.Session;
 import com.ge.util.log.Log;
 
 import java.text.DateFormat;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -29,11 +31,19 @@ public class Scanner extends Thread {
 	 * @param users
 	 * @return
 	 */
-	public List<CoaInfo> account2CoaInfos(List<Account> users) {
+	public List<CoaInfo> account2CoaInfos(Log logger, List<Account> users) {
 		return users.stream()
 
 			//map account to session info
-			.flatMap(CmUtils::getSessionsByAccount)
+			.flatMap(user -> {
+			    List<Session> sessions = CmUtils.getSessionsByAccount(user);
+			    if (sessions.isEmpty()) {
+                    logger.toLog(formatter.format(new Date()) + " User offline " + user.login);
+                    CmUtils.updateOfferSign(user, 1);
+                    return Stream.empty();
+                }
+                return sessions.stream();
+            })
 
 			//map to CoaInfo
 			.map(CmUtils::getCoaInfoBySession)
@@ -73,15 +83,10 @@ public class Scanner extends Thread {
 			int nLeftUserSize = users.size();
 
 			//convert to coa info.
-			List<CoaInfo> coaInfos = account2CoaInfos(users);
+			List<CoaInfo> coaInfos = account2CoaInfos(logger, users);
 
 			//kick them off.
-			Destroyer.kickOff(coaInfos);
-			//update users' offer sign to 2, has offered.
-
-			int nUpdate2Succ = coaInfos.stream()
-				.mapToInt(coaInfo -> CmUtils.updateOfferSign(coaInfo.session.account, 2) ? 1 : 0)
-				.sum();
+			int nKickedOff = Destroyer.kickOff(coaInfos);
 
 			logger.toLog(formatter.format(new Date()) +
 				" There are " + nScanUserSize + " users to be moved to vpn.");
@@ -91,8 +96,8 @@ public class Scanner extends Thread {
 				" After search crm. " + nLeftUserSize + " users left.");
 			logger.toLog(formatter.format(new Date()) +
 				" Convert to " + coaInfos.size() + " CoaInfos.(" + coaInfos.size() + " users online).");
-			logger.toLog(formatter.format(new Date()) +
-				" Update offer sign to 2. " + nUpdate2Succ + " success.");
+            logger.toLog("\n\n" + formatter.format(new Date()) +
+                    " " + nKickedOff + " coa info kicked off.\n\n");
 
 			logger.toLog("-------------------------------------\n\n");
 			sleep();

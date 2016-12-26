@@ -17,11 +17,7 @@ import com.portal.pcm.fields.FldServiceIp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.*;
 
 /**
  * Created by Storm_Falcon on 2016/11/11.
@@ -96,7 +92,7 @@ public class CmUtils {
 		return list;
 	}
 
-	public static Stream<Session> getSessionsByAccount(Account account) {
+	public static List<Session> getSessionsByAccount(Account account) {
 
 		FList in = SessionBean.getSearchFList(account.login);
 		FList out = null;
@@ -107,15 +103,13 @@ public class CmUtils {
 		}
 
 		if (out == null || !out.hasField(FldResults.getInst())) {
-			logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
-			return Stream.empty();
+			return Collections.emptyList();
 		}
 
 		try {
 			SparseArray sparseArray = out.get(FldResults.getInst());
 			if (sparseArray == null) {
-				logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
-				return Stream.empty();
+				return Collections.emptyList();
 			}
 
 			Enumeration results = sparseArray.getValueEnumerator();
@@ -132,13 +126,12 @@ public class CmUtils {
 				list.add(session);
 			}
 
-//			logger.toLog(formatter.format(new Date()) + " Find " + list.size() + " sessions of " + account.login);
-			return list.stream();
+			return list;
 		} catch (EBufException e) {
 			e.printStackTrace();
 		}
-		logger.toLog(formatter.format(new Date()) + " User offline " + account.login);
-		return Stream.empty();
+
+		return Collections.emptyList();
 	}
 
 	public static CoaInfo getCoaInfoBySession(Session session) {
