@@ -38,10 +38,9 @@ public class Destroyer {
                 System.out.println(response);
                 System.out.println("-------------------------\n");
 
-                String res = response.toString();
                 int result = 0;
                 boolean bSucc = false;
-                if (res != null && res.contains("ACK")) {
+                if (response != null && response.toString().contains("ACK")) {
                     bSucc = CmUtils.updateOfferSign(coaInfo.session.account, 2);
                     result = bSucc ? 1 : 0;
                 }
