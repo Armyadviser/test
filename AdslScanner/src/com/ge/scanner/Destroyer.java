@@ -1,5 +1,6 @@
 package com.ge.scanner;
 
+import com.ge.scanner.bean.PushSignBean;
 import com.ge.scanner.config.ScannerConfig;
 import com.ge.scanner.conn.cm.CmUtils;
 import com.ge.scanner.radius.CoaUtil;
@@ -47,9 +48,13 @@ public class Destroyer {
 			boolean bSucc = false;
 			if (response != null && response.toString().contains("ACK")) {
 				CmUtils.updateOfferSign(coaInfo.session.account, 2);
+				PushSignBean.insert(coaInfo.session.account.login,
+					"2", coaInfo.bras.city, coaInfo.session.userIp, coaInfo.bras.ip);
 				bSucc = true;
 			} else {
-				CmUtils.updateOfferSign(coaInfo.session.account, 1);
+				CmUtils.updateOfferSign(coaInfo.session.account, 7);
+				PushSignBean.insert(coaInfo.session.account.login,
+					"7", coaInfo.bras.city, coaInfo.session.userIp, coaInfo.bras.ip);
 			}
 			logger.toLog(formatter.format(new Date()) + " Kick off succ:" + bSucc + ":" +
 				coaInfo.session.account.login + "," + coaInfo.bras.city);

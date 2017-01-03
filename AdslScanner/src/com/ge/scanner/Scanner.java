@@ -1,5 +1,6 @@
 package com.ge.scanner;
 
+import com.ge.scanner.bean.PushSignBean;
 import com.ge.scanner.config.ScannerConfig;
 import com.ge.scanner.conn.cm.CmUtils;
 import com.ge.scanner.conn.crm.CrmModule;
@@ -39,7 +40,6 @@ public class Scanner extends Thread {
 			    List<Session> sessions = CmUtils.getSessionsByAccount(user);
 			    if (sessions.isEmpty()) {
                     logger.toLog(formatter.format(new Date()) + " User offline " + user.login);
-                    CmUtils.updateOfferSign(user, 1);
                     return Stream.empty();
                 }
                 return sessions.stream();
@@ -75,6 +75,10 @@ public class Scanner extends Thread {
 			//update users' offer sign to 5, crm not needed to offer.
 			int nUpdate5Succ = users.stream()
 				.filter(user -> !user.isNeedOffer)
+				.map(user -> {
+					PushSignBean.insert(user.login, "5", user.city, "", "");
+					return user;
+				})
 				.mapToInt(user -> CmUtils.updateOfferSign(user, 5) ? 1 : 0)
 				.sum();
 
