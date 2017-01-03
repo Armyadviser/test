@@ -26,27 +26,38 @@ public class Destroyer {
 	 * @param list
 	 */
 	public static int kickOff(List<CoaInfo> list) {
-		String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
-		Log logger = Log.getSystemLog(logPath);
-
-		CoaFactory factory = CoaFactory.getInstance();
 		return list.stream()
-            .mapToInt(coaInfo -> {
-                CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+            .map(Destroyer::kickOff)
+			.mapToInt(ifSucc -> ifSucc ? 1 : 0)
+			.sum();
+	}
 
-                RadiusPacket response = request.lock(coaInfo);
-                System.out.println(response);
-                System.out.println("-------------------------\n");
+	private static boolean kickOff(CoaInfo coaInfo) {
+		try {
+			String logPath = ScannerConfig.getInstance().getScannerValue("LogPath");
+			Log logger = Log.getSystemLog(logPath);
 
-                int result = 0;
-                boolean bSucc = false;
-                if (response != null && response.toString().contains("ACK")) {
-                    bSucc = CmUtils.updateOfferSign(coaInfo.session.account, 2);
-                    result = bSucc ? 1 : 0;
-                }
-                logger.toLog(formatter.format(new Date()) + " Kick off succ:" + bSucc + ":" +
-                        coaInfo.session.account.login + "," + coaInfo.bras.city);
-                return result;
-            }).sum();
+			CoaFactory factory = CoaFactory.getInstance();
+			CoaUtil request = factory.getCoaRequest(coaInfo.bras.vendorId);
+
+			RadiusPacket response = request.lock(coaInfo);
+			System.out.println(response);
+			System.out.println("-------------------------\n");
+
+			boolean bSucc = false;
+			if (response != null && response.toString().contains("ACK")) {
+				CmUtils.updateOfferSign(coaInfo.session.account, 2);
+				bSucc = true;
+			} else {
+				CmUtils.updateOfferSign(coaInfo.session.account, 1);
+			}
+			logger.toLog(formatter.format(new Date()) + " Kick off succ:" + bSucc + ":" +
+				coaInfo.session.account.login + "," + coaInfo.bras.city);
+
+			return bSucc;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
