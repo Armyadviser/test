@@ -42,7 +42,7 @@ public class Client {
 	private void start() throws Exception {
 	    findServer();
 
-		Window window = new Window(NAME, socket, serverIp, 11105);
+		Window window = new Window(NAME);
 
 		new Thread(() -> {
 		    while (true) {

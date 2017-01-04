@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.util.Date;
 
 public class Window extends JFrame {
@@ -18,18 +19,21 @@ public class Window extends JFrame {
 	private JButton mSend;
 	
 	private final String name;
-	private final DatagramSocket socket;
-	private final String serverIp;
-	private final int port;
+	private DatagramSocket socket;
+	private final String destIp;
+	private final int destPort = 11105;
 
-	Window(String name, DatagramSocket socket, String serverIp, int port) {
+	Window(String name) {
 		super(name);
 		initFrame();
 		
 		this.name = name;
-		this.socket = socket;
-		this.serverIp = serverIp;
-		this.port = port;
+		try {
+			this.socket = new DatagramSocket(11106);
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		this.destIp = SocketUtil.getBroadcast();
 
 		setListener();
 	}
@@ -69,7 +73,7 @@ public class Window extends JFrame {
                     mInput.setText("");
 
                     msg = name + ":" + msg;
-                    SocketUtil.send(socket, serverIp, port, msg, String::getBytes);
+                    SocketUtil.send(socket, destIp, destPort, msg, String::getBytes);
                 }
 			}
         });
@@ -88,7 +92,7 @@ public class Window extends JFrame {
 			mInput.setText("");
 
 			msg = name + ":" + msg;
-			SocketUtil.send(socket, serverIp, port, msg, String::getBytes);
+			SocketUtil.send(socket, destIp, destPort, msg, String::getBytes);
 		});
 	}
 	
