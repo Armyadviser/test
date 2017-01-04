@@ -100,4 +100,8 @@ public class Window extends JFrame {
 		msg = msg.replace(":", ":" + new Date() + "\n") + "\n\n";
 		mContent.append(msg);
 	}
+
+	public static void main(String[] args) throws Exception {
+	    new Window("");
+	}
 }
