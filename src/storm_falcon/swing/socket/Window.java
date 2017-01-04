@@ -2,29 +2,35 @@ package storm_falcon.swing.socket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.PrintWriter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.net.DatagramSocket;
+import java.util.Date;
 
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = -4560169860038231159L;
 
 	private JTextArea mContent;
-	private JTextField mInput;
+	private JTextArea mInput;
 	private JButton mSend;
 	
 	private final String name;
-	private final PrintWriter out;
+	private final DatagramSocket socket;
+	private final String serverIp;
+	private final int port;
 
-	Window(String name, PrintWriter out) {
+	Window(String name, DatagramSocket socket, String serverIp, int port) {
 		super(name);
 		initFrame();
 		
 		this.name = name;
-		this.out = out;
-		
-		sendMsg("%" + name + "& connect to the server.");
-		
+		this.socket = socket;
+		this.serverIp = serverIp;
+		this.port = port;
+
 		setListener();
 	}
 	
@@ -33,7 +39,7 @@ public class Window extends JFrame {
 		
 		mContent = new JTextArea();
 		mContent.setEditable(false);
-		mInput = new JTextField();
+		mInput = new JTextArea(5, 20);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -58,19 +64,20 @@ public class Window extends JFrame {
 		mInput.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String msg = mInput.getText();
-					mInput.setText("");
-					
-					sendMsg(name + ":" + msg);
-				}
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isControlDown()) {
+                    String msg = mInput.getText();
+                    mInput.setText("");
+
+                    msg = name + ":" + msg;
+                    SocketUtil.send(socket, serverIp, port, msg, String::getBytes);
+                }
 			}
-		});
+        });
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				out.close();
+				socket.close();
 				setVisible(false);
 				System.exit(0);
 			}
@@ -80,16 +87,13 @@ public class Window extends JFrame {
 			String msg = mInput.getText();
 			mInput.setText("");
 
-			sendMsg(name + ":" + msg);
+			msg = name + ":" + msg;
+			SocketUtil.send(socket, serverIp, port, msg, String::getBytes);
 		});
 	}
 	
 	void appendMsg(String msg) {
-		mContent.append(msg + "\n");
-	}
-	
-	private void sendMsg(String msg) {
-		out.println(msg);
-		out.flush();
+		msg = msg.replace(":", ":" + new Date() + "\n") + "\n\n";
+		mContent.append(msg);
 	}
 }
