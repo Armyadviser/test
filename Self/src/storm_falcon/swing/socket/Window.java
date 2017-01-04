@@ -1,5 +1,7 @@
 package storm_falcon.swing.socket;
 
+import storm_falcon.util.date.DateHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -8,7 +10,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.util.Date;
 
 public class Window extends JFrame {
 
@@ -97,11 +98,13 @@ public class Window extends JFrame {
 	}
 	
 	void appendMsg(String msg) {
-		msg = msg.replace(":", ":" + new Date() + "\n") + "\n\n";
+	    String time = DateHelper.getTimeStrFromLongAndFormat(System.currentTimeMillis(), "HH:mm");
+		msg = msg.replace(":", ":" + time + "\n") + "\n\n";
 		mContent.append(msg);
 	}
 
 	public static void main(String[] args) throws Exception {
-	    new ReceiveThread(new Window("")).start();
+	    String name = System.getProperty("user.name");
+	    new ReceiveThread(new Window(name)).start();
 	}
 }
