@@ -81,6 +81,7 @@ public class AccountBean {
 		serviceIp.set(CpFldSlotS.getInst());
 
 		FList result = new FList();
+		result.set(FldAacSource.getInst());
 		result.set(FldPoid.getInst());
 		result.set(FldLogin.getInst());
 		result.set(FldServiceIp.getInst(), serviceIp);
@@ -106,6 +107,7 @@ public class AccountBean {
 			Account account = new Account();
 			account.poid = poid;
 			account.login = flist.get(FldLogin.getInst());
+			account.city = flist.get(FldAacSource.getInst());
 
 			FList serviceIp = flist.get(FldServiceIp.getInst());
 			String slotS = serviceIp.get(CpFldSlotS.getInst());

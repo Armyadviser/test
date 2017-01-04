@@ -9,4 +9,14 @@ public class Bras {
     public int vendorId;
     public String brasCodes;
     public String city;
+
+    @Override
+    public String toString() {
+        return "Bras{" +
+            "ip='" + ip + '\'' +
+            ", vendorId=" + vendorId +
+            ", brasCodes='" + brasCodes + '\'' +
+            ", city='" + city + '\'' +
+            '}';
+    }
 }

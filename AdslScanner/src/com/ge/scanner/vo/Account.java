@@ -10,6 +10,8 @@ public class Account {
     public Poid poid;
     public String login;
 
+    public String city;
+
 	/** 用户编码 */
 	public String userId;
 
