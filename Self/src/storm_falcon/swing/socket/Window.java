@@ -102,6 +102,6 @@ public class Window extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-	    new Window("");
+	    new ReceiveThread(new Window("")).start();
 	}
 }
