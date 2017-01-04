@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--suppress XmlUnboundNsPrefix -->
+<Database-List>
+    <Database>
+        <Name>test</Name>
+        <Driver>com.mysql.jdbc.Driver</Driver>
+        <URL><![CDATA[jdbc:mysql://127.0.0.1:3306/test?useServerPrepStmts=false&rewriteBatchedStatements=true]]></URL>
+        <Username>root</Username>
+        <Password>123456</Password>
+        <MinConn>3</MinConn>
+        <MaxConn>5</MaxConn>
+        <MaxWaitDelay>2000</MaxWaitDelay>
+    </Database>
+</Database-List>

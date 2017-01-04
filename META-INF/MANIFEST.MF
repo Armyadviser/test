@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: storm_falcon.swing.socket.Client
-
