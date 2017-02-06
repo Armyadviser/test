@@ -24,7 +24,7 @@ public class Window extends JFrame {
 	private final String destIp;
 	private final int destPort = 11105;
 
-	Window(String name) {
+	Window(String name, String adapter) {
 		super(name);
 		initFrame();
 		
@@ -34,7 +34,12 @@ public class Window extends JFrame {
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
-		this.destIp = SocketUtil.getBroadcast();
+
+		if (adapter == null || adapter.length() == 0) {
+			this.destIp = SocketUtil.getBroadcast(adapter);
+		} else {
+			this.destIp = SocketUtil.getBroadcast().get(0);
+		}
 
 		setListener();
 	}
@@ -105,6 +110,10 @@ public class Window extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 	    String name = System.getProperty("user.name");
-	    new ReceiveThread(new Window(name)).start();
+	    String adapter = "";
+	    if (args.length == 1) {
+			adapter = args[0];
+		}
+	    new ReceiveThread(new Window(name, adapter)).start();
 	}
 }

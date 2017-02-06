@@ -1,11 +1,14 @@
 package storm_falcon.swing.socket;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import storm_falcon.util.StreamUtil;
+
 import java.net.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by falcon on 17-1-1.
@@ -80,24 +83,27 @@ public class SocketUtil {
         return "127.0.0.1";
     }
 
-    public static String getBroadcast() {
+    private static String getBroadcast(NetworkInterface networkInterface) {
+        Optional<String> broadcast = networkInterface.getInterfaceAddresses()
+                .stream()
+                .map(SocketUtil::getBroadcastIp)
+                .findFirst();
+        return broadcast.orElse("255.255.255.0");
+    }
+
+    /**
+     * Get broadcast of network adapter's name.
+     * @param name network card's name.
+     * @return broadcast ip.
+     */
+    public static String getBroadcast(String name) {
         try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            while (interfaces.hasMoreElements()) {
-                NetworkInterface networkInterface = interfaces.nextElement();
-                if (networkInterface.isLoopback()) {
-                    continue;
-                }
-                List<InterfaceAddress> interfaceAddresses = networkInterface.getInterfaceAddresses();
-                Optional<String> broadcast = interfaceAddresses.stream()
-                        .map(InterfaceAddress::getBroadcast)
-                        .filter(Objects::nonNull)
-                        .map(InetAddress::toString)
-                        .map(ip -> ip.substring(1, ip.length()))
-                        .findFirst();
-                if (broadcast.isPresent()) {
-                    return broadcast.get();
-                }
+            Optional<String> broadcast = StreamUtil.stream(NetworkInterface.getNetworkInterfaces())
+                    .filter(networkInterface -> name.equals(networkInterface.getDisplayName()))
+                    .map(SocketUtil::getBroadcast)
+                    .findFirst();
+            if (broadcast.isPresent()) {
+                return broadcast.get();
             }
         } catch (SocketException e) {
             e.printStackTrace();
@@ -105,4 +111,32 @@ public class SocketUtil {
         return "255.255.255.0";
     }
 
+    public static List<String> getBroadcast() {
+        try {
+            return StreamUtil.stream(NetworkInterface.getNetworkInterfaces())
+                    .map(SocketUtil::getBroadcast)
+                    .distinct()
+                    .collect(Collectors.toList());
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Get a ip's broadcast ip.
+     * @param ipAddress
+     * @return
+     */
+    public static String getBroadcastIp(InterfaceAddress ipAddress) {
+        if (ipAddress == null) {
+            return "255.255.255.0";
+        }
+        InetAddress broadcast = ipAddress.getBroadcast();
+        if (broadcast == null) {
+            return "255.255.255.0";
+        }
+        String ip = broadcast.toString();
+        return ip.substring(1, ip.length());
+    }
 }
