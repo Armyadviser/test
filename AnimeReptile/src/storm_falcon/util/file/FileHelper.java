@@ -246,9 +246,4 @@ public class FileHelper {
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		String path = "¼ÆËã»ú\\OPPO 1107\\SD ¿¨\\shortvideo";
-		delEmptyDir(path);
-	}
 }
