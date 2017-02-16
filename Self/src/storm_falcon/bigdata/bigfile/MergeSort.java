@@ -147,13 +147,4 @@ public class MergeSort {
         reader.close();
     }
 
-    public static void main(String[] args) {
-        MergeSort ms = new MergeSort(
-                "E:\\Document\\Big Data\\test_sort_data.txt",
-                "E:\\Document\\Big Data\\test_sort_data.txt_sorted.csv",
-                10,
-                String::compareTo);
-        ms.sort();
-
-    }
 }

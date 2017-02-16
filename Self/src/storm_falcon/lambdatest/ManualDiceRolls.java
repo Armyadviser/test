@@ -111,21 +111,4 @@ public class ManualDiceRolls {
 		};
 	}
 
-	public static void main(String[] args) {
-		long n1, n2;
-
-//		n1 = System.currentTimeMillis();
-//	    ManualDiceRolls rolls = new ManualDiceRolls();
-//		rolls.simulateDiceRoles();
-//		n2 = System.currentTimeMillis();
-//		System.out.println(n2 - n1);
-
-		System.out.println("--------------");
-
-		n1 = System.currentTimeMillis();
-	    ManualDiceRolls.parallelDiceRolls();
-		n2 = System.currentTimeMillis();
-		System.out.println(n2 - n1);
-	}
-
 }

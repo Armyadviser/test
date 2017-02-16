@@ -128,13 +128,4 @@ class ConnectionPool implements Closeable {
 		nUsage = 0;
 	}
 
-	public static void main(String[] args) throws Exception {
-        try (ConnectionPool pool = ConnectionPool.getInstance()) {
-			Connection conn = pool.getConnection();
-			System.out.println(conn);
-			pool.freeConnection(conn);
-			System.out.println(conn);
-		}
-    }
-
 }

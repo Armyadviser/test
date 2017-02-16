@@ -4,6 +4,7 @@ package storm_falcon.util.db;
  * Created by Storm_Falcon on 2016/1/29.
  *
  */
+@SuppressWarnings("CanBeFinal")
 class DBVO {
     public String name;
     public String driver;

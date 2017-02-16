@@ -11,7 +11,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.*;
 
-public class Main extends JFrame {
+public class MainMathPic extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 1024;
@@ -19,7 +19,7 @@ public class Main extends JFrame {
 	
 	private BufferedImage mImage = null;
 	
-	public Main() {
+	public MainMathPic() {
 		super();
 		initImage();
 		
@@ -73,6 +73,6 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Main();
+		new MainMathPic();
 	}
 }

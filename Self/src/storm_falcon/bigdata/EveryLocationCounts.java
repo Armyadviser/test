@@ -50,35 +50,4 @@ public class EveryLocationCounts {
         return td;
     }
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private static void analyse() {
-        Map<String, TreatedData> map = parseFile2Map();
-        System.out.println("Map size:" + map.size());
-
-        List<int[]> list = new ArrayList<>();
-//        FileReader.iterator("E:\\Document\\Big Data\\10ÀàÈËÈº.txt",
-//            (reader, persons) -> {
-//                int mCompanyCounter = 0;
-//                int nBusinessCounter = 0;
-//                String[] person = persons.split("\\t");
-//                for (String p : person) {
-//                    TreatedData td = map.get(p);
-//                    if (td == null) continue;
-//                    mCompanyCounter += td.companyNum;
-//                    nBusinessCounter += td.businessNum;
-//                }
-//                int[] res = new int[] {reader.getLineNumber(), mCompanyCounter, nBusinessCounter};
-//                list.add(res);
-//                return res;
-//            }
-//        );
-
-        list.sort((o1, o2) -> o2[1] - o1[1]);
-        list.forEach(array -> System.out.println(Arrays.toString(array)));
-    }
-
-    public static void main(String[] args) {
-        analyse();
-
-    }
 }

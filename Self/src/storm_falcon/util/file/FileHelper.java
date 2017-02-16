@@ -180,7 +180,7 @@ public class FileHelper {
 		}
 
 		@Override
-		public FileVisitResult visitFile(Path dir, BasicFileAttributes attrs) throws IOException {
+		public FileVisitResult visitFile(Path dir, BasicFileAttributes attributes) throws IOException {
 			File file = dir.toFile();
 			if (isMatchSuffix(file.getName())) {
 				files.add(file);
@@ -351,8 +351,4 @@ public class FileHelper {
 		}
 	}
 
-	public static void main(String[] args) {
-		String path = "¼ÆËã»ú\\OPPO 1107\\SD ¿¨\\shortvideo";
-		delEmptyDir(path);
-	}
 }

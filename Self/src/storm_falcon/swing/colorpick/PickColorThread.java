@@ -9,9 +9,9 @@ import java.awt.*;
  */
 public class PickColorThread extends Thread {
 
-    private JTextField octField;
-    private JTextField hexField;
-    private JPanel panel;
+    private final JTextField octField;
+    private final JTextField hexField;
+    private final JPanel panel;
 
     private boolean pause = false;
 

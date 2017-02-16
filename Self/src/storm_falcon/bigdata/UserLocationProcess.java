@@ -79,7 +79,4 @@ public class UserLocationProcess {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
-		new UserLocationProcess().process();
-	}
 }

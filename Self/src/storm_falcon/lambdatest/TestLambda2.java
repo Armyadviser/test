@@ -1,8 +1,8 @@
 package storm_falcon.lambdatest;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -10,40 +10,37 @@ import java.util.stream.Stream;
  *
  */
 public class TestLambda2 {
-    public static void main(String[] args) {
-        List<Person> list = Arrays.asList(
-                new Person("Jack", Person.Gender.MALE, 20),
-                new Person("Lisa", Person.Gender.FEMALE, 21),
-                new Person("Tom", Person.Gender.MALE, 22)
-        );
 
-        //返回姓名年龄的列表
-        list.stream()
+    //返回姓名年龄的列表
+    public static Stream<Object> getNameAge(List<Person> list) {
+        return list.stream()
                 .flatMap(person ->
-                    Stream.of(person.getName(), person.getAge()))
-                .forEach(System.out::println);
+                        Stream.of(person.getName(), person.getAge()));
+    }
 
-        //统计年龄总数
-        System.out.println(list.stream()
+    //统计年龄总数
+    public static int ageTotal(List<Person> list) {
+        return list.stream()
                 .mapToInt(Person::getAge)
-                .sum());
+                .sum();
+    }
 
-        //统计小写字符数量
-        String s = "Hello World.";
-        System.out.println(s.chars()
+    //统计小写字符数量
+    public static long getLowerCaseNum(String s) {
+        return s.chars()
                 .filter(Character::isLowerCase)
-                .count());
+                .count();
+    }
 
-        //找出包含最多小写字母的字符串
-        System.out.println(
-                Stream.of("abc", "Def", "july", "MAY", "apple")
-                        .max(
+    //找出包含最多小写字母的字符串
+    public static String getMaxLowerCaseString(Stream<String> stream) {
+        Optional<String> optional = stream.max(
                                 Comparator.comparing(item ->
                                     item.chars()
                                     .filter(Character::isLowerCase)
                                     .count()
                                 )
-                        )
-        );
+                        );
+        return optional.orElse(null);
     }
 }

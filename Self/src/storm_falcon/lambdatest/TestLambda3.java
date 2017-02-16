@@ -84,14 +84,4 @@ public class TestLambda3 {
         }
     }
 
-    public static void main(String[] args) {
-        long n1, n2;
-        TestLambda3 tl = new TestLambda3();
-
-        n1 = System.currentTimeMillis();
-        tl.countPrimes2(100_000);
-        n2 = System.currentTimeMillis();
-
-        System.out.println(n2 - n1);
-    }
 }

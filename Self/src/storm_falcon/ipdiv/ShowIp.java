@@ -73,7 +73,4 @@ public class ShowIp {
 		return city;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(fun("42.84.144.189"));
-	}
 }

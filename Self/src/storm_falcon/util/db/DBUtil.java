@@ -1,9 +1,10 @@
 package storm_falcon.util.db;
 
-import storm_falcon.util.file.FileReader;
-
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Storm_Falcon on 2016/1/27.
@@ -132,20 +133,4 @@ public class DBUtil {
         mPool.freeConnection(mConn);
     }
 
-    public static void main(String[] args) {
-        DBUtil action = new DBUtil();
-        int column = action.update("update user set id=1");
-        System.out.println(column);
-
-        List<?> list = action.select("select id,name,pwd,delsign from user");
-        System.out.println(list);
-
-        List<Object[]> values = new ArrayList<>();
-        String filePath = "E:\\Document\\Big Data\\Test_IMSI_all.csv";
-        FileReader.forEach(filePath, line -> values.add(new Object[] {line}));
-
-        int[] result = action.batchQuery("insert into news (title) values (?)", values);
-        System.out.println(Arrays.toString(result));
-        String s = "{\"no\":\"002\", \"name\":\"asd\", \"tel\":\"1234\", \"date\":\"2016-07-06\", \"credit\":11.0, \"point\":0, \"level\":2}";
-    }
 }

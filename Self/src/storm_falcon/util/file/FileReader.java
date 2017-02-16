@@ -4,11 +4,11 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -151,27 +151,26 @@ public class FileReader implements Closeable {
 	 * @return A stream which is consists of {@code T}.
 	 */
 	private static <T> Stream<T> forEachWithProcessor(String filePath, String encode, BiFunction<Integer, String, T> processor) {
-		try (FileReader reader = new FileReader()) {
-			reader.open(filePath, encode);
+		FileReader reader = new FileReader();
+		reader.open(filePath, encode);
 
-			Iterator<T> iterator = new Iterator<T>() {
-				@Override
-				public boolean hasNext() {
-					return reader.hasNext();
-				}
+		Iterator<T> iterator = new Iterator<T>() {
+			@Override
+			public boolean hasNext() {
+				return reader.hasNext();
+			}
 
-				@Override
-				public T next() {
-					String line = reader.getLine();
-					int lineNumber = reader.getLineNumber();
-					return processor.apply(lineNumber, line);
-				}
-			};
+			@Override
+			public T next() {
+				String line = reader.getLine();
+				int lineNumber = reader.getLineNumber();
+				return processor.apply(lineNumber, line);
+			}
+		};
 
-			return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
-					iterator, Spliterator.ORDERED | Spliterator.NONNULL
-				), false).onClose(asUncheckedRunnable(reader));
-		}
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
+				iterator, Spliterator.ORDERED | Spliterator.NONNULL
+			), false).onClose(asUncheckedRunnable(reader));
 	}
 
 	private static Runnable asUncheckedRunnable(Closeable c) {
@@ -228,5 +227,68 @@ public class FileReader implements Closeable {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * This method can interate a file content.
+	 * {@link storm_falcon.util.file.FileReader#mapForEach(java.lang.String, java.lang.String, java.util.regex.Pattern,
+	 * 		java.util.regex.Pattern, java.util.function.Function)}
+	 */
+	public static <T> Stream<T> mapForEach(String filePath,
+										   Pattern beginRegex, Pattern endRegex,
+										   Function<List<String>, T> mapper) {
+		return mapForEach(filePath, "gbk", beginRegex, endRegex, mapper);
+	}
+
+	/**
+	 * This method can iterate a file as context.
+	 * Usually use to analyse a log file.
+	 * The {@param beginRegex} matches a message's begin line.
+	 * The {@param endRegex} matches the message's end line.
+	 * The content between this two lines are defined as a message's context.
+	 * After iterating, this method can return a stream consists of messages.
+	 *
+	 * @param filePath A path of file.
+	 * @param encode The file's charset.
+	 * @param beginRegex A regex which line the context begins.
+	 * @param endRegex A regex which line the context ends.
+	 * @param mapper A {@code java.util.Function} which declares how to convert context to {@code T}.
+	 * @param <T> The type of return Stream.
+	 * @return A {@code java.util.stream.Stream} consists of T.
+	 */
+	public static <T> Stream<T> mapForEach(String filePath, String encode,
+										   Pattern beginRegex, Pattern endRegex,
+										   Function<List<String>, T> mapper) {
+        FileReader reader = new FileReader();
+		reader.open(filePath, encode);
+
+		Iterator<T> iterator = new Iterator<T>() {
+			@Override
+			public boolean hasNext() {
+				return reader.hasNext();
+			}
+
+			@Override
+			public T next() {
+				String line = reader.getLine();
+				while (!beginRegex.matcher(line).matches()) {
+					line = reader.nextLine();
+					if (line == null) return null;
+				}
+
+				List<String> list = new ArrayList<>();
+				do {
+					list.add(line);
+					line = reader.nextLine();
+					if (line == null) return null;
+				} while (!endRegex.matcher(line).matches());
+
+				return mapper.apply(list);
+			}
+		};
+
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(
+				iterator, Spliterator.ORDERED | Spliterator.NONNULL
+		), false).onClose(asUncheckedRunnable(reader));
+    }
 
 }

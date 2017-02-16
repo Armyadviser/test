@@ -12,7 +12,7 @@ import java.util.Enumeration;
  */
 public class ColorPicker extends JFrame {
 
-    private PickColorThread thread;
+    private final PickColorThread thread;
 
     public ColorPicker() {
         super("Color Picker - <Storm_Falcon>");

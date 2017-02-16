@@ -64,17 +64,4 @@ public class DataTest {
         return phoneMap;
     }
 
-    public static void main(String[] args) {
-        String file = "E:\\Document\\Big Data\\effective.csv";
-
-        initSameBrand();
-
-        Map<String, Set<String>> phoneMap = getPhoneMap(file);
-
-        phoneMap.forEach((brand, verSet) -> {
-            System.out.println(brand);
-            verSet.forEach(s -> System.out.println("\t" + s));
-        });
-
-    }
 }

@@ -1,11 +1,10 @@
 package storm_falcon.ipdiv;
 
-import storm_falcon.util.file.FileReader;
-import storm_falcon.util.file.FileWriter;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Main {
 	
@@ -57,23 +56,17 @@ public class Main {
 
 	public static void main(String path[]) throws Exception { 
 		initLocalMap();
-		IPIPNet.load("D:/test/ip/17monipdb.dat");
+		IPIPNet.load("/home/falcon/文档/17monipdb.dat");
 		
 		String inFile = "F:/Tencent/874062225/FileRecv/爱立信bras统计.csv";
 		String outFile = "F:/Tencent/874062225/FileRecv/out.txt";
 
-		FileWriter outWriter = new FileWriter();
-		outWriter.open(outFile);
+        Files.lines(Paths.get("/home/falcon/test/20170105_access_ip.txt"))
+                .map(ip -> new String[] {ip, getCityByIp(ip)})
+                .filter(items -> items[1] != null)
+                .collect(Collectors.groupingBy(items -> items[1]))
+                .entrySet()
+                .forEach(entry -> System.out.println(entry.getKey() + "\t" + entry.getValue().size()));
 
-		FileReader.mapForEach(inFile, (num, line) -> ContentInfo.parse(line, 0, ","))
-			.filter(Objects::nonNull)
-			.parallel()
-			.map(contentInfo -> {
-				contentInfo.city = getCityByIp(contentInfo.ip);
-				return contentInfo;
-			})
-			.forEach(contentInfo -> outWriter.writeLine(contentInfo.toString()));
-		
-		outWriter.close();
 	}
 }

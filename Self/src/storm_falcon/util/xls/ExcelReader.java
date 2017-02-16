@@ -2,12 +2,9 @@ package storm_falcon.util.xls;
 
 import jxl.Sheet;
 import jxl.Workbook;
-import storm_falcon.util.file.FileWriter;
 
 import java.io.Closeable;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Storm_Falcon on 2016/12/5.
@@ -63,22 +60,4 @@ public class ExcelReader implements Closeable {
         workbook = null;
     }
 
-    public static void main(String[] args) throws Exception {
-
-        String filePath = "C:\\Users\\Storm_Falcon\\Desktop\\家客宽带到期信息-1130-辽阳反馈(CRM反馈).xls";
-        ExcelReader reader = new ExcelReader();
-        reader.open(filePath);
-
-        int counter = 0;
-
-        while (reader.hasNext()) {
-            String date = reader.getContent(3);
-            if (date.length() == 0) {
-                counter++;
-            }
-        }
-        reader.close();
-        System.out.println(counter);
-
-    }
 }

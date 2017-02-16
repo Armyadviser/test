@@ -36,10 +36,6 @@ public class TestLambda {
 		System.out.println(resList2);
 	}
 
-	public static void main(String[] args) {
-//	    f1();
-		f2();
-	}
 }
 
 class GroupingBy<T, K> implements Collector<T, Map<K, List<T>>, Map<K, List<T>>> {

@@ -49,10 +49,4 @@ public class Location {
 	    return d;  
 	}
 	
-	public static void main(String[] args) {
-		Location l1 = new Location(121.2839, 31.34085001);
-		Location l2 = new Location(121.29018, 31.32896001);
-		double d = l1.getDistance(l2);
-		System.out.println(d);
-	}
 }

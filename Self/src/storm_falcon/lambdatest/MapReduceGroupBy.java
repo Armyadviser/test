@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class MapReduceGroupBy {
 
-    public static void main(String[] args) {
+    public static void lambda() {
         System.out.println("Hello World!");
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 

@@ -124,9 +124,4 @@ public class DateHelper {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) throws StringDataErrorException {
-        System.out.println(DateHelper.parseDateToString("Thu Oct 1 00:00:00 CST 2015", TYPE_SIMPLE));
-        System.out.println(parseCurrentTimeMillis(1442993052079L, TYPE_SIMPLE));
-    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ImageRecognizer {
 
-	public static void main(String[] args) throws Exception {
+	public static void test() throws Exception {
 		String dir = "E:/MyPictures/Pվ";
 		int level = 19;
 

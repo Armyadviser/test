@@ -1,7 +1,5 @@
 package storm_falcon.util;
 
-import java.util.Arrays;
-
 public class SubPage {
 
 	/**
@@ -20,7 +18,4 @@ public class SubPage {
 		return new int[]{nStartNum, nTotalPage};
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(Arrays.toString(calcPage(3, 5, 50)));
-	}
 }

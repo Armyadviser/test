@@ -62,11 +62,4 @@ public class Array {
 		System.out.println(sum);
 	}
 
-	public static void main(String[] args) {
-	    f1();
-		movingAverage();
-		f2();
-		f2withBug();
-		sum();
-	}
 }

@@ -6,18 +6,11 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.concurrent.locks.ReentrantLock;
 
 //http://www.ipip.net/download.html
 
 public class IPIPNet {
-
-    public static void main(String[] args){
-        load("D:/test/ip/17monipdb.dat");
-
-        System.out.println(Arrays.toString(find("172.16.1.131")));
-    }
 
     private static int offset;
     private static final int[] index = new int[256];
