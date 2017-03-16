@@ -7,14 +7,15 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-@SuppressWarnings("UnusedReturnValue")
 public class FileWriter {
 
 	private File mFile = null;
 	
 	private BufferedWriter mWriter = null;
 
-	private static final String LINE_SEP = System.getProperty("line.separator");
+	private String lineSeparator = System.getProperty("line.separator");
+
+	private int lineNum = 0;
 	
 	public boolean open(String strFilePath) {
 		mFile = new File(strFilePath);
@@ -47,16 +48,21 @@ public class FileWriter {
 		}
 		return true;
 	}
+
+	public void setSeparator(String separator) {
+		lineSeparator = separator;
+	}
 	
 	public synchronized void writeLine(String line){
 		try {
 			mWriter.write(line);
-			mWriter.write(LINE_SEP);
+			mWriter.write(lineSeparator);
+			lineNum++;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void close() {
 		try {
 			mWriter.flush();
