@@ -1,8 +1,7 @@
 package storm_falcon;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author gewp
@@ -12,20 +11,14 @@ public class CheckCodeManager {
     private final Map<String, DatePair> mCache;
 
     private CheckCodeManager() {
-        mCache = new HashMap<>();
+        mCache = new ConcurrentHashMap<>();
 
         Thread thread = new Thread(() -> {
             while (true) {
-                Set<Map.Entry<String, DatePair>> entrySet;
-                synchronized (mCache) {
-                    entrySet = mCache.entrySet();
-                }
-                for (Map.Entry<String, DatePair> entry : entrySet) {
+                for (Map.Entry<String, DatePair> entry : mCache.entrySet()) {
                     DatePair pair = entry.getValue();
                     if (!pair.isValidate()) {
-                        synchronized (mCache) {
-                            mCache.remove(entry.getKey());
-                        }
+                        mCache.remove(entry.getKey());
                     }
                 }
 
@@ -50,26 +43,16 @@ public class CheckCodeManager {
     }
 
     public void put(String mobileNo, String code) {
-        synchronized (mCache) {
-            mCache.put(mobileNo, new DatePair(code));
-        }
+        mCache.put(mobileNo, new DatePair(code));
     }
 
     public String get(String mobileNo) {
-        DatePair pair;
-        synchronized (mCache) {
-            pair = mCache.get(mobileNo);
-        }
-        if (pair == null) {
-            return null;
-        }
-        return pair.getCode();
+        DatePair pair = mCache.get(mobileNo);
+        return pair == null ? null : pair.getCode();
     }
 
     public void remove(String mobileNo) {
-        synchronized (mCache) {
-            mCache.remove(mobileNo);
-        }
+        mCache.remove(mobileNo);
     }
 
     private class DatePair {
