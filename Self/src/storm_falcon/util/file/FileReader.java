@@ -229,8 +229,8 @@ public class FileReader implements Closeable {
 	}
 
 	/**
-	 * This method can interate a file content.
-	 * {@link storm_falcon.util.file.FileReader#mapForEach(java.lang.String, java.lang.String, java.util.regex.Pattern,
+	 * This method can iterate a file content.
+	 * {@link this#mapForEach(java.lang.String, java.lang.String, java.util.regex.Pattern,
 	 * 		java.util.regex.Pattern, java.util.function.Function)}
 	 */
 	public static <T> Stream<T> mapForEach(String filePath,
