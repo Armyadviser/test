@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" filepath="$PROJECT_DIR$/AnimeReptile/AnimeReptile.iml" />
       <module fileurl="file://$PROJECT_DIR$/Self/Self.iml" filepath="$PROJECT_DIR$/Self/Self.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServiceMonitor/ServiceMonitor.iml" filepath="$PROJECT_DIR$/ServiceMonitor/ServiceMonitor.iml" />
       <module fileurl="file://$PROJECT_DIR$/Study/Study.iml" filepath="$PROJECT_DIR$/Study/Study.iml" />
       <module fileurl="file://$PROJECT_DIR$/brm/brm.iml" filepath="$PROJECT_DIR$/brm/brm.iml" />
       <module fileurl="file://$PROJECT_DIR$/jcs/jcs.iml" filepath="$PROJECT_DIR$/jcs/jcs.iml" />
