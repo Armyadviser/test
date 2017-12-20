@@ -25,9 +25,9 @@ import java.util.stream.Stream;
 public class FileHelper {
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
-	 * @param strUrl ÍøÂçurl
-	 * @param pathToSave ±¾µØ±£´æÂ·¾¶
+	 * ä¸‹è½½æ–‡ä»¶
+	 * @param strUrl ç½‘ç»œurl
+	 * @param pathToSave æœ¬åœ°ä¿å­˜è·¯å¾„
 	 * @return
 	 */
 	@SuppressWarnings({"UnusedDeclaration"})
@@ -53,7 +53,7 @@ public class FileHelper {
 	}
 	
 	/**
-	 * °´×Ö½Ú¶ÁÈ¡ÎÄ¼ş
+	 * æŒ‰å­—èŠ‚è¯»å–æ–‡ä»¶
 	 * @param file
 	 * @return
 	 * @throws IOException
@@ -71,7 +71,7 @@ public class FileHelper {
 	}
 	
 	/**
-	 * °´×Ö½Ú¶ÁÈ¡ÎÄ¼ş
+	 * æŒ‰å­—èŠ‚è¯»å–æ–‡ä»¶
 	 * @param filename
 	 * @return
 	 * @throws IOException
@@ -83,7 +83,7 @@ public class FileHelper {
 	}
 
 	/**
-	 * ½«byteĞ´ÈëÎÄ¼ş
+	 * å°†byteå†™å…¥æ–‡ä»¶
 	 * @param file
 	 * @param data
 	 * @throws IOException
@@ -96,7 +96,7 @@ public class FileHelper {
 	}
 	
 	/**
-	 * ½«byteĞ´ÈëÎÄ¼ş
+	 * å°†byteå†™å…¥æ–‡ä»¶
 	 * @param filename
 	 * @param data
 	 * @throws IOException
@@ -109,11 +109,11 @@ public class FileHelper {
 	}
 
 	/**
-	 * ±éÀúÄ¿Â¼
-	 * @param dirPath Ä¿±êÄ¿Â¼
-	 * @param isFullName ÊÇ·ñÎªÍêÕûÂ·¾¶
-	 * @param suffixes É¸Ñ¡ºó×ºÃû£¬¼´ÎÄ¼ş¸ñÊ½
-	 * @return ËùÓĞ·ûºÏ¸ñÊ½µÄÎÄ¼şÃû
+	 * éå†ç›®å½•
+	 * @param dirPath ç›®æ ‡ç›®å½•
+	 * @param isFullName æ˜¯å¦ä¸ºå®Œæ•´è·¯å¾„
+	 * @param suffixes ç­›é€‰åç¼€åï¼Œå³æ–‡ä»¶æ ¼å¼
+	 * @return æ‰€æœ‰ç¬¦åˆæ ¼å¼çš„æ–‡ä»¶å
 	 */
 	@SuppressWarnings({"UnusedDeclaration"})
 	public static List<String> traversalDir(String dirPath, boolean isFullName, String... suffixes) {
@@ -130,7 +130,7 @@ public class FileHelper {
 			boolean flag = false;
 			String path = file.getAbsolutePath();
 			
-			//ÅĞ¶ÏÎÄ¼ş¸ñÊ½
+			//åˆ¤æ–­æ–‡ä»¶æ ¼å¼
 			if (suffixes.length == 0) {
 				flag = true;
 			}
@@ -154,7 +154,7 @@ public class FileHelper {
 	}
 
 	/**
-	 * ±éÀúÄ¿Â¼²éÕÒÎÄ¼ş
+	 * éå†ç›®å½•æŸ¥æ‰¾æ–‡ä»¶
 	 * @param dir
 	 * @param suffixes
 	 * @return
@@ -206,9 +206,9 @@ public class FileHelper {
 	}
 
 	/**
-	 * ÎÄ¼ş²»´æÔÚÔò´´½¨ĞÂÎÄ¼ş
+	 * æ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»ºæ–°æ–‡ä»¶
 	 * @param strFilePath
-	 * @return ·µ»Ø´´½¨µÄÎÄ¼ş¶ÔÏó
+	 * @return è¿”å›åˆ›å»ºçš„æ–‡ä»¶å¯¹è±¡
 	 */
 	public static File createFile(String strFilePath) {
 		int endIndex = strFilePath.lastIndexOf("/");
@@ -234,7 +234,7 @@ public class FileHelper {
 	}
 
 	/**
-	 * ½«dirÄ¿Â¼ÏÂËùÓĞÎÄ¼şÄÚÈİÕûºÏ³ÉÒ»¸öÎÄ¼ş
+	 * å°†dirç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶å†…å®¹æ•´åˆæˆä¸€ä¸ªæ–‡ä»¶
 	 * @param dir
 	 * @param out
 	 * @return
@@ -272,10 +272,10 @@ public class FileHelper {
 	}
 	
 	/**
-	 * ´ò¿ªĞ´ÎÄ¼şµÄBufferedWriterÊä³öÁ÷
-	 * @param file Ä¿±êÎÄ¼ş
-	 * @param isAppend ÊÇ·ñÒÔ×·¼Ó·½Ê½´ò¿ª
-	 * @param encoding ±àÂë
+	 * æ‰“å¼€å†™æ–‡ä»¶çš„BufferedWriterè¾“å‡ºæµ
+	 * @param file ç›®æ ‡æ–‡ä»¶
+	 * @param isAppend æ˜¯å¦ä»¥è¿½åŠ æ–¹å¼æ‰“å¼€
+	 * @param encoding ç¼–ç 
 	 * @return
 	 */
 	@SuppressWarnings({"UnusedDeclaration"})
@@ -293,9 +293,9 @@ public class FileHelper {
 
 
 	/**
-	 * ÎÄ¼ş¸´ÖÆ
-	 * @param source Ô´ÎÄ¼ş¾ø¶ÔÂ·¾¶
-	 * @param dest Ä¿±êÎÄ¼ş¾ø¶ÔÂ·¾¶
+	 * æ–‡ä»¶å¤åˆ¶
+	 * @param source æºæ–‡ä»¶ç»å¯¹è·¯å¾„
+	 * @param dest ç›®æ ‡æ–‡ä»¶ç»å¯¹è·¯å¾„
      */
 	@SuppressWarnings({"UnusedDeclaration"})
 	public static void copyTo(String source, String dest) {
@@ -305,9 +305,9 @@ public class FileHelper {
 	}
 
 	/**
-	 * ÎÄ¼ş¸´ÖÆ
-	 * @param in Ô´ÎÄ¼ş
-	 * @param out Ä¿±êÎÄ¼ş
+	 * æ–‡ä»¶å¤åˆ¶
+	 * @param in æºæ–‡ä»¶
+	 * @param out ç›®æ ‡æ–‡ä»¶
      */
 	public static void copyTo(File in, File out) {
 		try {

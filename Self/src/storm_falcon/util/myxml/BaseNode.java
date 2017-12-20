@@ -1,8 +1,5 @@
 package storm_falcon.util.myxml;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Map;
 
 /**
@@ -14,19 +11,18 @@ abstract class BaseNode {
     protected static XmlProperty property;
 
     /**
-     * ½ÚµãÃû£¬key
+     * èŠ‚ç‚¹åï¼Œkey
      */
     protected String name;
 
     /**
-     * ²ã´Î£¬ÓÃÓÚ¸ñÊ½»¯µÈ
+     * å±‚æ¬¡ï¼Œç”¨äºæ ¼å¼åŒ–ç­‰
      */
     protected int mLevel;
 
     /**
-     * ÊôĞÔÁĞ±í
+     * å±æ€§åˆ—è¡¨
      */
-    @Nullable
     protected Map<String, String> attrMap = null;
 
     public void setProperty(XmlProperty property) { BaseNode.property = property; }
@@ -40,13 +36,13 @@ abstract class BaseNode {
     }
 
     /**
-     * ·µ»Ø½ÚµãÖµ
+     * è¿”å›èŠ‚ç‚¹å€¼
      * @return
      */
     public abstract Object getValue();
 
     /**
-     * ·µ»Ø½ÚµãÖµÊıÁ¿
+     * è¿”å›èŠ‚ç‚¹å€¼æ•°é‡
      * @return
      */
     public abstract int getValueSize();
@@ -61,7 +57,6 @@ abstract class BaseNode {
         this.mLevel = level;
     }
 
-    @Nullable
     public Map<String, String> getAttribute() {
         return attrMap;
     }
@@ -71,10 +66,9 @@ abstract class BaseNode {
     }
 
     /**
-     * ½«ÊôĞÔÁĞ±í×ª³Éstring
+     * å°†å±æ€§åˆ—è¡¨è½¬æˆstring
      * @return
      */
-    @NotNull
     protected String getAttributeString() {
         StringBuilder sb = new StringBuilder();
         if (attrMap != null && attrMap.size() != 0) {
@@ -87,11 +81,10 @@ abstract class BaseNode {
     }
 
     /**
-     * Éú³É¿ªÍ·ÖÆ±í·û
-     * @param isStart true:¿ªÊ¼±êÇ©£»false:½áÊø±êÇ©
+     * ç”Ÿæˆå¼€å¤´åˆ¶è¡¨ç¬¦
+     * @param isStart true:å¼€å§‹æ ‡ç­¾ï¼›false:ç»“æŸæ ‡ç­¾
      * @return
      */
-    @NotNull
     protected String getTableString(boolean isStart) {
         if (!property.isFormat) {
             return "";

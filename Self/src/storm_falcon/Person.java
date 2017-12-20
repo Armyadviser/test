@@ -11,9 +11,17 @@ public class Person {
     private final String firstname;
     private final String lastname;
 
+    private int age;
+
     public Person(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public Person(int age) {
+        this.age = age;
+        firstname = "";
+        lastname = "";
     }
 
     public String getFirstname() {
@@ -22,6 +30,10 @@ public class Person {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public final static Comparator<Person> COMPARATOR =

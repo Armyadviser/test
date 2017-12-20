@@ -6,8 +6,8 @@ import java.util.*;
 
 /**
  * Created by Storm_Falcon on 2016/5/12.
- * ÏÖÔÚÓĞÊ®ÀàÈËÈº£¬Ã¿Ò»ĞĞ±íÊ¾Ò»ÀàÈËÈº
- * °ÑÃ¿ÀàÖĞËùÓĞÈË³öÏÖµÄÎ»ÖÃ×ÜºÍ°´Æµ´Î´Ó¸ßµ½µÍÅÅĞò
+ * ç°åœ¨æœ‰åç±»äººç¾¤ï¼Œæ¯ä¸€è¡Œè¡¨ç¤ºä¸€ç±»äººç¾¤
+ * æŠŠæ¯ç±»ä¸­æ‰€æœ‰äººå‡ºç°çš„ä½ç½®æ€»å’ŒæŒ‰é¢‘æ¬¡ä»é«˜åˆ°ä½æ’åº
  */
 public class EveryLocationCounts {
 
@@ -15,7 +15,7 @@ public class EveryLocationCounts {
         @SuppressWarnings("UnnecessaryLocalVariable")
         final Map<String, TreatedData> map = new HashMap<>();
 //        FileReader.iterator(
-//            "E:\\Document\\Big Data\\Êı¾İ1·ÖÎöv0.2.txt",
+//            "E:\\Document\\Big Data\\æ•°æ®1åˆ†æv0.2.txt",
 //            "utf-8",
 //            (reader, line) -> {
 //                TreatedData td = TreatedData.parseString(line);
@@ -32,7 +32,7 @@ public class EveryLocationCounts {
         TreatedData td = null;
 
         FileReader reader = new FileReader();
-        String filePath = "E:\\Document\\Big Data\\Êı¾İ1·ÖÎöv0.2.txt";
+        String filePath = "E:\\Document\\Big Data\\æ•°æ®1åˆ†æv0.2.txt";
         reader.open(filePath, "utf-8");
         reader.hasNext();
         while (reader.hasNext()) {

@@ -61,12 +61,12 @@ public class MergeSort {
     }
 
     private void sortSingleFile() {
-        FileWriter writer = new FileWriter();
-        for (String fileName : mTempFiles) {
-            List<String> list = FileReader.mapForEach(fileName).collect(Collectors.toList());
-            list.sort(comparator);
-            writer.writeAll(fileName, list);
-        }
+//        FileWriter writer = new FileWriter();
+//        for (String fileName : mTempFiles) {
+//            List<String> list = FileReader.mapForEach(fileName).collect(Collectors.toList());
+//            list.sort(comparator);
+//            writer.writeAll(fileName, list);
+//        }
     }
 
     private void merge() {

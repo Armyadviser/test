@@ -37,7 +37,7 @@ public class JTools {
 			return null;
 		}
 	}
-	
+
     public static byte[] ip2Bytes(String ip) {
 		if (ip == null) {
 			return null;

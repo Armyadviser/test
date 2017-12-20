@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.UnsupportedEncodingException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
@@ -98,7 +99,14 @@ public class Window extends JFrame {
 			mInput.setText("");
 
 			msg = name + ":" + msg;
-			SocketUtil.send(socket, destIp, destPort, msg, String::getBytes);
+			SocketUtil.send(socket, destIp, destPort, msg, s -> {
+				try {
+					return s.getBytes("gbk");
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+				return new byte[0];
+			});
 		});
 	}
 	

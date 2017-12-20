@@ -1,6 +1,5 @@
 package storm_falcon.demo.concurrent.simulation.bankteller;
 
-import java.sql.Time;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;

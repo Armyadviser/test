@@ -1,7 +1,5 @@
 package storm_falcon.util.image;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.color.ColorSpace;
@@ -16,7 +14,6 @@ public class ImagePHash {
 	
 	private double[] c;
 	
-	@NotNull
 	private final ColorConvertOp colorConvert = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
 	
 	public ImagePHash() {
@@ -39,7 +36,7 @@ public class ImagePHash {
 		c[0] = 1 / Math.sqrt(2.0);
 	}
 	
-	public int distance(@NotNull String s1, @NotNull String s2) {
+	public int distance(String s1, String s2) {
 		int counter = 0;
 		for (int k = 0; k < s1.length(); k++) {
 			if (s1.charAt(k) != s2.charAt(k)) {
@@ -49,7 +46,6 @@ public class ImagePHash {
 		return counter;
 	}
 	
-	@NotNull
 	private BufferedImage resize(BufferedImage image, int width, int height) {
 		BufferedImage resizeImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = resizeImage.createGraphics();
@@ -58,17 +54,15 @@ public class ImagePHash {
 		return resizeImage;
 	}
 	
-	@NotNull
-	private BufferedImage grayScale(@NotNull BufferedImage img) {
+	private BufferedImage grayScale(BufferedImage img) {
 		colorConvert.filter(img, img);
 		return img;
 	}
 	
-	private int getBlue(@NotNull BufferedImage img, int x, int y) {
+	private int getBlue(BufferedImage img, int x, int y) {
 		return img.getRGB(x, y) & 0xff;
 	}
 	
-	@NotNull
 	private double[][] applyDCT(double[][] f) {
 		int N = size;
 		double[][] F = new double[N][N];
@@ -89,8 +83,7 @@ public class ImagePHash {
 		return F;
 	}
 	
-	@NotNull
-	public String getHash(@NotNull InputStream is) throws Exception {
+	public String getHash(InputStream is) throws Exception {
 		BufferedImage img = ImageIO.read(is);
 		
 		img = resize(img, size, size);

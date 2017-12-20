@@ -2,6 +2,10 @@
   <dictionary name="falcon">
     <words>
       <w>dest</w>
+      <w>firstname</w>
+      <w>inet</w>
+      <w>lastname</w>
+      <w>smtp</w>
     </words>
   </dictionary>
 </component>

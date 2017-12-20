@@ -1,5 +1,6 @@
 package storm_falcon.swing.socket;
 
+import java.io.UnsupportedEncodingException;
 import java.net.DatagramSocket;
 
 /**
@@ -23,7 +24,14 @@ public class ReceiveThread extends Thread {
 
     public void run() {
         while (true) {
-            String s = SocketUtil.receive(socket, String::new);
+            String s = SocketUtil.receive(socket, data -> {
+                try {
+                    return new String(data, "gbk");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return "乱码";
+            });
             window.appendMsg(s);
         }
     }

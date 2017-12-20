@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib-jcs">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/jcs/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/jcs/lib/commons-jcs-core-2.2-sources.jar!/" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/jcs/lib" recursive="false" />
+  </library>
+</component>

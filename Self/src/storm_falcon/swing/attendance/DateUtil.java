@@ -62,6 +62,6 @@ public class DateUtil {
     }
 
     public static void main(String[] args) {
-        getWorkDays(2017, 2);
+        getWorkDays(2017, 9);
     }
 }
