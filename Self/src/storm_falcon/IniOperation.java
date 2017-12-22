@@ -1,368 +1,269 @@
 package storm_falcon;
 
-import java.util.Vector;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
+import java.util.Optional;
+import java.util.Vector;
 
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2006</p>
  * <p>Company: </p>
+ *
  * @author not attributable
  * @version 1.0
  */
-
 public class IniOperation {
 
-  public IniOperation() {
-    vecIniList = new Vector();
-  }
-
-  private class Session{
-    String strMean;
-    String strKey;
-    Vector vecNoteValue;
-  }
-
-  private class Note{
-    String strMean;
-    String strKey;
-    String strValue;
-  }
-
-  private String strFileName = null;
-  private Vector vecIniList;
-  private Session session = null;
-  private String strMean = null;
-  private boolean bChanged = false;
-
-  //��д��Ϣ
-  public synchronized boolean saveIni()throws Exception{
-      if(bChanged == false){
-          return true;
-      }
-      String strLineGe = System.getProperty ("line.separator");
-
-      File fIniFile = new File(strFileName);
-      long nLastTime = fIniFile.lastModified();
-      try{
-          if(vecIniList == null) {
-              return false;
-          }
-          FileWriter fw = null;
-          fw = new FileWriter(fIniFile, false);
-
-          Object[] objSession = vecIniList.toArray();
-          int nSessionNum = vecIniList.size();
-
-          for (int i = 0; i < nSessionNum; i++) {
-              Session sesRoot = (Session) objSession[i];
-              if (sesRoot.strMean != null) {
-                  fw.write(sesRoot.strMean);
-                  fw.write(strLineGe);
-              }
-              if (sesRoot.strKey != null) {
-                  fw.write("[");
-                  fw.write(sesRoot.strKey);
-                  fw.write("]");
-                  fw.write(strLineGe);
-              }
-              Object[] objNote = sesRoot.vecNoteValue.toArray();
-              int nNoteNum = sesRoot.vecNoteValue.size();
-              for (int j = 0; j < nNoteNum; j++) {
-                  Note noteValue = (Note) objNote[j];
-                  if (noteValue.strMean != null) {
-                      fw.write(noteValue.strMean);
-                      fw.write(strLineGe);
-                  }
-                  if (noteValue.strKey != null) {
-                      fw.write(noteValue.strKey);
-                      fw.write("=");
-                  }
-                  if (noteValue.strValue != null) {
-                      fw.write(noteValue.strValue);
-                  }
-                  fw.write(strLineGe);
-              }
-         }
-         fw.close();
-         fIniFile.setLastModified(nLastTime);
+    public IniOperation() {
+        sectionList = new Vector<>();
     }
-    catch(IOException ex){
-      throw new IOException();
+
+    private class Section {
+        String comment;
+        String key;
+        List<Entry> entryList;
     }
-    return true;
-  }
 
-  //���
-  public synchronized boolean cleanIni(){
-     if (vecIniList == null) {
-         return false;
-     }
-     if(vecIniList.isEmpty() == true){
-         return true;
-     }
-     vecIniList.clear();
-     bChanged = true;
-     return true;
-  }
-
-  //�����ı�ֵ
-  public boolean setKeyValue(String strSection, String strKey,
-                                    String strNewValue){
-      if(vecIniList == null || strSection == null || strKey == null || strNewValue == null){
-          return false;
-      }
-
-      Object[] objSession = vecIniList.toArray();
-      int nSessionNum = vecIniList.size();
-      for (int i = 0; i < nSessionNum; i++) {
-          Session sesRoot = (Session) objSession[i];
-          if(sesRoot.strKey.compareTo(strSection) != 0){
-              continue;
-          }
-          Object[] objNote = sesRoot.vecNoteValue.toArray();
-          int nNoteNum = sesRoot.vecNoteValue.size();
-
-          for (int j = 0; j < nNoteNum; j++) {
-              Note noteValue = (Note) objNote[j];
-              if (noteValue.strKey.compareTo(strKey) == 0) {
-                 noteValue.strValue = strNewValue;
-                 bChanged = true;
-              }
-              sesRoot.vecNoteValue.set(j, noteValue);
-              vecIniList.set(i, sesRoot);
-          }
-       }
-      return true;
-  }
-
-  //����long��ֵ
-  public boolean setKeyValue(String strSection, String strKey,
-                                      long lNewValue){
-      if(vecIniList == null || strSection == null || strKey == null || lNewValue < 0){
-          return false;
-      }
-      return (setKeyValue(strSection, strKey, new Long(lNewValue).toString()));
-  }
-
-  //����bool��ֵ
-  public boolean setKeyValue(String strSection, String strKey,
-                                    boolean bNewValue){
-      if(vecIniList == null || strSection == null || strKey == null){
-          return false;
-      }
-      String strBNewValue = new Long(0).toString();
-      if(bNewValue == true){
-        strBNewValue = new Long(1).toString();
-      }
-      return (setKeyValue(strSection, strKey, strBNewValue));
-  }
-
-  //�����ַ���ֵ
-  public boolean setKeyValue(String strSection, String strKey,
-                                    char chNewValue){
-      if(vecIniList == null || strSection == null || strKey == null){
-         return false;
-      }
-      char[] chValue = new char[1];
-      chValue[0] = chNewValue;
-      String strChNewValue = new String(chValue);
-      return (setKeyValue(strSection, strKey, strChNewValue));
-  }
-
-  //ȡ�ı���ֵ
-  public String getKeyValue(String strSection, String strKey) {
-     if(vecIniList == null || strSection == null || strKey == null){
-        return null;
-     }
-     Object[] objSession = vecIniList.toArray();
-     int nSessionNum = vecIniList.size();
-     for (int i = 0; i < nSessionNum; i++) {
-        Session sesRoot = (Session) objSession[i];
-        if (sesRoot.strKey.compareTo(strSection) != 0) {
-            continue;
-        }
-        Object[] objNote = sesRoot.vecNoteValue.toArray();
-        int nNoteNum = sesRoot.vecNoteValue.size();
-
-        for (int j = 0; j < nNoteNum; j++) {
-            Note noteValue = (Note) objNote[j];
-            if (noteValue.strKey.compareTo(strKey) == 0) {
-              return noteValue.strValue;
-            }
-        }
-      }
-      return null;
-  }
-
-  //ȡlong��ֵ
-  public long getKeyValueInt(String strSection, String strKey){
-    if(vecIniList == null || strSection == null || strKey == null){
-       return -1;
+    private class Entry {
+        String comment;
+        String key;
+        String value;
     }
-    String strReValue = getKeyValue(strSection, strKey);
-    if(strReValue == null){
-        return -1;
-    }
-    if(strReValue.length() == 0){
-        return -1;
-    }
-    return new Long(strReValue).longValue();
-  }
 
-  public boolean getKeyValueBool(String strSection, String strKey) {
-      if (vecIniList == null || strSection == null || strKey == null) {
-          return false;
-      }
-      String strReValue = getKeyValue(strSection, strKey);
-      if ("true".equals(strReValue)) {
-          return true;
-      }
-      if ("false".equals(strReValue)) {
-          return false;
-      }
-      if ("1".equals(strReValue)) {
-          return true;
-      }
-      if ("0".equals(strReValue)) {
-          return false;
-      }
-      return false;
-  }
+    private String path;
+    private List<Section> sectionList;
+    private Section section;
+    private String strMean;
+    private boolean bChanged;
 
-  //ȡ�ַ���ֵ
-  public char getKeyValueChar(String strSection, String strKey) {
-      if(vecIniList == null || strSection == null || strKey == null){
-          return '0';
-          }
-      String strReValue = getKeyValue(strSection, strKey);
-      if(strReValue == null){
-          return '0';
-      }
-      if (strReValue.length() == 0) {
-          return '0';
-      }
-      char[] chReValue = strReValue.toCharArray();
-      return chReValue[0];
-  }
+    private String sep = System.getProperty("line.separator");
 
-  //ȡ���еĹؼ����Ϸ���עʾ
-  public String getNoteValue(String strSection, String strKey){
-      if(strSection == null || strKey == null){
-          return null;
-      }
-      Object[] objSession = vecIniList.toArray();
-      int nSessionNum = vecIniList.size();
-      for (int i = 0; i < nSessionNum; i++) {
-          Session sesRoot = (Session) objSession[i];
-          if (sesRoot.strKey.compareTo(strSection) != 0) {
-              continue;
-          }
-          Object[] objNote = sesRoot.vecNoteValue.toArray();
-          int nNoteNum = sesRoot.vecNoteValue.size();
-
-          for (int j = 0; j < nNoteNum; j++) {
-              Note noteValue = (Note) objNote[j];
-              if (noteValue.strKey.compareTo(strKey) == 0) {
-                return noteValue.strMean;
-              }
-          }
-      }
-      return null;
-  }
-
-  //ȡ���Ϸ���עʾ
-  public String getSessionValue(String strSection){
-      if(strSection == null){
-          return null;
-      }
-      Object[] objSession = vecIniList.toArray();
-      int nSessionNum = vecIniList.size();
-      for (int i = 0; i < nSessionNum; i++) {
-          Session sesRoot = (Session) objSession[i];
-          if (sesRoot.strKey.compareTo(strSection) == 0) {
-              return sesRoot.strMean;
-          }
-      }
-      return null;
-  }
-
-  //�أɣΣ��ļ�
-  public boolean loadIni(String strIniFileName) {
-      try{
-        strFileName = strIniFileName;
-        FileReader fr = new FileReader(strFileName); //����FileReader���󣬲�ʵ��Ϊfr
-        BufferedReader br = new BufferedReader(fr); //����BufferedReader���󣬲�ʵ��Ϊbr
-        String strLine = br.readLine(); //���ļ���ȡһ���ַ�
-        //�ж϶�ȡ�����ַ��Ƿ�Ϊ��
-        while (strLine != null) {
-            LoadLine(strLine);
-            strLine = br.readLine();
-        }
-        if (session != null) {
-            vecIniList.add(session);
-            session = null;
-        }
-        br.close();
-      }
-      catch (IOException ex) {
-        return false;
-      }
-
-      return true;
-  }
-
-//��һ��
-  private void LoadLine(String strLine) {
-	  if (strLine.length() == 0) {
-		  return;
-	  }
-
-      String strLineGe = System.getProperty ("line.separator");
-      int nMeanPos = strLine.indexOf("#");
-      if (nMeanPos == 0) {
-          if (strMean != null) {
-            strMean = strMean.concat(strLineGe).concat(strLine);
-          }
-          else {
-            strMean = strLine;
-          }
-          return;
-      }
-
-      int pos = strLine.indexOf("=", 0);
-      if (pos != -1) {
-          if(session == null){
+    public synchronized void saveIni() {
+        if (!bChanged) {
             return;
-          }
-          Note note = new Note();
-          note.strKey = strLine.substring(0, pos).trim();
-          note.strValue = strLine.substring(pos + 1, strLine.length()).trim();
-          note.strMean = strMean;
-          strMean = null;
-          session.vecNoteValue.add(note);
-      }
-      else {
-          if (session != null) {
-              vecIniList.add(session);
-              session = null;
-          }
-          int posSt = strLine.indexOf("[", 0);
-          if (posSt != -1) {
-            int posEn = strLine.indexOf("]", posSt + 1);
-            if (posEn > posSt) {
-                session = new Session();
-                session.strKey = strLine.substring(posSt + 1, posEn);
-                session.vecNoteValue = new Vector();
-                session.strMean = strMean;
-                strMean = null;
+        }
+
+        File file = new File(path);
+        long lastModified = file.lastModified();
+        try {
+            if (sectionList == null) {
+                return;
             }
-           }
+            FileWriter fw = new FileWriter(file, false);
+
+            Section[] objSection = new Section[sectionList.size()];
+            sectionList.toArray(objSection);
+            for (Section sesRoot : objSection) {
+                // save section
+                if (sesRoot.comment != null) {
+                    fw.write(sesRoot.comment);
+                    fw.write(sep);
+                }
+                if (sesRoot.key != null) {
+                    fw.write("[");
+                    fw.write(sesRoot.key);
+                    fw.write("]");
+                    fw.write(sep);
+                }
+
+                // save entry
+                Entry[] objNote = new Entry[sesRoot.entryList.size()];
+                sesRoot.entryList.toArray(objNote);
+                for (Entry noteValue : objNote) {
+                    if (noteValue.comment != null) {
+                        fw.write(noteValue.comment);
+                        fw.write(sep);
+                    }
+                    if (noteValue.key != null) {
+                        fw.write(noteValue.key);
+                        fw.write("=");
+                    }
+                    if (noteValue.value != null) {
+                        fw.write(noteValue.value);
+                    }
+                    fw.write(sep);
+                }
+            }
+            fw.close();
+            file.setLastModified(lastModified);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public synchronized boolean cleanIni() {
+        if (sectionList == null) {
+            return false;
+        }
+        if (sectionList.isEmpty()) {
+            return true;
+        }
+        sectionList.clear();
+        bChanged = true;
+        return true;
+    }
+
+    private Optional<Section> getSection(String section) {
+        return sectionList.stream()
+                .filter(sec -> sec.key.equals(section))
+                .findFirst();
+    }
+
+    private Optional<Entry> getEntry(Section section, String key) {
+        return section.entryList.stream()
+                .filter(entry -> entry.key.equals(key))
+                .findFirst();
+    }
+
+    public void setKeyValue(String section, String key,
+                               String newValue) {
+        if (sectionList == null || section == null || key == null || newValue == null) {
+            return;
+        }
+
+        Optional<Section> sectionOptional = getSection(section);
+        if (!sectionOptional.isPresent()) {
+            return;
+        }
+
+        Section sectionStored = sectionOptional.get();
+        Optional<Entry> entryOptional = getEntry(sectionStored, key);
+        if (!entryOptional.isPresent()) {
+            return;
+        }
+
+        Entry entry = entryOptional.get();
+        entry.value = newValue;
+        bChanged = true;
+    }
+
+    public void setKeyValue(String section, String key,
+                               long lNewValue) {
+        setKeyValue(section, key, Long.toString(lNewValue));
+    }
+
+    public void setKeyValue(String section, String key,
+                               boolean newValue) {
+        setKeyValue(section, key, Boolean.toString(newValue));
+    }
+
+    public void setKeyValue(String section, String key,
+                               char newValue) {
+        setKeyValue(section, key, Character.toString(newValue));
+    }
+
+    public String getKeyValue(String section, String key) {
+        if (sectionList == null || section == null || key == null) {
+            return null;
+        }
+
+        return getSection(section)
+                .map(sectionStored -> getEntry(sectionStored, key)
+                        .orElse(null))
+                .map(entry -> entry.value)
+                .orElse(null);
+
+    }
+
+    public boolean getKeyValueBool(String section, String key) {
+        if (sectionList == null || section == null || key == null) {
+            return false;
+        }
+        String value = getKeyValue(section, key);
+        return Boolean.valueOf(value);
+    }
+
+    public String getEntryComment(String section, String key) {
+        Optional<Section> sectionOptional = getSection(section);
+        if (!sectionOptional.isPresent()) {
+            return null;
+        }
+
+        Section sectionStored = sectionOptional.get();
+        Optional<Entry> entryOptional = getEntry(sectionStored, key);
+        if (!entryOptional.isPresent()) {
+            return null;
+        }
+        return entryOptional.get().comment;
+    }
+
+    public String getSectionComment(String section) {
+        Optional<Section> sectionOptional = getSection(section);
+        if (!sectionOptional.isPresent()) {
+            return null;
+        }
+
+        return sectionOptional.get().comment;
+    }
+
+    public void loadIni(String path) {
+        try {
+            this.path = path;
+            FileReader fr = new FileReader(this.path);
+            BufferedReader br = new BufferedReader(fr);
+            String line = br.readLine();
+            while (line != null) {
+                loadLine(line);
+                line = br.readLine();
+            }
+            if (section != null) {
+                sectionList.add(section);
+                section = null;
+            }
+            br.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void loadLine(String line) {
+        if (line.length() == 0) {
+            return;
+        }
+
+        char start = line.charAt(0);
+        if (start == '#' || start == ';') {
+            if (strMean != null) {
+                strMean = strMean.concat(sep).concat(line);
+            } else {
+                strMean = line;
+            }
+            return;
+        }
+
+        int pos = line.indexOf("=", 0);
+        if (pos != -1) {
+            if (section == null) {
+                return;
+            }
+            Entry entry = new Entry();
+            entry.key = line.substring(0, pos).trim();
+            entry.value = line.substring(pos + 1, line.length()).trim();
+            entry.comment = strMean;
+            strMean = null;
+            section.entryList.add(entry);
+        } else {
+            if (section != null) {
+                sectionList.add(section);
+                section = null;
+            }
+            int posSt = line.indexOf("[", 0);
+            if (posSt != -1) {
+                int posEn = line.indexOf("]", posSt + 1);
+                if (posEn > posSt) {
+                    section = new Section();
+                    section.key = line.substring(posSt + 1, posEn);
+                    section.entryList = new Vector<>();
+                    section.comment = strMean;
+                    strMean = null;
+                }
+            }
         }
     }
 
