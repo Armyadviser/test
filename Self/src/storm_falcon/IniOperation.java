@@ -1,5 +1,8 @@
 package storm_falcon;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,11 +52,11 @@ public class IniOperation {
             return;
         }
 
-        File file = new File(path + ".tmp");
         try {
             if (sectionList == null) {
                 return;
             }
+            File file = new File(path + ".tmp");
             FileWriter fw = new FileWriter(file, false);
 
             Section[] objSection = new Section[sectionList.size()];
@@ -90,10 +93,12 @@ public class IniOperation {
                 }
             }
             fw.close();
+
+            Files.move(Paths.get(path + ".tmp"),
+                    Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        file.renameTo(new File(path));
     }
 
     public synchronized boolean cleanIni() {
