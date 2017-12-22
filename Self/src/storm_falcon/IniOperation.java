@@ -49,8 +49,7 @@ public class IniOperation {
             return;
         }
 
-        File file = new File(path);
-        long lastModified = file.lastModified();
+        File file = new File(path + ".tmp");
         try {
             if (sectionList == null) {
                 return;
@@ -91,10 +90,10 @@ public class IniOperation {
                 }
             }
             fw.close();
-            file.setLastModified(lastModified);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        file.renameTo(new File(path));
     }
 
     public synchronized boolean cleanIni() {

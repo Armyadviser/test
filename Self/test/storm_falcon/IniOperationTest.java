@@ -1,11 +1,11 @@
 package storm_falcon;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /**
  * @author gewp
  */
-class IniOperationTest {
+public class IniOperationTest {
 
     private IniOperation ini = new IniOperation();
 
@@ -14,14 +14,14 @@ class IniOperationTest {
     }
 
     @Test
-    void getKeyValue() {
+    public void getKeyValue() {
         load();
         String value = ini.getKeyValue("Major", "MaxNumber");
         System.out.println(value);
     }
 
     @Test
-    void getSessionValue() {
+    public void getSessionValue() {
         load();
         String major = ini.getSectionComment("Epic");
         System.out.println(major);
@@ -30,7 +30,7 @@ class IniOperationTest {
     }
 
     @Test
-    void setValue() {
+    public void setValue() {
         load();
         String value = ini.getKeyValue("Major", "FadeInDuration");
         System.out.println(value);
@@ -39,12 +39,17 @@ class IniOperationTest {
 
         value = ini.getKeyValue("Major", "FadeInDuration");
         System.out.println(value);
+    }
 
+    @Test
+    public void save() {
+        ini.loadIni("/home/falcon/test/a.ini");
+        ini.setKeyValue("se", "age", "23");
         ini.saveIni();
     }
 
     @Test
-    void getEntryComment() {
+    public void getEntryComment() {
         load();
         String noteValue = ini.getEntryComment(null, "FontDescName");
         System.out.println(noteValue);
