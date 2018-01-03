@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib-brm">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/brm/lib/pcmext7.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/brm/lib/pcmext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/brm/lib/pcm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
