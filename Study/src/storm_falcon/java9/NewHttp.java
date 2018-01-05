@@ -65,17 +65,17 @@ public class NewHttp {
 
     public static void main(String[] args) throws Exception {
         HttpClient httpClient = buildClient();
-        HttpResponse<String> getResponse = get(httpClient);
 
+        HttpResponse<String> getResponse = get(httpClient);
         int code = getResponse.statusCode();
         System.out.println(code);
-        Object body = getResponse.body();
-        System.out.println(body);
+        String sBody = getResponse.body();
+        System.out.println(sBody);
 
         HttpResponse<Path> postResponse = post(httpClient);
         code = postResponse.statusCode();
         System.out.println(code);
-        body = postResponse.body();
-        System.out.println(body);
+        Path pBody = postResponse.body();
+        System.out.println(pBody);
     }
 }
