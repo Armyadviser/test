@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="stu" class="storm.falcon.spring.Student">
+        <property name="name" value="aaa" />
+        <property name="age" value="12" />
+    </bean>
+
+    <context:component-scan base-package="storm.falcon" />
+
+    <bean id="testService" class="storm.falcon.spring.StudentServiceImpl"/>
+    <bean id="testAspect" class="storm.falcon.spring.TestAspectWithXml" />
+
+    <aop:config>
+        <aop:aspect id="aa1" ref="testAspect">
+            <aop:pointcut id="testAspectPointCut" expression="execution(* storm.falcon.spring.*.*(..))"/>
+            <aop:before pointcut-ref="testAspectPointCut" method="beforeAdvice"/>
+            <aop:after method="afterAdvice" pointcut-ref="testAspectPointCut"/>
+            <aop:after-returning method="afterReturnAdvice" pointcut-ref="testAspectPointCut" returning="result"/>
+            <aop:after-throwing method="throwingAdvice" pointcut-ref="testAspectPointCut" throwing="e"/>
+            <!--<aop:around method="aroundAdvice" pointcut-ref="testAspectPointCut" arg-names="joinPoint"/>-->
+        </aop:aspect>
+    </aop:config>
+</beans>
