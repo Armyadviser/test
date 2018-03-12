@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="color-picker:jar">
-    <output-path>$USER_HOME$/test</output-path>
-    <root id="archive" name="color-picker.jar">
-      <element id="module-output" name="Self" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/Self/lib/jpcap.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

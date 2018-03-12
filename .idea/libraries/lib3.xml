@@ -1,8 +1,8 @@
 <component name="libraryTable">
-  <library name="lib-monitor">
+  <library name="lib3">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/ServiceMonitor/lib/mail.jar!/" />
       <root url="jar://$PROJECT_DIR$/ServiceMonitor/lib/ganymed-ssh2-build261.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ServiceMonitor/lib/mail.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jcs/lib/commons-jcs-core-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcs/lib/commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcs/lib/commons-jcs-core-2.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcs/lib/commons-jcs-core-2.2-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
