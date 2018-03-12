@@ -7,7 +7,7 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
 
 public class UdpServer {
 
-    public void run() throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         NioEventLoopGroup group = new NioEventLoopGroup();
 
         // TCP使用ServerBootstrap
@@ -18,8 +18,14 @@ public class UdpServer {
             @Override
             protected void initChannel(NioDatagramChannel ch) {
                 ch.pipeline()
-                        .addLast(new UdpStringDecoder())
-                        .addLast(new EchoHandler());
+
+                        // TODO not decide
+//                        .addLast(new StringDecoder())
+//                        .addLast(new StringEncoder())
+//                        .addLast(new DelimiterBasedFrameDecoder(1024, Delimiters.lineDelimiter()))
+                        .addLast(new DatagramPacketToDatagramPacketEncoder())
+                        .addLast(new DatagramPacketToStringDecoder())
+                        .addLast(new EchoServerHandler());
             }
         });
 
@@ -28,7 +34,4 @@ public class UdpServer {
         Runtime.getRuntime().addShutdownHook(new Thread(group::shutdownGracefully));
     }
 
-    public static void main(String[] args) throws Exception {
-        new UdpServer().run();
-    }
 }
