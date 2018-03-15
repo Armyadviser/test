@@ -5,10 +5,9 @@ package storm_falcon.java9;
  */
 public class OnPinWait {
 
-    static volatile boolean notify = false;
+    private static volatile boolean notify = false;
 
-    public static void main(String[] args) throws Exception {
-//        JsonParser parser = Json.createParser("[]");
+    public static void main(String[] args) {
 
         new Thread(() -> {
             notify = false;
