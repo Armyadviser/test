@@ -1,7 +1,9 @@
 package storm.falcon.udp;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 
@@ -18,18 +20,15 @@ public class UdpServer {
             @Override
             protected void initChannel(NioDatagramChannel ch) {
                 ch.pipeline()
-
-                        // TODO not decide
-//                        .addLast(new StringDecoder())
-//                        .addLast(new StringEncoder())
-//                        .addLast(new DelimiterBasedFrameDecoder(1024, Delimiters.lineDelimiter()))
-                        .addLast(new DatagramPacketToDatagramPacketEncoder())
-                        .addLast(new DatagramPacketToStringDecoder())
-                        .addLast(new EchoServerHandler());
+                        .addLast(new EchoServerHandler())
+                ;
             }
         });
 
-        bootstrap.bind(8080).sync();//.channel().closeFuture().await();
+        // IO操作都是由线程池异步执行的，返回一个Future之后继续执行下面的代码
+        // 如果需要等待方法返回判断可以用sync(),await()等将方法变成同步
+        // 或者（建议）使用监听器
+        bootstrap.bind("", 1105);//.sync().channel().closeFuture().await();
 
         Runtime.getRuntime().addShutdownHook(new Thread(group::shutdownGracefully));
     }
