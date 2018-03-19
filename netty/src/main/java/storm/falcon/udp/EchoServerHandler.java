@@ -6,9 +6,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.util.CharsetUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class EchoServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) {

@@ -1,15 +1,5 @@
 package com.ge.io.netty.udp;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.DatagramPacket;
-import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.netty.util.CharsetUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -33,10 +23,15 @@ class NettyUdpTest {
     @Test
     void serverTest() throws InterruptedException {
         NettyUdpServer server = new NettyUdpServer(1105);
+        server.addHandler(new UdpServerReceiveHandler(false) {
+            @Override
+            protected void receive(String request) {
+                System.out.println(request);
+            }
+        });
         server.addHandler(new UdpServerReplyHandler() {
             @Override
-            protected String service(String request) {
-                System.out.println(request);
+            public String service(String request) {
                 return "xxx---" + request;
             }
         });

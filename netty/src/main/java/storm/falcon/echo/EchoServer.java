@@ -35,8 +35,8 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
  */
 public final class EchoServer {
 
-    static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    private static final boolean SSL = System.getProperty("ssl") != null;
+    private static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.

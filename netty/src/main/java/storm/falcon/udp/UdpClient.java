@@ -7,16 +7,9 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.string.StringDecoder;
 import io.netty.util.CharsetUtil;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
-import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class UdpClient {
@@ -59,7 +52,7 @@ public class UdpClient {
                     channel.writeAndFlush(new DatagramPacket(
                             Unpooled.copiedBuffer(
                                     line.getBytes(CharsetUtil.UTF_8)),
-                            new InetSocketAddress("192.168.2.104", 1105))).sync()
+                            new InetSocketAddress("127.0.0.1", 1105))).sync()
                     ;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -69,6 +62,7 @@ public class UdpClient {
                 }
             }
 
+            System.exit(0);
             scanner.close();
         }).start();
 

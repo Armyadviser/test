@@ -14,9 +14,9 @@ import java.util.List;
 
 public class NettyUdpServer extends Thread {
 
-    private InetSocketAddress address;
+    private final InetSocketAddress address;
 
-    private List<ChannelHandler> handlers = new ArrayList<>();
+    private final List<ChannelHandler> handlers = new ArrayList<>();
 
     public NettyUdpServer(int port) {
         address = new InetSocketAddress(port);

@@ -5,8 +5,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.util.CharsetUtil;
 
-import java.net.InetSocketAddress;
-
 public class UdpPacketCoder {
 
     public static String decode(DatagramPacket packet) {
