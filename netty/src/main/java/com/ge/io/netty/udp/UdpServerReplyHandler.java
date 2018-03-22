@@ -15,7 +15,9 @@ public abstract class UdpServerReplyHandler
 
     private boolean autoRelease = false;
 
-    public UdpServerReplyHandler() {}
+    public UdpServerReplyHandler() {
+        this(false);
+    }
 
     public UdpServerReplyHandler(boolean autoRelease) {
         this.autoRelease = autoRelease;
