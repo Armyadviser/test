@@ -8,7 +8,7 @@ public class ButtonManager {
     private static final double BASE_WIDTH = 1200;
     private static final double BASE_HEIGHT = 680;
 
-    private static final Button NEXT = new Button(1010, 620);
+    private static final Button NEXT = new Button(1040, 620);
     private static final Button[] CARDS = new Button[] {
             new Button(130, 500), new Button(350, 490),
             new Button(630, 510), new Button(830, 500),
