@@ -1,7 +1,7 @@
 [
-  ["support", "support", "next"],
-  ["skill5", "attack", "hougu1", "card1", "card2"],
-  ["skill1", "attack", "hougu0", "card1", "card2"],
-  ["skill1", "attack", "hougu2", "card1", "card2"],
-  ["next", "next", "next"]
+  ["support", "support", "next", "sleep25"],
+  ["attack", "card0", "card1", "card2", "sleep15"],
+  ["attack", "card3", "card1", "card2", "sleep15"],
+  ["attack", "card4", "card1", "card2", "sleep15"],
+  ["next", "next", "next", "next"]
 ]

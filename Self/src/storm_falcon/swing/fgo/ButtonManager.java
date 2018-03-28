@@ -5,32 +5,45 @@ import java.util.Map;
 
 public class ButtonManager {
 
-    private static final double BASE_WIDTH = 1200;
-    private static final double BASE_HEIGHT = 680;
-
-    private static final Button NEXT = new Button(1010, 620);
+    private static final Button START = new Button("START", 1780 / Screen.BASE_WIDTH, 1020 / Screen.BASE_HEIGHT);
+    private static final Button NEXT = new Button("NEXT", 1660 / Screen.BASE_WIDTH, 1020 / Screen.BASE_HEIGHT);
     private static final Button[] CARDS = new Button[] {
-            new Button(130, 500), new Button(350, 490),
-            new Button(630, 510), new Button(830, 500),
-            new Button(1090, 520)};
-    private static final Button SUPPORT = new Button(640, 220);
-    private static final Button ATTACK = new Button(1010, 620);
+            new Button("CARD0", 200 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
+            new Button("CARD1", 580 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
+            new Button("CARD2", 930 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
+            new Button("CARD3", 1340 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
+            new Button("CARD4", 1750 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT)
+    };
+    private static final Button SUPPORT = new Button("SUPPORT", 1200 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT);
+    private static final Button ATTACK = new Button("ATTACK", 1700 / Screen.BASE_WIDTH, 900 / Screen.BASE_HEIGHT);
     private static final Button[] SKILLS = new Button[] {
-            new Button(60, 540), new Button(155, 540), new Button(245, 540),
-            new Button(360, 550), new Button(450, 550), new Button(540, 550),
-            new Button(660, 550), new Button(750, 550), new Button(840, 550)};
-    private static final Button MASTER_SKILL_LIST = new Button(1120, 300);
+            new Button("SKILLS0", 110 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS1", 250 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS2", 380 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS3", 580 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS4", 720 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS5", 860 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS6", 1060 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS7", 1200 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
+            new Button("SKILLS8", 1340 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT)
+    };
+    private static final Button MASTER_SKILL_LIST = new Button("MASTER_SKILL_LIST", 1800 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT);
     private static final Button[] MASTER_SKILLS = new Button[] {
-            new Button(850, 300), new Button(940, 300), new Button(1020, 300)
+            new Button("MASTER_SKILLS0", 1360 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT),
+            new Button("MASTER_SKILLS1", 1500 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT),
+            new Button("MASTER_SKILLS2", 1630 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT)
     };
     private static final Button[] HOUGU = new Button[] {
-            new Button(350, 240), new Button(600, 200), new Button(840, 210)
+            new Button("HOUGU0", 560 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT),
+            new Button("HOUGU1", 960 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT),
+            new Button("HOUGU2", 1300 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT)
     };
 
     private static final Map<String, Button> map;
 
     static {
         map = new HashMap<>();
+        map.put("start", START);
         map.put("support", SUPPORT);
         map.put("next", NEXT);
         map.put("card0", CARDS[0]);
@@ -61,21 +74,4 @@ public class ButtonManager {
         return map.get(text);
     }
 
-    static class Button {
-        private int x;
-        private int y;
-
-        Button(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        double getXRadius() {
-            return x / BASE_WIDTH;
-        }
-
-        double getYRadius() {
-            return y / BASE_HEIGHT;
-        }
-    }
 }
