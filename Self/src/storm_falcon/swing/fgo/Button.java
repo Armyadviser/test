@@ -23,9 +23,9 @@ public class Button {
         robot = RobotManager.getInstance().getRobot();
         robot.mouseMove(x, y);
         robot.mousePress(InputEvent.BUTTON1_MASK);
-        Thread.sleep(500);
+        Thread.sleep(50);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
-        Thread.sleep(500);
+        Thread.sleep(50);
     }
 
     @Override
