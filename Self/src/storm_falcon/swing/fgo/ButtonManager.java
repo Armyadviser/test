@@ -15,7 +15,7 @@ public class ButtonManager {
             new Button("CARD4", 1750 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT)
     };
     private static final Button SUPPORT = new Button("SUPPORT", 1200 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT);
-    private static final Button ATTACK = new Button("ATTACK", 1700 / Screen.BASE_WIDTH, 900 / Screen.BASE_HEIGHT);
+    private static final Button ATTACK = new Button("ATTACK", 1700 / Screen.BASE_WIDTH, 850 / Screen.BASE_HEIGHT);
     private static final Button[] SKILLS = new Button[] {
             new Button("SKILLS0", 110 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
             new Button("SKILLS1", 250 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),

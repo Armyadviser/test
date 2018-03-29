@@ -9,8 +9,8 @@ class Screen {
     static final int WINDOW_HEIGHT = 576;
 
     // 实际游戏窗口左上角
-    static final int SOURCE_X = 30;
-    static final int SOURCE_Y = 80;
+    static final int SOURCE_X = 0;
+    static final int SOURCE_Y = 40;
 
     // 截图参照大小
     static final double BASE_WIDTH = 1920;

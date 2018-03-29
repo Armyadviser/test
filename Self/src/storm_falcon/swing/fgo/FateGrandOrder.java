@@ -16,7 +16,7 @@ public class FateGrandOrder {
     private FateGrandOrder() throws IOException {
         byte[] data = new byte[1024];
         new FileInputStream(getClass()
-            .getResource("script.json").getPath())
+            .getResource("attack.json").getPath())
             .read(data);
         String ops = new String(data);
 
