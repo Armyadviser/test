@@ -5,23 +5,25 @@ import java.awt.event.InputEvent;
 
 public class Button {
     private String name;
-    private double xRadius;
-    private double yRadius;
+    private int x;
+    private int y;
 
-    Button(String name, double x, double y) {
+    private int width;
+    private int height;
+
+    Button(String name, int x, int y, int width, int height) {
         this.name = name;
-        xRadius = x;
-        yRadius = y;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     public void tap(Robot robot) throws InterruptedException {
-        int x = (int) (xRadius * Screen.WINDOW_WIDTH + Screen.SOURCE_X);
-        int y = (int) (yRadius * Screen.WINDOW_HEIGHT + Screen.SOURCE_Y);
-        x = x + Screen.getRandomFloatPixel();
-        y = y + Screen.getRandomFloatPixel();
+        int tapX = (int) (x * Screen.HORIZONTAL_RATIO + Screen.getRandomFloatPixel(width));
+        int tapY = (int) (y * Screen.VERTICAL_RATIO + Screen.getRandomFloatPixel(height));
         System.out.println(x + "\t" + y);
-        robot = RobotManager.getInstance().getRobot();
-        robot.mouseMove(x, y);
+        robot.mouseMove(tapX, tapY);
         robot.mousePress(InputEvent.BUTTON1_MASK);
         Thread.sleep(50);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);

@@ -1,42 +1,44 @@
 package storm_falcon.swing.fgo;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ButtonManager {
 
-    private static final Button START = new Button("START", 1780 / Screen.BASE_WIDTH, 1020 / Screen.BASE_HEIGHT);
-    private static final Button NEXT = new Button("NEXT", 1660 / Screen.BASE_WIDTH, 1020 / Screen.BASE_HEIGHT);
+    private static final Button START = new Button("START", 1660, 960, 230, 100);
+    private static final Button NEXT = new Button("NEXT", 1420, 960, 490, 120);
     private static final Button[] CARDS = new Button[] {
-            new Button("CARD0", 200 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
-            new Button("CARD1", 580 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
-            new Button("CARD2", 930 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
-            new Button("CARD3", 1340 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT),
-            new Button("CARD4", 1750 / Screen.BASE_WIDTH, 750 / Screen.BASE_HEIGHT)
+            new Button("CARD0", 80, 620, 220, 300),
+            new Button("CARD1", 460, 620, 220, 300),
+            new Button("CARD2", 850, 620, 220, 300),
+            new Button("CARD3", 1240, 620, 220, 300),
+            new Button("CARD4", 1620, 620, 220, 300)
     };
-    private static final Button SUPPORT = new Button("SUPPORT", 1200 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT);
-    private static final Button ATTACK = new Button("ATTACK", 1700 / Screen.BASE_WIDTH, 850 / Screen.BASE_HEIGHT);
+    private static final Button DUNGEON_SELECT = new Button("DUNGEON_SELECT", 940 , 170, 920, 220);
+    private static final Button SUPPORT = new Button("SUPPORT", 70 , 290, 1550, 270);
+    private static final Button ATTACK = new Button("ATTACK", 1600 , 820, 200, 200);
     private static final Button[] SKILLS = new Button[] {
-            new Button("SKILLS0", 110 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS1", 250 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS2", 380 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS3", 580 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS4", 720 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS5", 860 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS6", 1060 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS7", 1200 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT),
-            new Button("SKILLS8", 1340 / Screen.BASE_WIDTH, 860 / Screen.BASE_HEIGHT)
+            new Button("SKILLS0", 40, 810, 100, 100),
+            new Button("SKILLS1", 190, 810, 100, 100),
+            new Button("SKILLS2", 330, 810, 100, 100),
+            new Button("SKILLS3", 520, 810, 100, 100),
+            new Button("SKILLS4", 670, 810, 100, 100),
+            new Button("SKILLS5", 810, 810, 100, 100),
+            new Button("SKILLS6", 1000, 810, 100, 100),
+            new Button("SKILLS7", 1150, 810, 100, 100),
+            new Button("SKILLS8", 1300, 810, 100, 100),
     };
-    private static final Button MASTER_SKILL_LIST = new Button("MASTER_SKILL_LIST", 1800 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT);
+    private static final Button MASTER_SKILL_LIST = new Button("MASTER_SKILL_LIST", 1720 , 400, 120, 120);
     private static final Button[] MASTER_SKILLS = new Button[] {
-            new Button("MASTER_SKILLS0", 1360 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT),
-            new Button("MASTER_SKILLS1", 1500 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT),
-            new Button("MASTER_SKILLS2", 1630 / Screen.BASE_WIDTH, 460 / Screen.BASE_HEIGHT)
+            new Button("MASTER_SKILLS0", 1310, 420, 100, 100),
+            new Button("MASTER_SKILLS1", 1440, 420, 100, 100),
+            new Button("MASTER_SKILLS2", 1580, 420, 100, 100)
     };
     private static final Button[] HOUGU = new Button[] {
-            new Button("HOUGU0", 560 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT),
-            new Button("HOUGU1", 960 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT),
-            new Button("HOUGU2", 1300 / Screen.BASE_WIDTH, 300 / Screen.BASE_HEIGHT)
+            new Button("HOUGU0", 510, 160, 220, 300),
+            new Button("HOUGU1", 860, 160, 220, 300),
+            new Button("HOUGU2", 1200, 170, 220, 300)
     };
 
     private static final Map<String, Button> map;
@@ -68,6 +70,7 @@ public class ButtonManager {
         map.put("hougu0", HOUGU[0]);
         map.put("hougu1", HOUGU[1]);
         map.put("hougu2", HOUGU[2]);
+        map.put("dungeon_select", DUNGEON_SELECT);
     }
 
     public static Button getButton(String text) {

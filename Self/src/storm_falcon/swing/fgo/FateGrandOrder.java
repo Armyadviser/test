@@ -1,33 +1,54 @@
 package storm_falcon.swing.fgo;
 
-import net.sf.json.JSONArray;
-import storm_falcon.swing.fgo.round.Round;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import storm_falcon.swing.fgo.state.State;
+import storm_falcon.swing.fgo.state.SupportSelectState;
+import storm_falcon.swing.fgo.state.TeamConfirmState;
+import storm_falcon.swing.fgo.state.WaitState;
+import storm_falcon.util.image.ImageHelper;
+import storm_falcon.util.ocr.OCRHelper;
 
 public class FateGrandOrder {
 
-    private List<Round> saoCaoZuo;
+    private void run() {
+        while (true) {
+            String currentPage = ImageHelper.snapshot(
+                    "D:/test/", Screen.SOURCE_X, Screen.SOURCE_Y,
+                    Screen.WINDOW_WIDTH, Screen.WINDOW_HEIGHT);
 
-    private FateGrandOrder() throws IOException {
-        byte[] data = new byte[1024];
-        new FileInputStream(getClass()
-            .getResource("attack.json").getPath())
-            .read(data);
-        String ops = new String(data);
+            State state = getState(currentPage);
+            state.proceed();
 
-        saoCaoZuo = Arrays.stream(JSONArray.fromObject(ops).toArray())
-                .map(JSONArray::fromObject)
-                .map(Round::new)
-                .collect(Collectors.toList());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                break;
+            }
+        }
     }
 
-    private void run() {
-        saoCaoZuo.forEach(Round::proceed);
+    private State getState(String filePath) {
+        try {
+            if (ImageHelper.isBlack(filePath)) {
+                return new WaitState();
+            }
+
+            String subImage = ImageHelper.subImage(filePath, Screen.START_RECT.getRectangle());
+            String text = OCRHelper.recognizeText(subImage);
+            if (text.contains("开始任务")) {
+                return new TeamConfirmState();
+            }
+
+            subImage =  ImageHelper.subImage(filePath, Screen.SUPPORT_RECT.getRectangle());
+            text = OCRHelper.recognizeText(subImage);
+            if (text.contains("助战选择")) {
+                return new SupportSelectState();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new WaitState();
     }
 
     public static void main(String[] args) throws Exception {

@@ -1,6 +1,7 @@
 package storm_falcon.util.image;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -133,5 +134,100 @@ public class ImageHelper {
         }
 
         return threshold;
+    }
+
+    /**
+     * 屏幕截图
+     * @param savePath 保存路径
+     * @param x 起始点X
+     * @param y 起始点Y
+     * @param width 长
+     * @param height 宽
+     * @return 文件名
+     */
+    public static String snapshot(String savePath, int x, int y, int width, int height) {
+        try {
+            if (!savePath.endsWith("\\") && !savePath.endsWith("/")) {
+                savePath += "\\";
+            }
+            Rectangle rectangle = new Rectangle(x, y, width, height);
+            BufferedImage img = new Robot().createScreenCapture(rectangle);
+            String name = savePath + System.currentTimeMillis() + ".jpg";
+
+            ImageIO.write(img, "jpg", new File(name));
+            return name;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static int getRed(int color) {
+        return (color >> 16) & 0xFF;
+    }
+
+    private static int getGreen(int color) {
+        return (color >> 8) & 0xFF;
+    }
+
+    private static int getBlue(int color) {
+        return color & 0xFF;
+    }
+
+    /**
+     * 判断一张图片是否为80%黑色
+     * @return true 80%以上是黑色
+     */
+    public static boolean isBlack(String imgPath) {
+        try {
+            BufferedImage image = ImageIO.read(new File(imgPath));
+            int w = image.getWidth();
+            int h = image.getHeight();
+            int count = 0;
+            for (int i = 0; i < w; i++) {
+                for (int j = 0; j < h; j++) {
+                    int color = image.getRGB(i, j);
+                    if (getRed(color) + getBlue(color) + getGreen(color) > 50) {
+                        count++;
+                    }
+                }
+            }
+
+            return !(count > w * h * 0.2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 图片切割
+     * @return 切割出的小图片的路径
+     */
+    public static String subImage(String srcFileName, int x, int y, int width, int height) {
+        try {
+            File srcFile = new File(srcFileName);
+            BufferedImage srcImage = ImageIO.read(srcFile);
+            BufferedImage destImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+            for (int i = x; i < width; i++) {
+                for (int j = y; j < height; j++) {
+                    destImage.setRGB(i, j, srcImage.getRGB(i, j));
+                }
+            }
+            String destFileName = srcFile.getParent() + "/" + System.nanoTime() + ".jpg";
+            ImageIO.write(destImage, ".jpg", new File(destFileName));
+            return destFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 图片切割
+     * @return 切割出的小图片的路径
+     */
+    public static String subImage(String srcFileName, Rectangle rectangle) {
+        return subImage(srcFileName, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
 }

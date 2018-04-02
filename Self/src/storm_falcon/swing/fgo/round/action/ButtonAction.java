@@ -2,14 +2,23 @@ package storm_falcon.swing.fgo.round.action;
 
 import storm_falcon.swing.fgo.Button;
 
+import java.awt.*;
+
 public class ButtonAction extends Action {
 
     private Button button;
+
+    private Robot robot;
 
     private long delay = 2 * 1000;
 
     public ButtonAction(Button button) {
         this.button = button;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

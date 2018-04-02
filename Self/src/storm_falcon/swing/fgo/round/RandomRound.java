@@ -6,17 +6,21 @@ import storm_falcon.swing.fgo.round.Round;
 import storm_falcon.swing.fgo.round.action.Action;
 import storm_falcon.swing.fgo.round.action.ButtonAction;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class RandomRound extends Round {
 
     private final static Random random = new Random(23);
 
-    public RandomRound(JSONArray array) {
-        super(array);
+    RandomRound() {
+        init();
     }
 
-    public void init() {
-        Action action = new ButtonAction(ButtonManager.getButton("attack"));
+    private void init() {
+        actions = Arrays.asList(new ButtonAction(ButtonManager.getButton("attack")),
+                new ButtonAction(ButtonManager.getButton("card" + random.nextInt(5))),
+                new ButtonAction(ButtonManager.getButton("card" + random.nextInt(5))),
+                new ButtonAction(ButtonManager.getButton("card" + random.nextInt(5))));
     }
 }
