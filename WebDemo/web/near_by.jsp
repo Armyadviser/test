@@ -54,38 +54,27 @@
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 
     var point = new BMap.Point(123.342106524344,41.8221360293588);
-    map.centerAndZoom(point, 8);
+    map.centerAndZoom(point, 11);
 
-    var i = 0;
-    var size = 100;
-    var requester;
-    var sleeper;
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+    map.addControl(top_left_control);
+
     function add_overlay() {
-        requester = setInterval(function() {
-            $.ajax({
-                url:'GetPointsWithSleep',
-                type:'POST',
-                async: false,
-                data:{"index":i, "size":size, "millis":1000},
-                dataType:'json',
-                success:function(data) {
-                    addPoints(data);
-                    i += size;
-                }
-            });
-            // console.log(new Date());
-        }, 500, 1000);
-
-        sleeper = setInterval(function() {
-            map.clearOverlays();
-        }, 1000, 1000);
+        $.ajax({
+            url:'GetSpecifiedPoints',
+            type:'POST',
+            async: false,
+            data:{},
+            dataType:'json',
+            success:function(data) {
+                addPoints(data);
+            }
+        });
     }
 
     //清除覆盖物
     function remove_overlay() {
         map.clearOverlays();
-        clearInterval(requester);
-        clearInterval(sleeper);
     }
 
     function addPoints(data) {
@@ -94,7 +83,10 @@
             return;
         }
         $.each(data, function(i, item) {
-            map.addOverlay(new BMap.Marker(new BMap.Point(item.lon, item.lat)));
+            var marker = new BMap.Marker(new BMap.Point(item.lon, item.lat));
+            map.addOverlay(marker);
+            var label = new BMap.Label(item.id,{offset:new BMap.Size(20,10)});
+            marker.setLabel(label);
         });
     }
 </script>
