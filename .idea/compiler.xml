@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="netty" />
         <module name="RoutineInjection" />
+        <module name="WebDemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="netty" target="1.8" />
       <module name="RoutineInjection" target="1.8" />
+      <module name="WebDemo" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
