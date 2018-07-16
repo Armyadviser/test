@@ -2,14 +2,14 @@ package com.gesoft.adsl.tools.commands.shell;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.gesoft.adsl.tools.ssh2.CrtException;
 
 public abstract class Command {
 	/**
 	 * 判断参数是否已经在Map中定义过
-	 * @param mGlobal
-	 * @param strKey
 	 * @return	有：返回对应value	没有：返回原值
 	 */
 	protected Object ifExistThenGet(Map<String, Object> mGlobal, String strKey) {
@@ -24,9 +24,8 @@ public abstract class Command {
 	 * 判断方法参数是否合法
 	 * @param mGlobal	变量map
 	 * @param arrArgs	参数列表
-	 * @throws CrtException
 	 */
-	public void checkParams(Map<String, Object> mGlobal, List<Object> arrArgs) throws CrtException {
+    void checkParams(Map<String, Object> mGlobal, List<Object> arrArgs) throws CrtException {
 		if (mGlobal == null) {
 			throw new CrtException(this.getClass() + " The Map is null.");
 		}
@@ -39,11 +38,32 @@ public abstract class Command {
 		}
 		
 		//检查参数是否有效
-		for (int i = 0; i < listSize; i++) {
-			if (arrArgs.get(i) == null) {
-				throw new CrtException(this.getClass() + " some params null");
+        for (Object arrArg : arrArgs) {
+            if (arrArg == null) {
+                throw new CrtException(this.getClass() + " some params null");
+            }
+        }
+	}
+
+	protected String replaceArgs(Map<String, Object> mGlobal, String strCmd) {
+		if(strCmd.contains("${")){
+			String strParameter = strCmd;
+			Pattern p = Pattern.compile("\\{.*?}");
+			Matcher m = p.matcher(strParameter);
+
+			while (m.find()) {
+				strParameter = m.group(0).replaceAll("\\{([^]]*)}", "$1");
+			}
+
+			if(mGlobal.containsKey(strParameter)){
+				strCmd = strCmd.replace(strParameter, (String)mGlobal.get(strParameter));
+				strCmd = strCmd.replace("$", "");
+				strCmd = strCmd.replace("{", "");
+				strCmd = strCmd.replace("}", "");
+				strCmd = strCmd.replace("\"", "");
 			}
 		}
+		return strCmd;
 	}
 	
 	/**

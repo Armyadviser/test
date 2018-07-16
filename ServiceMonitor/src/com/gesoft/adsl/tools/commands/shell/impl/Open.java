@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gesoft.adsl.tools.commands.shell.Command;
-import com.gesoft.adsl.tools.ssh2.CrtExcutor;
+import com.gesoft.adsl.tools.ssh2.ShellExecutor;
 
 /**
  * @author Wu
@@ -28,7 +28,7 @@ class Open extends Command{
 		strUserName = (String) ifExistThenGet(mGlobal, strUserName);
 		strPwd = (String) ifExistThenGet(mGlobal, strPwd);
 
-		CrtExcutor ssh2 = new CrtExcutor();
+		ShellExecutor ssh2 = new ShellExecutor();
 		ssh2.connect(strHost, strUserName, strPwd);
 
 		mGlobal.put("SSH2", ssh2);

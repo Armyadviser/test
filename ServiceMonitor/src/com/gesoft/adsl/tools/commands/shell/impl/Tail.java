@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import com.gesoft.adsl.tools.commands.shell.Command;
 import com.gesoft.adsl.tools.ssh2.CrtException;
-import com.gesoft.adsl.tools.ssh2.CrtExcutor;
+import com.gesoft.adsl.tools.ssh2.ShellExecutor;
 
 /**
  * @author Wu
@@ -23,7 +23,7 @@ class Tail extends Command{
 	@Override
 	public String runItem(Map<String, Object> mGlobal,
 			List<Object> arrArgs) throws Exception {
-		CrtExcutor crt = (CrtExcutor)mGlobal.get("SSH2");
+		ShellExecutor crt = (ShellExecutor)mGlobal.get("SSH2");
 		
 		if(null == crt){
 			throw new CrtException("(Tail)The connection has not been created yet!!!");
@@ -34,31 +34,12 @@ class Tail extends Command{
 		String strTimeOut = (String) arrArgs.get(2);
 		
 		//if there is a string like "${}", replace it with the value of the GlobalMap
-		if(strCmd.indexOf("${") != -1){
-			String strParameter = strCmd;
-			Pattern p = Pattern.compile("\\{.*?\\}");
-	        Matcher m = p.matcher(strParameter);
-	        
-	        while (m.find()) {
-	        	strParameter = m.group(0).replaceAll("\\{([^\\]]*)\\}", "$1");
-			}
-	        
-	        if(mGlobal.containsKey(strParameter)){
-	        	strCmd = strCmd.replace(strParameter, (String)mGlobal.get(strParameter));
-	        	strCmd = strCmd.replace("$", "");
-	        	strCmd = strCmd.replace("{", "");
-	        	strCmd = strCmd.replace("}", "");
-	        	strCmd = strCmd.replace("\"", "");
-	        }
-		}
-			
-		
+		strCmd = replaceArgs(mGlobal, strCmd);
+
 		String strResult = crt.run(strCmd,strValueToFind,strTimeOut);
 		mGlobal.put("STR_RETURN", strResult);
 		
 		return null;
 			
 	}
-
-
 }

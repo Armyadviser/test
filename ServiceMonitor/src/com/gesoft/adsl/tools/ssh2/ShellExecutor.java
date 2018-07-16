@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 
-public class CrtExcutor implements ISSH2 {
+public class ShellExecutor implements ISSH2 {
 	
 	/**
 	 * Connection
@@ -51,7 +51,6 @@ public class CrtExcutor implements ISSH2 {
 	
 	/**
 	 * 设置操作延迟时间
-	 * @param nMilliSecond
 	 */
 	public void setOperateDelay(int nMilliSecond) {
 		this.nSleep = nMilliSecond;
@@ -71,12 +70,9 @@ public class CrtExcutor implements ISSH2 {
 		if (strHost == null || strUserName == null || strPassWord == null) {
 			return true;
 		}
-		
-		if (strHost.length()==0 || strUserName.length()==0 || strPassWord.length()==0) {
-			return true;
-		}
-		
-		return false;
+
+		return strHost.length() == 0 || strUserName.length() == 0 || strPassWord.length() == 0;
+
 	}
 	/* (non-Javadoc)
 	 * @see com.ge.utils.ISSH2#connect()
@@ -156,7 +152,7 @@ public class CrtExcutor implements ISSH2 {
 		//开始读取时间
 		long lStart = System.currentTimeMillis();
 		
-		String strResult = "";
+		StringBuilder strResult = new StringBuilder();
 		while (true) {
 			//判断是否超时，在未找到时发生
 			long lPassed = System.currentTimeMillis() - lStart;
@@ -169,7 +165,7 @@ public class CrtExcutor implements ISSH2 {
 			}
 			
 			String strTemp = readStream();
-			strResult += strTemp;
+			strResult.append(strTemp);
 			
 			//查找结果集
 			//找到了，结束命令
@@ -180,7 +176,7 @@ public class CrtExcutor implements ISSH2 {
 			}
 		}
 		
-		return strResult;
+		return strResult.toString();
 	}
 	
 	private String readStream(InputStream in) throws IOException{
@@ -190,13 +186,15 @@ public class CrtExcutor implements ISSH2 {
 		}
 		
 		byte[] buff = new byte[length];
-		in.read(buff);
+		int read = in.read(buff);
+		if (read == -1) {
+			return "";
+		}
 		return new String(buff, encode);
 	}
 
 	/**
 	 * 执行命令strCommand
-	 * @see com.ge.utils.ISSH2#run(java.lang.String)
 	 */
 	@Override
 	public String run(String strCommand) throws CrtException {
@@ -221,7 +219,6 @@ public class CrtExcutor implements ISSH2 {
 	 * 执行命令strCommand
 	 * 在结果中查找关键字strValue
 	 * 超时时间为:strTimeOut(秒)
-	 * @see com.ge.utils.ISSH2#run(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public String run(String strCommand, String strValue, String strTimeOut)
@@ -241,17 +238,5 @@ public class CrtExcutor implements ISSH2 {
 			e.printStackTrace();
 		}
 		return strResult;
-	}
-
-	
-	public static void main(String[] args) throws Exception {
-		String msg;
-		CrtExcutor excutor = new CrtExcutor();
-		msg = excutor.connect("202.96.74.24", "pinself", "zcgx$pinself");
-		excutor.run("cd monitor");
-		msg = excutor.run("tail -f nohup.out");
-		System.out.print(msg);
-		
-		excutor.close();
 	}
 }

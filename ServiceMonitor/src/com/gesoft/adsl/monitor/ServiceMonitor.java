@@ -17,26 +17,24 @@ import com.gesoft.adsl.tools.mail.MailSender;
  * 根据配置文件检查某些服务运行状态
  */
 public class ServiceMonitor {
-	
-	private String mIniFilePath = null;
-	private ServiceMonitorReader mMonitor = null;
-	private Log mSysLog = null;
+
+    private ServiceMonitorReader mMonitor;
+	private Log mSysLog;
 	
 	/**
 	 * 保存每个被监控服务的线程句柄
 	 */
-	private HashMap<String, Thread> mServiceThreadInstance = null;
+	private HashMap<String, Thread> mServiceThreadInstance;
 	
-	public ServiceMonitor(String iniFilePath) throws Exception {
-		mIniFilePath = iniFilePath;
-		//获取配置文件信息实例
-		mMonitor = ServiceMonitorReader.getServiceMonitorReader(mIniFilePath);
+	private ServiceMonitor(String iniFilePath) {
+        //获取配置文件信息实例
+		mMonitor = ServiceMonitorReader.getServiceMonitorReader(iniFilePath);
 		mServiceThreadInstance = GlobalServiceThreadInstance.getServiceThreadMap();
 		
 		mSysLog = mMonitor.getSysLog();
 	}
 
-	public void start() {
+	private void start() {
 		//获取时间戳，作为监控开始时间
 		long lStart = System.currentTimeMillis();
 		while (true) {
@@ -62,7 +60,7 @@ public class ServiceMonitor {
 				}
 				
 				//是否进行服务监察的标志
-				boolean bExecute = false;
+				boolean bExecute;
 				//比对系统时间和服务监察时间
 				String time = mMonitor.getCheckTime(strSection);
 				try {
@@ -89,7 +87,9 @@ public class ServiceMonitor {
 			mSysLog.toLog(JTools.getSysTimeStr("yyyy-MM-dd HH:mm:ss") + " Check Over.\r\n");
 			try {
 				Thread.sleep(1000 * 60);
-			} catch (InterruptedException e) {}
+			} catch (InterruptedException ignored) {
+			    break;
+            }
 		}
 	}
 	
@@ -109,17 +109,17 @@ public class ServiceMonitor {
 				for (int currentTime = 1; currentTime <= nRepeat; currentTime++) {
 					try {
 						Thread.sleep(1000);
-					} catch (InterruptedException e) {}
+					} catch (InterruptedException ignored) {}
 
 					
 					//在日志中生成开始时间
 					long lStart = System.currentTimeMillis();
-					sbLog.append("-----" + JTools.getSysTimeStr("yyyy-MM-dd HH:mm:ss ") 
-							+ strSection + " Start");
+					sbLog.append("-----").append(JTools.getSysTimeStr("yyyy-MM-dd HH:mm:ss "))
+							.append(strSection).append(" Start");
 					if (currentTime == 1) {
 						sbLog.append("-----\n");
 					} else {
-						sbLog.append("Retry:" + currentTime + "-----\n");
+						sbLog.append("Retry:").append(currentTime).append("-----\n");
 					}
 					//执行脚本，获得返回值
 					int iExitCode = ShellMain.executeScript(
@@ -130,31 +130,36 @@ public class ServiceMonitor {
 					
 					//根据返回值从信息列表中获取对应意义
 					String strMessage = mMonitor.getMessage(iExitCode);
-					sbLog.append("ExitCode:" + iExitCode + ",Check Result：" + strMessage + "\n");
+					sbLog.append("ExitCode:").append(iExitCode)
+                            .append(",Check Result：").append(strMessage).append("\n");
 					
 					if (bSend) {
 						String strNow = JTools.getSysTimeStr("HH:mm");
 						String msgContent = strNow + " 执行:" + mMonitor.getName(strSection) + "," + strMessage;
 						//发送短信或邮件
 						String[] action = mMonitor.getAction(strSection);
-						for (int i = 0; i < action.length; i++) {
-							if (action[i].equals("SendMsg")) {
-								sendMessage(strSection, msgContent, sbLog);
-							} else if (action[i].equals("SendEmail")) {
-								sendEmail(strSection, msgContent, sbLog);
-							} else {
-								sbLog.append(
-										mMonitor.getName(strSection) + ": action error :" 
-										+ action[i] + "\n");
-							}
-						}
+                        for (String anAction : action) {
+                            switch (anAction) {
+                                case "SendMsg":
+                                    sendMessage(strSection, msgContent, sbLog);
+                                    break;
+                                case "SendEmail":
+                                    sendEmail(strSection, msgContent, sbLog);
+                                    break;
+                                default:
+                                    sbLog.append(mMonitor.getName(strSection))
+                                            .append(": action error :")
+                                            .append(anAction).append("\n");
+                                    break;
+                            }
+                        }
 					}
 					
 					//生成日志结束时间
 					long lNow = System.currentTimeMillis();
 					long lPassed = (lNow - lStart) / 1000;
-					sbLog.append("-----" + JTools.getSysTimeStr("yyyy-MM-dd HH:mm:ss ") 
-							+ strSection + " End " + lPassed + "s-----\n");
+					sbLog.append("-----").append(JTools.getSysTimeStr("yyyy-MM-dd HH:mm:ss "))
+                            .append(strSection).append(" End ").append(lPassed).append("s-----\n");
 					
 					//正常运行，不进行下一次尝试
 					if (iExitCode == 0) {
@@ -175,7 +180,6 @@ public class ServiceMonitor {
 	 * 		(返回值为0 || 重试多次都不为0) && condition字段中含有返回值
 	 * 如果是健康性检查，则发送条件需满足
 	 * 		(重试多次都不为0 && condition字段中含有返回值)
-	 * @param strSection
 	 * @param iExitCode 执行返回值
 	 * @param currentTime 当前是第几次尝试
 	 * @param nRepeat 最大尝试次数
@@ -187,12 +191,12 @@ public class ServiceMonitor {
 		boolean bContains = false;
 		String strExitCode = iExitCode + "";
 		String[] condition = mMonitor.getCondition(strSection);
-		for (int i = 0; i < condition.length; i++) {
-			if (strExitCode.equals(condition[i])) {
-				bContains = true;
-				break;
-			}
-		}
+        for (String aCondition : condition) {
+            if (strExitCode.equals(aCondition)) {
+                bContains = true;
+                break;
+            }
+        }
 		
 		//是否是最后一次尝试
 		boolean bLastTry = currentTime == nRepeat;
@@ -203,13 +207,10 @@ public class ServiceMonitor {
 		if (bType && (iExitCode == 0 || bLastTry) && bContains) {
 			return true;
 		}
-		
-		if (!bType && bLastTry && bContains) {
-			return true;
-		}
-		
-		return false;
-	}
+
+        return !bType && bLastTry && bContains;
+
+    }
 	
 	/**
 	 * http://202.96.74.23:8080/sms/send?DestTermID=[Phone]&MsgContent=s%20[Message]
@@ -229,21 +230,22 @@ public class ServiceMonitor {
 		}
 		
 		String[] phone = mMonitor.getPhone(strSection);
-		for (int i = 0; i < phone.length; i++) {
-			String url = mMonitor.getSMSUrl(strSection).replace("[Phone]", phone[i]);
-			url = url.replace("[Message]", encodingMsg);
-			
-			String strReturn;
-			try {
-				strReturn = HttpRequest.sendGet(url);
-			} catch (IOException e) {
-				e.printStackTrace();
-				mSysLog.toLog("SendMessage,Error," + e.getMessage());
-				return;
-			}
-			sbLog.append("SendMessage," + phone[i] + ",Content:" +
-					msgContent + "," + strReturn + "\n");
-		}
+        for (String aPhone : phone) {
+            String url = mMonitor.getSMSUrl(strSection).replace("[Phone]", aPhone);
+            url = url.replace("[Message]", encodingMsg);
+
+            String strReturn;
+            try {
+                strReturn = HttpRequest.sendGet(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+                mSysLog.toLog("SendMessage,Error," + e.getMessage());
+                return;
+            }
+            sbLog.append("SendMessage,").append(aPhone)
+                    .append(",Content:").append(msgContent).append(",")
+                    .append(strReturn).append("\n");
+        }
 	}
 	
 	
@@ -266,7 +268,8 @@ public class ServiceMonitor {
 			mSysLog.toLog("SendEmail,Error," + e.getMessage());
 			return;
 		}
-		sbLog.append("SendEmail," + Arrays.deepToString(email) + ",Content:" + msgContent + "\n");
+		sbLog.append("SendEmail,").append(Arrays.deepToString(email))
+                .append(",Content:").append(msgContent).append("\n");
 	}
 
 	/**

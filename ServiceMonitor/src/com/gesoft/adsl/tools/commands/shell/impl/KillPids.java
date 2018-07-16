@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.gesoft.adsl.tools.commands.shell.Command;
 import com.gesoft.adsl.tools.ssh2.CrtException;
-import com.gesoft.adsl.tools.ssh2.CrtExcutor;
+import com.gesoft.adsl.tools.ssh2.ShellExecutor;
 
 /**
  * @author WU
@@ -25,12 +25,11 @@ class KillPids extends Command{
 			throw new CrtException(this.getClass() + " Map doesn't have PIDS_LIST !!!");
 		}
 			
-    	CrtExcutor crt = (CrtExcutor) mGlobal.get("SSH2");
-    	for(int i = 0, size = listPids.size(); i < size; i++){
-    		String pid = listPids.get(i);
-    		crt.run("kill -9 " + pid);
-    		Thread.sleep(500);
-    	}
+    	ShellExecutor crt = (ShellExecutor) mGlobal.get("SSH2");
+		for (String pid : listPids) {
+			crt.run("kill -9 " + pid);
+			Thread.sleep(500);
+		}
     	
     	return null;
 	}

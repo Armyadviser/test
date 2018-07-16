@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.gesoft.adsl.tools.commands.shell.Command;
 import com.gesoft.adsl.tools.ssh2.CrtException;
-import com.gesoft.adsl.tools.ssh2.CrtExcutor;
+import com.gesoft.adsl.tools.ssh2.ShellExecutor;
 
 class SetOprationDelay extends Command {
 
@@ -16,7 +16,7 @@ class SetOprationDelay extends Command {
 
 	@Override
 	public String runItem(Map<String, Object> mGlobal, List<Object> arrArgs) throws Exception {
-		CrtExcutor crt = (CrtExcutor)mGlobal.get("SSH2");
+		ShellExecutor crt = (ShellExecutor)mGlobal.get("SSH2");
 		if(null == crt){
 			throw new CrtException("(Close)The connection has not been created yet!!!");
 		}
